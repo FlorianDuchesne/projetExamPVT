@@ -1,0 +1,197 @@
+.wrapper-whole {
+  padding: 4em;
+  width: auto;
+}
+
+.wrapper-whole .publishStuff {
+  position: relative;
+  margin: 0;
+}
+
+.wrapper-whole .publishStuff .publishStuff__img {
+  width: 100%;
+}
+
+.wrapper-whole .publishStuff .publishStuff__h1 {
+  position: absolute;
+  bottom: 20%;
+  left: 2em;
+  color: white;
+  text-transform: uppercase;
+  font-size: x-large;
+}
+
+.wrapper-whole .wrapper-main {
+  margin-top: 2em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts {
+  width: 70%;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post {
+  margin-top: 3em;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__user .user__avatar {
+  width: 100px;
+  border-radius: 100%;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__user .user__name {
+  margin-left: 0.5em;
+  text-transform: uppercase;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__title {
+  color: #1e4f66;
+  text-transform: uppercase;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__wrapperPictures {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__wrapperPictures .post__picture {
+  width: auto;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__wrapperPictures .post__legende {
+  display: none;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__wrapperPictures--many .post__picture {
+  width: 30%;
+  height: auto;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__wrapperPictures--many .post__legende {
+  display: none;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__paragraph {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.wrapper-whole .wrapper-main .wrapper-posts .post .post__categories {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1e4f66;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside {
+  width: 25%;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside {
+  top: 1em;
+  position: -webkit-sticky;
+  position: sticky;
+  background-color: #1e4f66;
+  margin: 2em;
+  padding: 2em;
+  border-radius: 15px;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside .aside__h6 {
+  color: white;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside .aside__user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside .aside__user .aside__user__avatar {
+  width: 50px;
+  border-radius: 100%;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside .aside__user .aside__user__name {
+  color: white;
+  font-size: medium;
+  margin-left: 0.5em;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside .aside__hashtags {
+  color: white;
+  font-style: italic;
+}
+
+.wrapper-whole .wrapper-main .wrapperAside .aside--bottom {
+  top: 230px;
+}
+
+#lightbox {
+  position: fixed;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: rgba(0, 0, 0, 0.753);
+  height: 100vh;
+  width: 100vw;
+  /* z-index: 100; */
+  opacity: 0;
+}
+
+#lightbox i {
+  color: white;
+  background-color: rgba(220, 20, 60, 0.555);
+  font-size: x-large;
+  margin: 1em;
+  padding: 0.2em;
+  border-radius: 5px;
+  -webkit-transition: ease-in 0.5s;
+  transition: ease-in 0.5s;
+}
+
+#lightbox i:hover {
+  background-color: crimson;
+}
+
+#lightbox figure {
+  width: 70%;
+}
+
+#lightbox figure figcaption {
+  color: white;
+}
+
+#lightbox #croix {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+/*# sourceMappingURL=style.css.map */

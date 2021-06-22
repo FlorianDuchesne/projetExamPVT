@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		{# Run `composer require symfony/webpack-encore-bundle`
+																																																																																																																																																																																																		           and uncomment the following Encore helpers to start using Symfony UX #}
+		{% block stylesheets %}
+			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
+			<link
+			href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+
+		{#{{ encore_entry_link_tags('app') }}#}
+		{% endblock %}
+		{% block javascripts %}
+			<script src="https://kit.fontawesome.com/e2a8fec256.js" crossorigin="anonymous"></script>
+			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+			{#{{ encore_entry_script_tags('app') }}#}
+		{% endblock %}
+	</head>
+	<body>
+
+		<header class="navbar-expand-lg bg-success d-flex flex-wrap">
+			<div id="entete" class=" container-fluid d-flex justify-content-between align-items-center">
+				<a href="{{ path('home') }}" class="col-2">
+					<img src="{{ asset('img/logo2.png') }}" class="col-12"/>
+				</a>
+				<form action="" method="post" class="col-3 d-flex">
+					<input class="form-control me-sm-2" placeholder="Search" type="search" name="search"/>
+					<button type="submit" class="btn btn-info m-1">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+				<a href='{{ path('app_login')}}'>
+					<div id='login' class="btn btn-info m-1">
+						<i class='fas fa-user m-1'></i>
+						<h5>Mon compte</h5>
+					</div>
+				</a>
+			</div>
+			<nav class="navbar navbar-expand-lg container-fluid bg-info m-0">
+				<ul class="navbar-nav d-flex justify-content-between col-12">
+					<li class="nav-item">
+						<a class="nav-link text-white text-uppercase" href="#">Membres</a>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white text-uppercase" href="#" id="navbarDropdownPays" role="button" data-toggle="dropdown" aria-expanded="false">
+							Pays
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownPays">
+							<a class="dropdown-item text-info text-uppercase" href="#">Japon</a>
+							<a class="dropdown-item text-info text-uppercase" href="#">Canada</a>
+							<a class="dropdown-item text-info text-uppercase" href="#">Australe</a>
+						</div>
+					</li>
+					<li class="nav-item dropdown">
+						<a class="nav-link dropdown-toggle text-white text-uppercase" href="#" id="navbarDropdownTheme" role="button" data-toggle="dropdown" aria-expanded="false">
+							Thèmes
+						</a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdownTheme">
+							<a class="dropdown-item text-info text-uppercase" href="#">Gastronomie</a>
+							<a class="dropdown-item text-info text-uppercase" href="#">Culture</a>
+							<a class="dropdown-item text-info text-uppercase" href="#">Vie quotidienne</a>
+							<a class="dropdown-item text-info text-uppercase" href="#">Nature</a>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white text-uppercase" href="#">Carte</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link text-white text-uppercase" href="#">à propos</a>
+					</li>
+				</ul>
+			</nav>
+		</header>
+
+		{% block body %}{% endblock %}
+	</body>
+	<script src="{{ asset('js/script.js') }}"></script>
+</html>
