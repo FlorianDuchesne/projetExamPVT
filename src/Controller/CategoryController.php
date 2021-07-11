@@ -23,7 +23,7 @@ class CategoryController extends AbstractController
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
-        return $this->render('theme/index.html.twig', [
+        return $this->render('pages/theme/index.html.twig', [
             'themes' => $themes,
             'countries' => $countries
         ]);
@@ -40,7 +40,7 @@ class CategoryController extends AbstractController
             ->findAll();
     
 
-        return $this->render('pays/index.html.twig', [
+        return $this->render('pages/pays/index.html.twig', [
             'pays' => $pays,
             'countries' => $pays,
             'themes' => $themes,
@@ -58,7 +58,7 @@ class CategoryController extends AbstractController
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
-        return $this->render('pays/show.html.twig', [
+        return $this->render('pages/pays/show.html.twig', [
             'pays' => $pays,
             'countries' => $countries,
             'themes' => $themes
@@ -78,7 +78,7 @@ class CategoryController extends AbstractController
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
-        return $this->render('theme/show.html.twig', [
+        return $this->render('pages/theme/show.html.twig', [
             'pays' => $pays,
             'countries' => $countries,
             'theme' => $theme,
@@ -97,7 +97,7 @@ class CategoryController extends AbstractController
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
-        return $this->render('bothCategories/show.html.twig', [
+        return $this->render('pages/bothCategories/show.html.twig', [
             'pays' => $idPays,
             'countries' => $countries,
             'theme' => $idTheme,

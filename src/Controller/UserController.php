@@ -24,7 +24,7 @@ class UserController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
         ->findAll();
 
-        return $this->render('user/list.html.twig', [
+        return $this->render('pages/user/list.html.twig', [
             'membres' => $membres,
             'countries' => $countries,
             'themes' => $themes
@@ -42,7 +42,7 @@ class UserController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
         ->findAll();
 
-        return $this->render('user/show.html.twig', [
+        return $this->render('pages/user/show.html.twig', [
             'user' => $user,
             'countries' => $countries,
             'themes' => $themes

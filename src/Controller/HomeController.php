@@ -32,7 +32,7 @@ class HomeController extends AbstractController
         }
     
 
-        return $this->render('home/indexBEM.html.twig', [
+        return $this->render('pages/home/indexBEM.html.twig', [
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes
@@ -55,7 +55,7 @@ class HomeController extends AbstractController
         }
     
 
-        return $this->render('home/indexVisitor.html.twig', [
+        return $this->render('pages/home/indexVisitor.html.twig', [
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes

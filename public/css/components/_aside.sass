@@ -1,0 +1,23 @@
+.aside
+  top: 1em
+  position: sticky
+  background-color: $blue
+  margin: 2em
+  padding: 2em
+  border-radius: 15px
+  .aside__h6
+    color: $white
+  .aside__user
+    @include blockFlex(start)
+    .aside__user__avatar
+      @include avatar(50px)
+    .aside__user__name
+      //variable
+      color: $white
+      font-size: medium
+      margin-left: 0.5em
+  .aside__hashtags
+    color: $white
+    font-style: italic
+.aside--bottom
+  top: 230px

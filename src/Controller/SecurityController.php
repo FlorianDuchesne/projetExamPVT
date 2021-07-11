@@ -42,7 +42,7 @@ class SecurityController extends AbstractController
         ->findAll();
 
 
-        return $this->render('security/login.html.twig', [
+        return $this->render('pages/security/login.html.twig', [
             'last_username' => $lastUsername, 
             'error' => $error,
             'countries' => $countries,
@@ -106,7 +106,7 @@ class SecurityController extends AbstractController
             }
         }
 
-        return $this->render('security/forgottenPassword.html.twig', [
+        return $this->render('pages/security/forgottenPassword.html.twig', [
             'form' => $form->createView(),
             'title' => "Reinitialisation du mot de passe",
             'countries' => $countries,
@@ -156,7 +156,7 @@ class SecurityController extends AbstractController
             // }
         }
 
-        return $this->render('security/resetPassword.html.twig', [
+        return $this->render('pages/security/resetPassword.html.twig', [
             'token' => $token,
             // 'form' => $form->createView(),
             'title' => "Réinitialisation du mot de passe",

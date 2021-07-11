@@ -1,0 +1,39 @@
+.post
+  margin-top: 3em
+  .post__user
+    @include blockFlex(start)
+    .user__avatar
+      @include avatar(100px)
+    .user__name
+      margin-left: 0.5em
+      text-transform: uppercase
+  .post__title
+    color: $blue
+    text-decoration: none
+    text-transform: uppercase
+  .post__wrapperPictures
+    // mixin
+    display: flex
+    // flex-wrap: wrap
+    // width: 100%
+    // height: auto
+    .post__picture
+      width: 85%
+    .post__legende
+      display: none
+  .post__wrapperPictures--many
+    width: 85%
+    .post__picture
+      // il faut que ça s'adapte 
+      //en fonction nombre photos
+      // flex-grow: 1
+      width: 30%
+      height: auto
+    .post__legende
+      display: none
+  .post__paragraph
+    width: 85%
+    font-family: $arial
+  .post__categories
+    font-family: $arial
+    color: $blue

@@ -39,7 +39,7 @@ class ArticleController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
         ->findAll();
 
-        return $this->render('article/show.html.twig', [
+        return $this->render('pages/article/show.html.twig', [
             'publication' => $article,
             'countries' => $countries,
             'themes' => $themes

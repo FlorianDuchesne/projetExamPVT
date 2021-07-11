@@ -8,17 +8,17 @@
   align-items: center
   flex-wrap: wrap
 
-@mixin thumbnail($taille)
+@mixin thumbnail()
   .picture
-    width: auto
-    height: $taille
-    overflow: hidden
+    width: 350px
+    // height: $taille
+    // overflow: hidden
     position: relative
     margin: 1em
     .thumbnail
       width: 100%
       filter: brightness(80%)
-      transform: translateY(-50%);
+      // transform: translateY(-50%);
     .title
       position: absolute
       top: 50%
@@ -52,6 +52,7 @@
       font-size: larger
       text-transform: uppercase
 
-
-
-      // faire un mixin banner distinct du mixin thumbnail ?
+@mixin link()
+  color: $blue
+  border: none
+  background: none

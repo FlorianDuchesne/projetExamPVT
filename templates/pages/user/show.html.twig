@@ -14,14 +14,25 @@
 
 {% block body %}
 
+{% if user == app.user %}
+<div class="dashboard">
+<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
+<a class="dashboard__link" href="#">Publier un nouvel article</a>
+<a class="dashboard__link" href="#">Voir mes brouillons</a>
+<a class="dashboard__link" href="#">éditer mon profil</a>
+</div>
+{% endif %}
+
 <div class="wrapper">
   <div class="header">
     <figure class="header__user">
       <img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
       <figcaption class="user__name"> {{ user.pseudo }} </figcaption>
     </figure>
-    <button class="header__follow">suivre ce membre</button>
-    <button class="header__sendMessage">envoyer un message à ce membre</button>
+    {% if user != app.user %}
+      <button class="header__follow">suivre ce membre</button>
+      <button class="header__sendMessage">envoyer un message à ce membre</button>
+    {% endif %}
   </div>
   <main class="main">
     <p class="main__description"> {{ user.description }}</p>

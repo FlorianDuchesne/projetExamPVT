@@ -6,32 +6,36 @@
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/theme/themeShow/style.css') }}" rel="stylesheet"/>  
+    {# <link
+    href="{{ asset('css/pays/paysShow/style.css') }}" rel="stylesheet"/>   #}
     {#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
+<div class="wrapper-whole">
 <header class="banner">
-<figure class="picture">
-<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
-<figcaption class="title">{{ theme.libelle }}</figcaption>
-</figure>
+	<figure class="picture">
+		<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+		<figcaption class="title">{{ pays.libelle }}</figcaption>
+	</figure>
 </header>
-<section class="pays">
-<h2>Pays :</h2>
-  {% for pays in pays %}
+<section class="themes">
+	<h2>Thèmes :</h2>
+	<div class="wrapperFlex">
+  {% for theme in themes %}
 	<a href="{{ path('both_show', {idPays: pays.id, idTheme: theme.id}) }}">
     <figure class="picture">
-        <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
-        <figcaption class="title"> {{ pays.libelle }} </figcaption>
+        <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+        <figcaption class="title"> {{ theme.libelle }} </figcaption>
     </figure>
 	</a>
   {% endfor %}
-  <button class="pays__link">Voir plus</button>
+	</div>
+  <button class="link">Voir plus</button>
 </section>
-<aside class="aside">
-<h4>Membres intéressés par ce thème :</h4>
+
+{# <aside class="aside">
+	<h4>Membres intéressés par ce pays :</h4>
 						<div class="aside__user">
 							<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
 							<h5 class="aside__user__name">Robert</h5>
@@ -52,11 +56,13 @@
 							<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
 							<h5 class="aside__user__name">Robert</h5>
 						</div>
-</aside>
-<main class="main">
-{% for publication in theme.articles %}
+</aside> #}
+<main class="wrapper-main">
+<div class="wrapper-posts">
+{% for publication in pays.articles %}
 
-						<div class="post">
+{% include 'components/publication.twig' %}
+						{# <div class="post">
 							<div class="post__user">
 								<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
 								<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
@@ -76,8 +82,16 @@
 								<p class="post__categories">Pays :
 									{{ publication.pays }}, thème :
 									{{ publication.theme }}</p>
-							</div>
+							</div> #}
 
 {% endfor %}
+</div>
+
+{% include 'components/asideMembres.twig' %}
+
 </main>
+
+
+</div>
+
 {% endblock %}
