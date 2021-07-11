@@ -1,13 +1,10 @@
-@import "../mixin"
-@import "../variables"
-  
 .wrapper
   width: 80%
   margin-top: 3em
   margin-left: auto;
   margin-right: auto;
   .flex
-    @include blockFlex()
+    @include blockFlex(center)
     border-bottom: 2px solid $blue
     .user
       margin: 1em
