@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Pays;
 use App\Entity\User;
+use App\Entity\Theme;
 use App\Form\ChangePasswordType;
 use Symfony\Component\Mime\Email;
 use App\Repository\UserRepository;
@@ -34,8 +36,18 @@ class SecurityController extends AbstractController
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
 
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+
+        return $this->render('security/login.html.twig', [
+            'last_username' => $lastUsername, 
+            'error' => $error,
+            'countries' => $countries,
+            'themes' => $themes
+        ]);
     }
 
     /**
@@ -51,6 +63,12 @@ class SecurityController extends AbstractController
      */
     public function forgotten_password(EntityManagerInterface $manager, UserRepository $userRepository, Request $request, TokenGeneratorInterface $tokenGenerator, MailerInterface $mailer)
     {
+
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
+
         $form = $this->createForm(ForgottenPasswordType::class);
         $form->handleRequest($request);
 
@@ -90,7 +108,9 @@ class SecurityController extends AbstractController
 
         return $this->render('security/forgottenPassword.html.twig', [
             'form' => $form->createView(),
-            'title' => "Reinitialisation du mot de passe"
+            'title' => "Reinitialisation du mot de passe",
+            'countries' => $countries,
+            'themes' => $themes
         ]);
     }
 
@@ -100,6 +120,11 @@ class SecurityController extends AbstractController
      */
     public function resetPassword(EntityManagerInterface $manager, Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {
+
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
 
         // $form = $this->createForm(ChangePasswordType::class);
         // $form->handleRequest($request);
@@ -134,7 +159,9 @@ class SecurityController extends AbstractController
         return $this->render('security/resetPassword.html.twig', [
             'token' => $token,
             // 'form' => $form->createView(),
-            'title' => "Réinitialisation du mot de passe"
+            'title' => "Réinitialisation du mot de passe",
+            'countries' => $countries,
+            'themes' => $themes
         ]);
     }
 }

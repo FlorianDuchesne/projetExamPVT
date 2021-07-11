@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use DateTime;
+use App\Entity\Pays;
 use App\Entity\User;
+use App\Entity\Theme;
 use App\Form\InscriptionType;
 use App\Form\RegistrationFormType;
-use DateTime;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,6 +21,12 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
+
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
@@ -42,6 +50,8 @@ class RegistrationController extends AbstractController
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
+            'countries' => $countries,
+            'themes' => $themes
         ]);
     }
 }

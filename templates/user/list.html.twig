@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+    <link
+    href="{{ asset('css/listUsers/style.css') }}" rel="stylesheet"/>  
+{% endblock %}
+
+
+{% block body %}
+
+			<div class="wrapper">
+				{% for membre in membres %}
+              <div class="flex">
+	  						<div class="user">
+		  						<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ membre.avatar) }}"/></figure>
+			  					<a class="user__name" href = "{{ path('user_show', {id: membre.id}) }}"><h5>{{ membre.pseudo }}</h5></a>
+				  			</div>
+                <p class="user__description">{{ membre.description }}</p>
+              </div>
+	      {% endfor %}
+{% endblock %}
+

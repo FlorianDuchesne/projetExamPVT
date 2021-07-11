@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello HomeController!
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+    <link
+    href="{{ asset('css/showArticle/showArticle.css') }}" rel="stylesheet"/>  
+    {#{{ encore_entry_link_tags('app') }}#}
+{% endblock %}
+
+{% block body %}
+
+<div class="wrapper">
+	<div class="post">
+		<div class="post__user">
+			<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+			<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
+		</div>
+		<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
+			<figure class="post__wrapperPictures">
+				{% for galerie in publication.galeries %}
+					<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
+					<figcaption class="post__legende--show">{{ galerie.legende }}</figcaption>
+				{% endfor %}
+			</figure>
+			<p class="post__paragraph">{{ publication.texte }}</p>
+			<p class="post__categories">Pays :
+				{{ publication.pays }}, thème :
+				{{ publication.theme }}</p>
+	</div>
+</div>
+
+{% endblock %}

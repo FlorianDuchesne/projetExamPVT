@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PaysController!{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+    <link
+    href="{{ asset('css/home/visitor/style.css') }}" rel="stylesheet"/>  
+    {#{{ encore_entry_link_tags('app') }}#}
+{% endblock %}
+
+{% block body %}
+
+
+<h1>Vous n'êtes pas connecté</h1>
+
+{% endblock %}

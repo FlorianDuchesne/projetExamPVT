@@ -27,17 +27,17 @@ SET time_zone = "+00:00";
 -- Structure de la table `article`
 --
 
--- CREATE TABLE `article` (
---   `id` int(11) NOT NULL,
---   `auteur_article_id` int(11) NOT NULL,
---   `theme_id` int(11) DEFAULT NULL,
---   `pays_id` int(11) DEFAULT NULL,
---   `texte` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
---   `date_creation` datetime NOT NULL DEFAULT current_timestamp(),
---   `lieu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
---   `statut` tinyint(1) NOT NULL,
---   `titre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `article` (
+  `id` int(11) NOT NULL,
+  `auteur_article_id` int(11) NOT NULL,
+  `theme_id` int(11) DEFAULT NULL,
+  `pays_id` int(11) DEFAULT NULL,
+  `texte` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_creation` datetime NOT NULL DEFAULT current_timestamp(),
+  `lieu` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
+  `titre` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `article`
@@ -55,11 +55,11 @@ INSERT INTO `article` (`id`, `auteur_article_id`, `theme_id`, `pays_id`, `texte`
 -- Structure de la table `doctrine_migration_versions`
 --
 
--- CREATE TABLE `doctrine_migration_versions` (
---   `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
---   `executed_at` datetime DEFAULT NULL,
---   `execution_time` int(11) DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+CREATE TABLE `doctrine_migration_versions` (
+  `version` varchar(191) COLLATE utf8_unicode_ci NOT NULL,
+  `executed_at` datetime DEFAULT NULL,
+  `execution_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Déchargement des données de la table `doctrine_migration_versions`
@@ -74,12 +74,12 @@ INSERT INTO `doctrine_migration_versions` (`version`, `executed_at`, `execution_
 -- Structure de la table `galerie`
 --
 
--- CREATE TABLE `galerie` (
---   `id` int(11) NOT NULL,
---   `article_id` int(11) NOT NULL,
---   `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `legende` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `galerie` (
+  `id` int(11) NOT NULL,
+  `article_id` int(11) NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `legende` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `galerie`
@@ -97,11 +97,11 @@ INSERT INTO `galerie` (`id`, `article_id`, `img`, `legende`) VALUES
 -- Structure de la table `pays`
 --
 
--- CREATE TABLE `pays` (
---   `id` int(11) NOT NULL,
---   `libelle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `pays` (
+  `id` int(11) NOT NULL,
+  `libelle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `pays`
@@ -118,11 +118,11 @@ INSERT INTO `pays` (`id`, `libelle`, `img`) VALUES
 -- Structure de la table `theme`
 --
 
--- CREATE TABLE `theme` (
---   `id` int(11) NOT NULL,
---   `libelle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `theme` (
+  `id` int(11) NOT NULL,
+  `libelle` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `theme`
@@ -140,20 +140,20 @@ INSERT INTO `theme` (`id`, `libelle`, `img`) VALUES
 -- Structure de la table `user`
 --
 
--- CREATE TABLE `user` (
---   `id` int(11) NOT NULL,
---   `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
---   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `pseudo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
---   `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
---   `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
---   `projets_voyages` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
---   `voyages_accomplis` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
---   `date_creation` datetime NOT NULL DEFAULT current_timestamp(),
---   `date_naissance` date NOT NULL,
---   `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
--- ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `email` varchar(180) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `roles` longtext COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '(DC2Type:json)',
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pseudo` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `avatar` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `projets_voyages` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `voyages_accomplis` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `date_creation` datetime NOT NULL DEFAULT current_timestamp(),
+  `date_naissance` date NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Déchargement des données de la table `user`

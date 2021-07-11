@@ -11,8 +11,9 @@
 		{% block stylesheets %}
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
 			<link
-			href="{{ asset('css/style.css') }}" rel="stylesheet"/>
-
+			href="{{ asset('css/home/style.css') }}" rel="stylesheet"/>
+			<link
+			href="{{ asset('css/dropdownButtons/style.css') }}" rel="stylesheet"/>
 		{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
 		{% block javascripts %}
@@ -45,27 +46,26 @@
 			<nav class="navbar navbar-expand-lg container-fluid bg-info m-0">
 				<ul class="navbar-nav d-flex justify-content-between col-12">
 					<li class="nav-item">
-						<a class="nav-link text-white text-uppercase" href="#">Membres</a>
+						<a class="nav-link text-white text-uppercase" href="{{ path('users') }}">Membres</a>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white text-uppercase" href="#" id="navbarDropdownPays" role="button" data-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('pays') }}" id="navbarDropdownPays">
 							Pays
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownPays">
-							<a class="dropdown-item text-info text-uppercase" href="#">Japon</a>
-							<a class="dropdown-item text-info text-uppercase" href="#">Canada</a>
-							<a class="dropdown-item text-info text-uppercase" href="#">Australe</a>
+						{% for country in countries %}
+							<a class="dropdown-item text-info text-uppercase" href="{{ path('pays_show', {id: country.id}) }}">{{ country.libelle }}</a>
+							{% endfor %}
 						</div>
 					</li>
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle text-white text-uppercase" href="#" id="navbarDropdownTheme" role="button" data-toggle="dropdown" aria-expanded="false">
+						<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('theme') }}" id="navbarDropdownTheme">
 							Thèmes
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownTheme">
-							<a class="dropdown-item text-info text-uppercase" href="#">Gastronomie</a>
-							<a class="dropdown-item text-info text-uppercase" href="#">Culture</a>
-							<a class="dropdown-item text-info text-uppercase" href="#">Vie quotidienne</a>
-							<a class="dropdown-item text-info text-uppercase" href="#">Nature</a>
+						  {% for theme in themes %}
+							<a class="dropdown-item text-info text-uppercase" href="{{ path('theme_show', {id: theme.id}) }}">{{ theme.libelle }}</a>
+							{% endfor %}
 						</div>
 					</li>
 					<li class="nav-item">

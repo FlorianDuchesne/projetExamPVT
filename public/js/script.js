@@ -1,3 +1,4 @@
+
 // Tentative de factorisation (échec total pour l'instant… il faut que je révise les fonctions et les portées !…)
 // C'est bon j'ai trouvé
 
@@ -32,6 +33,7 @@ function lightbox(elem) {
   document.getElementById("lightbox").style.opacity = 1;
   document.getElementById("lightbox").style.zIndex = 100;
   document.getElementById("lightbox").style.top = 0;
+  console.log("lightbox on");
 
   // j' "allume" la lightbox
   document.getElementById(

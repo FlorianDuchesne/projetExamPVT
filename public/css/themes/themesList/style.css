@@ -1,0 +1,48 @@
+.titre {
+  color: #1e4f66;
+  margin: 1em;
+  text-align: center;
+}
+
+.wrapperFlex {
+  width: 90%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  padding: 2em;
+}
+
+.wrapperFlex .picture {
+  width: auto;
+  position: relative;
+  margin: 1em;
+}
+
+.wrapperFlex .picture .thumbnail {
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
+  height: 250px;
+  overflow: hidden;
+}
+
+.wrapperFlex .picture .title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  text-transform: uppercase;
+}
+/*# sourceMappingURL=style.css.map */

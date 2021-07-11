@@ -1,5 +1,5 @@
-@import "./mixin"
-@import "./variables"
+@import "../mixin"
+@import "../variables"
 
 .wrapper-whole
   padding: 4em
@@ -25,7 +25,7 @@
       .post
         margin-top: 3em
         .post__user
-          @include blockFlex()
+          @include blockFlex(start)
           .user__avatar
             @include avatar(100px)
           .user__name
@@ -33,6 +33,7 @@
             text-transform: uppercase
         .post__title
           color: $blue
+          text-decoration: none
           text-transform: uppercase
         .post__wrapperPictures
           // mixin
@@ -41,10 +42,11 @@
           // width: 100%
           // height: auto
           .post__picture
-            width: auto
+            width: 85%
           .post__legende
             display: none
         .post__wrapperPictures--many
+          width: 85%
           .post__picture
             // il faut que ça s'adapte 
             //en fonction nombre photos
@@ -54,6 +56,7 @@
           .post__legende
             display: none
         .post__paragraph
+          width: 85%
           font-family: $arial
         .post__categories
           font-family: $arial
@@ -70,7 +73,7 @@
         .aside__h6
           color: $white
         .aside__user
-          @include blockFlex()
+          @include blockFlex(start)
           .aside__user__avatar
             @include avatar(50px)
           .aside__user__name
@@ -92,7 +95,7 @@
   background-color: rgba(0, 0, 0, 0.753)
   height: 100vh
   width: 100vw
-  /* z-index: 100; */
+  z-index: 0
   opacity: 0
 
   & i
@@ -108,7 +111,11 @@
     background-color: rgba(220, 20, 60, 1)
 
   & figure
-    width: 70%
+    width: 50vw
+    margin:auto
+    img
+      width: 100%
+      margin:auto
     figcaption
       color: $white
 
