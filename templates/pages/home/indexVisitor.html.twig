@@ -14,6 +14,54 @@
 {% block body %}
 
 
-<h1>Vous n'êtes pas connecté</h1>
+	<div class="wrapper-whole">
+		<a href="{{ path('app_register') }}"><figure class="publishStuff">
+			<img class="publishStuff__img" src="{{ asset('img/inscription4.jpg') }}"/>
+			<h1 class="publishStuff__h1 publishStuff__h1--register">Inscris-toi !</h1>
+		</figure></a>
 
+		<main class="main">
+		<h1 class="titre">Pays</h1>
+
+    <div class="wrapperFlex">
+			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+    {% for pays in countries|slice(0,3) %}
+    <a href="{{ path('pays_show', {id: pays.id}) }}">
+    <figure class="pays picture">
+        <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+        <figcaption class="title"> {{ pays.libelle }} </figcaption>
+    </figure></a>
+    {% endfor %}
+    </div>
+  <button class="link">Voir plus</button>
+
+		<h1 class="titre">Thèmes</h1>
+    <div class="wrapperFlex">
+
+	{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+    {% for theme in themes|slice(0,3) %}
+    <a href="{{ path('theme_show', {id: theme.id}) }}">
+        <figure class="theme picture">
+            <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+            <figcaption class="title"> {{ theme.libelle }} </figcaption>
+        </figure>
+    </a>
+    {% endfor %}
+
+    </div>
+		  <button class="link">Voir plus</button>
+
+		<h1 class="titre">Articles populaires</h1>
+    <div class="wrapperFlex">
+
+	{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+		{% for article in articles|slice(0,3) %}
+		{# On inclut la feuille twig dédiée aux vignettes d'articles #}
+		{% include 'components/thumbnailArticle.twig' %}
+
+		{% endfor %}
+
+		</div>
+		  <button class="link">Voir plus</button>
+</main>
 {% endblock %}

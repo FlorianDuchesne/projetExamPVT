@@ -13,17 +13,16 @@
 
 {% block body %}
     <h1 class="titre">Thèmes</h1>
-
-    <div class="wrapperFlex">
-    {% for theme in themes %}
-    <a href="{{ path('theme_show', {id: theme.id}) }}">
-        <figure class="theme picture">
-            <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
-            <figcaption class="title"> {{ theme.libelle }} </figcaption>
-        </figure>
-    </a>
-    {% endfor %}
+	<div class="wrapper-whole">
+        <div class="wrapperFlex">
+        {% for theme in themes %}
+        <a href="{{ path('theme_show', {id: theme.id}) }}">
+            <figure class="theme picture">
+                <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+                <figcaption class="title"> {{ theme.libelle }} </figcaption>
+            </figure>
+        </a>
+        {% endfor %}
+        </div>
     </div>
-    
-</div>
 {% endblock %}

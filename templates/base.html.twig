@@ -11,7 +11,7 @@
 		{% block stylesheets %}
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
 			<link
-			href="{{ asset('css/home/style.css') }}" rel="stylesheet"/>
+			href="{{ asset('css/main.css') }}" rel="stylesheet"/>
 			<link
 			href="{{ asset('css/dropdownButtons/style.css') }}" rel="stylesheet"/>
 		{#{{ encore_entry_link_tags('app') }}#}
@@ -25,7 +25,7 @@
 	</head>
 	<body>
 
-		<header class="navbar-expand-lg bg-success d-flex flex-wrap">
+		<header class="navbar-expand-lg d-flex flex-wrap">
 			<div id="entete" class=" container-fluid d-flex justify-content-between align-items-center">
 				<a href="{{ path('home') }}" class="col-2">
 					<img src="{{ asset('img/logo2.png') }}" class="col-12"/>
@@ -52,12 +52,15 @@
 				</a>
 				{% endif %}
 			</div>
-			<nav class="navbar navbar-expand-lg container-fluid bg-info m-0">
-				<ul class="navbar-nav d-flex justify-content-between col-12">
+			<nav class="navbar navbar-expand-lg container-fluid bg-info m-0 d-flex justify-content-center">
+				<ul class="navbar-nav d-flex justify-content-between col-11">
+					<li class="nav-item">
+						<a class="nav-link text-white text-uppercase" href="{{ path('home') }}">Accueil</a>
+					</li>
 					<li class="nav-item">
 						<a class="nav-link text-white text-uppercase" href="{{ path('users') }}">Membres</a>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown dropdownHover">
 						<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('pays') }}" id="navbarDropdownPays">
 							Pays
 						</a>
@@ -67,7 +70,7 @@
 							{% endfor %}
 						</div>
 					</li>
-					<li class="nav-item dropdown">
+					<li class="nav-item dropdown dropdownHover">
 						<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('theme') }}" id="navbarDropdownTheme">
 							Thèmes
 						</a>

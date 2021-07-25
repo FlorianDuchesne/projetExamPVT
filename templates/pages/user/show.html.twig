@@ -16,20 +16,51 @@
 
 {% if user == app.user %}
 <div class="dashboard">
-<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
+{% if is_granted("ROLE_ADMIN") %}
+<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
+{% endif %}
 <a class="dashboard__link" href="#">Publier un nouvel article</a>
 <a class="dashboard__link" href="#">Voir mes brouillons</a>
-<a class="dashboard__link" href="#">éditer mon profil</a>
+<a class="dashboard__link" href="{{ path('editProfil', {id: user.id}) }}">éditer mon profil</a>
+<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
 </div>
 {% endif %}
 
 <div class="wrapper">
   <div class="header">
-    <figure class="header__user">
-      <img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
-      <figcaption class="user__name"> {{ user.pseudo }} </figcaption>
-    </figure>
+    <div class="avatar">
+      <figure class="header__user">
+        <img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
+      </figure>
+      <h1 class="user__name"> {{ user.pseudo }} </h1>
+    </div>
     {% if user != app.user %}
+      {% if is_granted("ROLE_ADMIN") %}
+      {# href="{{ path('deleteUser', {id: user.id}) }}" #}
+        <button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
+      
+      	<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
+        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Etes-vous bien sûr de vouloir effectuer cette action définitive ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
+        <a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
+      </div>
+    </div>
+  </div>
+</div>
+      
+      {% endif %}
       <button class="header__follow">suivre ce membre</button>
       <button class="header__sendMessage">envoyer un message à ce membre</button>
     {% endif %}
@@ -49,6 +80,7 @@
       <h3 class="articles__title">Articles les plus lus :</h3>
       <div class="articles__flex">
         {% for article in user.publications %}
+        <a href="{{ path('article_show', {id: article.id}) }}">
         <figure class="article__picture">
           {% if article.galeries is not empty %}
           {% for galerie in article.galeries %}
@@ -61,6 +93,7 @@
           {% endif %}
           <figcaption class="article__title"> {{ article.titre }} </figcaption>
         </figure>
+        </a>
         {% endfor %}
       </div>
     </div>

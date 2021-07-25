@@ -13,8 +13,16 @@ class ForgottenPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('emailResetPass', EmailType::class, [])
-            ->add('envoyer', SubmitType::class, []);
+            ->add('emailResetPass', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success m-3'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

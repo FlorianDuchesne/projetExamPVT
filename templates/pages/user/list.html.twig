@@ -18,7 +18,7 @@
 				{% for membre in membres %}
               <div class="flex">
 	  						<div class="user">
-		  						<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ membre.avatar) }}"/></figure>
+		  						<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ membre.avatar) }}"/></figure>
 			  					<a class="user__name" href = "{{ path('user_show', {id: membre.id}) }}"><h5>{{ membre.pseudo }}</h5></a>
 				  			</div>
                 <p class="user__description">{{ membre.description }}</p>

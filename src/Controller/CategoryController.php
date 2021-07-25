@@ -54,7 +54,7 @@ class CategoryController extends AbstractController
     {
 
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findBy([], ['libelle' => 'ASC' ], 3);
+        ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
@@ -74,7 +74,7 @@ class CategoryController extends AbstractController
         $pays =  $this->getDoctrine()->getRepository(Pays::class)
         ->findBy([], ['libelle' => 'ASC' ], 3);
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findBy([], ['libelle' => 'ASC' ], 3);
+        ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 
@@ -93,7 +93,7 @@ class CategoryController extends AbstractController
     {
 
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findBy([], ['libelle' => 'ASC' ], 3);
+        ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
         ->findAll();
 

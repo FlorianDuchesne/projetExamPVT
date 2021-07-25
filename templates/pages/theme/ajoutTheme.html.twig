@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajout Theme{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+    {# <link
+    href="{{ asset('css/home/visitor/style.css') }}" rel="stylesheet"/>   #}
+    {#{{ encore_entry_link_tags('app') }}#}
+{% endblock %}
+
+{% block body %}
+
+	{% if editMode %}
+		<h1 class="text-center m-3">Modification du thème</h1>
+
+		<div class="text-center"><button type="button" data-toggle="modal" data-target="#exampleModal" class="text-center btn btn-danger m-3">Supprimer le thème</button></div>
+	
+	<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
+        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Etes-vous bien sûr de vouloir effectuer cette action définitive ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
+        <a class="btn btn-danger" href="{{ path('deleteTheme', {id: theme.id}) }}">Supprimer</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+	
+	{% else %}
+		<h1 class="text-center m-3">Ajout d'un thème</h1>
+	{% endif %}
+	<div class="m-auto col-3">
+		{{ form(formAddTheme) }}
+	</div>
+
+
+	{% endblock %}

@@ -22,7 +22,7 @@
 <section class="pays">
 <h2>Pays :</h2>
     <div class="wrapperFlex">
-  {% for pays in pays %}
+  {% for pays in pays|slice(0,3) %}
 	<a href="{{ path('both_show', {idPays: pays.id, idTheme: theme.id}) }}">
     <figure class="picture">
         <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
@@ -31,7 +31,7 @@
 	</a>
   {% endfor %}
 	</div>
-  <button class="pays__link">Voir plus</button>
+  <button class="link">Voir plus</button>
 </section>
 {# <aside class="aside">
 <h4>Membres intéressés par ce thème :</h4>

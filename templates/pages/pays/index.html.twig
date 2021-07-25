@@ -6,23 +6,23 @@
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/pays/paysList/style.css') }}" rel="stylesheet"/>  
+    {# <link
+    href="{{ asset('css/pays/paysList/style.css') }}" rel="stylesheet"/>   #}
     {#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
     <h1 class="titre">Pays</h1>
-
-    <div class="wrapperFlex">
-    {% for pays in pays %}
-    <a href="{{ path('pays_show', {id: pays.id}) }}">
-    <figure class="pays picture">
-        <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
-        <figcaption class="title"> {{ pays.libelle }} </figcaption>
-    </figure></a>
-    {% endfor %}
+	<div class="wrapper-whole">
+        <div class="wrapperFlex">
+        {% for pays in pays %}
+        <a href="{{ path('pays_show', {id: pays.id}) }}">
+            <figure class="pays picture">
+                <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+                <figcaption class="title"> {{ pays.libelle }} </figcaption>
+            </figure>
+        </a>
+        {% endfor %}
+        </div>
     </div>
-    
-</div>
 {% endblock %}

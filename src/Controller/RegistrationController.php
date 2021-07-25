@@ -6,13 +6,17 @@ use DateTime;
 use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
-use App\Form\InscriptionType;
+// use App\Form\InscriptionType;
+use App\Form\EditUserType;
 use App\Form\RegistrationFormType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class RegistrationController extends AbstractController
 {
@@ -33,6 +37,7 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // encode the plain password
+            
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -54,4 +59,49 @@ class RegistrationController extends AbstractController
             'themes' => $themes
         ]);
     }
+
+    /**
+     * @IsGranted("ROLE_USER")
+     * @Route("/{id}/edit", name="editProfil")
+     */
+    public function edit(Request $request, User $user, TokenStorageInterface $tokenStorage): Response
+    {
+
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
+
+        $userConnected =$tokenStorage->getToken()->getUser();
+
+
+        // checker id user connecté et id route et conditionner la suite (user interface ?)
+        if ($user == $userConnected) {
+            $form = $this->createForm(EditUserType::class, $user);
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                // encode the plain password
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+                // do anything else you need here, like send an email
+
+                return $this->redirectToRoute('home');
+            }
+            return $this->render('pages/registration/edit.html.twig', [
+                'editUserForm' => $form->createView(),
+                'countries' => $countries,
+                'themes' => $themes    
+            ]);
+        } else {
+            // $this->addFlash('essaiHacking', 'Vous ne pouvez modifier ou supprimer que votre propre compte.');
+
+            return $this->redirectToRoute('home');
+        }
+    }
+
 }
+
+
+// <textarea name="text" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"'></textarea>

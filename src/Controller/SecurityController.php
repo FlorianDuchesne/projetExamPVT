@@ -15,11 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Csrf\TokenGenerator\TokenGeneratorInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class SecurityController extends AbstractController
 {
@@ -91,7 +93,7 @@ class SecurityController extends AbstractController
                     return $this->redirectToRoute('app_login');
                 }
 
-                $url = $this->generateUrl('reset_password', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
+                $url = $this->generateUrl('reset_password_token', array('token' => $token), UrlGeneratorInterface::ABSOLUTE_URL);
 
                 $message = (new Email())
                     ->from('testsDLCOLMAR@gmail.com')
@@ -116,9 +118,9 @@ class SecurityController extends AbstractController
 
 
     /**
-     * @Route("/reset_password/{token}", name="reset_password")
+     * @Route("/reset_password_token/{token}", name="reset_password_token")
      */
-    public function resetPassword(EntityManagerInterface $manager, Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
+    public function resetPasswordToken(EntityManagerInterface $manager, Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {
 
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
@@ -129,39 +131,148 @@ class SecurityController extends AbstractController
         // $form = $this->createForm(ChangePasswordType::class);
         // $form->handleRequest($request);
 
-        if ($request->isMethod('POST')) {
+            if ($request->isMethod('POST')) {
 
-            $user = $manager->getRepository(User::class)
-                ->findOneByToken($token);
+                // dd($token);
+
+                $user = $manager->getRepository(User::class)
+                    ->findOneByToken($token);
+
+                $password = $request->request->get(htmlspecialchars('password'));
+                $passwordRepeat = $request->request->get(htmlspecialchars('passwordRepeat'));
 
             // dd($user);
 
             // if ($form->isSubmitted() && $form->isValid()) {
 
+                if ($password === $passwordRepeat){
 
-            $user->setToken(NULL);
+
+                    $user->setToken(NULL);
 
             // $newPassword = $form->get('password')->getData();
 
-            $user->setPassword(
-                $passwordEncoder->encodePassword($user, $request->request->get('password'))
-            );
+                    $user->setPassword(
+                        $passwordEncoder->encodePassword($user, $password)
+                    );
             // $manager->persist($user);
 
-            $manager->flush();
+                    $manager->flush();
 
-            $this->addFlash('info', 'Votre mot de passe a bien été réinitialisé');
+                    $this->addFlash('info', 'Votre mot de passe a bien été réinitialisé');
 
-            return $this->redirectToRoute('app_login');
-            // }
+                    return $this->redirectToRoute('app_login');
+
+                } else{
+
+                    $this->addFlash('info', 'Les deux mots de passes ne correspondent pas !');
+
+                }
+
+            }
+
+            return $this->render('pages/security/resetPassword.html.twig', [
+                'token' => $token,
+                // 'form' => $form->createView(),
+                'title' => "Réinitialisation du mot de passe",
+                'countries' => $countries,
+                'themes' => $themes
+            ]);
         }
 
-        return $this->render('pages/security/resetPassword.html.twig', [
-            'token' => $token,
-            // 'form' => $form->createView(),
-            'title' => "Réinitialisation du mot de passe",
-            'countries' => $countries,
-            'themes' => $themes
-        ]);
+    /**
+     * @Route("/reset_password/{id}", name="reset_password")
+     */
+    public function resetPassword(EntityManagerInterface $manager, Request $request, User $user, UserInterface $userlogged, UserPasswordEncoderInterface $passwordEncoder)
+    {
+
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        ->findAll();
+
+        // $form = $this->createForm(ChangePasswordType::class);
+        // $form->handleRequest($request);
+
+            if ($user->getEmail() == $userlogged->getUsername()) {
+
+                if ($request->isMethod('POST')) {
+
+                    $submittedToken = $request->request->get('token_csrf');
+
+                    // 'delete-item' is the same value used in the template to generate the token
+                    if ($this->isCsrfTokenValid('reset_password', $submittedToken)) {
+                        // ... do something, like deleting an object
+
+                        $password = $request->request->get(htmlspecialchars('password'));
+                        $passwordRepeat = $request->request->get(htmlspecialchars('passwordRepeat'));
+
+                        if ($password === $passwordRepeat){
+
+                            $user->setPassword(
+                                $passwordEncoder->encodePassword($user, $password)
+                            );
+                        // $manager->persist($user);
+            
+                            $manager->flush();
+            
+                            $this->addFlash('info', 'Votre mot de passe a bien été réinitialisé');
+            
+                            return $this->redirectToRoute('app_login');        
+
+                        } else{
+
+                            $this->addFlash('info', 'Les deux mots de passes ne correspondent pas !');
+
+                        }
+
+                    } else{
+
+                        return $this->redirectToRoute('home');
+
+                    }
+                
+                }
+
+                return $this->render('pages/security/resetPassword.html.twig', [
+                    'token' => $user->getToken(),
+                    // 'form' => $form->createView(),
+                    'title' => "Réinitialisation du mot de passe",
+                    'countries' => $countries,
+                    'themes' => $themes
+                ]);    
+
+            } else{
+
+                return $this->redirectToRoute('home');
+
+            }
+    }
+
+    /**
+     * @Route("/deleteUser/{id}", name="deleteUser")
+     */
+    public function delete(EntityManagerInterface $manager, User $user, UserInterface $userlogged, Request $request, TokenStorageInterface $tokenStorage)
+    {
+
+        if (($user->getEmail() == $userlogged->getUsername()) || ($userlogged->getRoles() != ['ROLE_USER'])) {
+            
+            $manager->remove($user);
+    
+            $manager->flush();
+
+            if($user->getEmail() == $userlogged->getUsername()){
+             
+                $request->getSession()->invalidate();
+
+                $tokenStorage->setToken(); // TokenStorageInterface
+    
+            }
+    
+        }
+        
+        // dd($userlogged);
+    return $this->redirectToRoute('home');
+
     }
 }

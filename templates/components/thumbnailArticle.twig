@@ -1,0 +1,18 @@
+<a href="{{ path('article_show', {id: article.id}) }}">
+<figure class="article__picture">
+{# Si la propriété galeries de article n'est pas vide #}
+  {% if article.galeries is not empty %}
+  {# Pour chaque galerie dans galeries #}
+  {% for galerie in article.galeries %}
+  {# Si l'index de la boucle est le premier #}
+  {% if loop.first %}
+    <img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
+  {% endif %}
+  {% endfor %}
+  {# Si la propriété galeries de article EST vide #}
+  {% else %}
+  <div class="article__thumbnail article__thumbnail--empty"><div>
+  {% endif %}
+  <figcaption class="article__title"> {{ article.titre }} </figcaption>
+</figure>
+</a>

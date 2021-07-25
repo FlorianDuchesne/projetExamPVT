@@ -22,7 +22,7 @@
 <section class="themes">
 	<h2>Thèmes :</h2>
 	<div class="wrapperFlex">
-  {% for theme in themes %}
+  {% for theme in themes|slice(0,3) %}
 	<a href="{{ path('both_show', {idPays: pays.id, idTheme: theme.id}) }}">
     <figure class="picture">
         <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">

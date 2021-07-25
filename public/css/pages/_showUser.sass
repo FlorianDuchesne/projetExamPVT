@@ -1,0 +1,85 @@
+.wrapper
+  width: 80%
+  margin-top: 3em
+  margin-left: auto;
+  margin-right: auto;
+  .header
+    position: relative
+    @include blockFlex(center)
+    height: 200px
+    .header__user
+      @include avatar(150px)
+      // .user__picture
+    .user__name
+      margin-top: 0.5em
+      text-transform: uppercase
+      text-align: center
+      color: $blue
+      font-weight: bolder
+      font-size: x-large
+    .header__follow
+      background: none
+      border: none
+      color: $blue
+      font-weight: bold
+      font-size: larger
+      position: absolute
+      top: 0
+      right: 0
+    .header__delete
+      position: absolute;
+      top: 0;
+      left: 0;
+    .header__sendMessage
+      background: none
+      border: none
+      color: $blue
+      font-weight: bold
+      font-size: larger
+      position: absolute
+      bottom: 0
+      right: 0
+  .main
+    border-top: 2px $clearBlue solid
+    margin: 2em
+    font-family: $arial
+    .main__description
+      margin-top: 1em
+      text-align: center
+      font-family: $arial
+    .main__infos
+      border-radius: 15px
+      padding: 1em
+      background: $clearBlue
+      .infos__title
+      .infos__list
+        .infos__line
+          list-style: none
+          margin-top: 0.5em
+    .main__articles
+      .articles__title
+        margin-top: 1em
+      .articles__flex
+        @include blockFlex(start)
+        .article__picture
+          position: relative
+          margin: 1em
+          .article__thumbnail
+            filter: brightness(80%)
+            height: 200px
+            overflow: hidden
+            &--empty
+              background-color: $blue
+              width: 300px
+          .article__title
+            position: absolute
+            top: 50%
+            left: 50%
+            transform: translate(-50%, -50%)
+            text-align: center
+            color: $white
+            font-weight: bold
+            font-size: larger
+            text-transform: uppercase
+    .main__links
+      color: $blue

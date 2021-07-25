@@ -18,20 +18,24 @@ class HomeController extends AbstractController
      */
     public function index(User $user = null)
     {
-
+        // Symfony nous permet d'identifier avec "getUser" si le visiteur est un utilisateur identifié ou non.
         $user = $this->getUser();
 
+        // On rassemble les données nécessaires à la vue grâce aux repositories des entités User, Pays et Theme.
+        // C'est Doctrine, l'ORM de Symfony qui nous permet d'accéder aux repositories des différentes classes.
+        // On accède aux méthodes de chaque repository, ce qui nous permet d'utiliser la méthode findAll.
         $users =  $this->getDoctrine()->getRepository(User::class)
             ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
+        // Si la variable $user est vide, on redirige vers la route nommée "homeVisitor".
         if (empty($user)){
             return $this->redirectToRoute('homeVisitor');
         }
     
-
+        // On renvoie la vue twig avec les données instanciées dans la fonction.
         return $this->render('pages/home/indexBEM.html.twig', [
             'users' => $users,
             'countries' => $countries,
@@ -50,15 +54,13 @@ class HomeController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-        if (isset($user)){
-            return $this->redirectToRoute('homeVisitor');
-        }
-    
-
-        return $this->render('pages/home/indexVisitor.html.twig', [
-            'users' => $users,
-            'countries' => $countries,
-            'themes' => $themes
-        ]);
+        $articles =  $this->getDoctrine()->getRepository(Article::class)
+            ->findAll();
+            return $this->render('pages/home/indexVisitor.html.twig', [
+                'users' => $users,
+                'countries' => $countries,
+                'themes' => $themes,
+                'articles' => $articles
+            ]);
     }
 }

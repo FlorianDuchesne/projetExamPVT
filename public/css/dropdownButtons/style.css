@@ -15,7 +15,7 @@
   visibility: visible;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropdownHover:hover .dropdown-menu {
   display: block;
 }
 

@@ -1,0 +1,35 @@
+.wrapper
+    width: 80%
+    margin-top: 3em
+    margin-left: auto;
+    margin-right: auto;
+    .post
+        margin: auto
+        width: 75%
+        .post__user
+            @include blockFlex(center)
+            .user__avatar
+                @include avatar(100px)
+            .user__name
+                margin-left: 0.5em
+                text-transform: uppercase
+        .post__title
+            color: $blue
+            text-decoration: none
+            text-transform: uppercase
+        .post__wrapperPictures
+            display: block
+            .post__picture
+                width: 100%
+                margin: auto
+                padding: 1em
+            .post__legende--show
+                width: 100%
+                font-style: italic
+        .post__paragraph
+            width: 100%
+            margin: auto
+            font-family: $arial
+        .post__categories
+            font-family: $arial
+            color: $blue

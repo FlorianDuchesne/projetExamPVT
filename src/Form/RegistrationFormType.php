@@ -18,6 +18,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Validator\Constraints\Email;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -27,35 +29,39 @@ class RegistrationFormType extends AbstractType
         // A réviser !!!! (date de naissance notamment)
 
         $builder
-            ->add('email', EmailType::class, [])
-            ->add('pseudo', TextType::class, [])
-            ->add('avatar', TextType::class, [])
-            ->add('description', TextareaType::class, [])
-            ->add('projets_voyages', TextareaType::class, [])
-            ->add('voyages_accomplis', TextareaType::class, [])
-            ->add('date_naissance', DateType::class, [])
-            // ->add('date_creation', HiddenType::class, [
-            //     'mapped' => false,
-            // ])
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
+            ->add('imageFile', VichImageType::class, [
+                'label' => 'Avatar',
+                'required' => false,
+                'allow_delete' => false,
+                'download_uri' => false,
+                'image_uri' => true,
+                'asset_helper' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('email', EmailType::class, [
+                'attr' => [
+                    'class' => 'form-control',
                 ],
             ])
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'first_options' => [
-                    'label' => 'Mot de passe'
+                    'label' => 'Mot de passe',
+                    'attr' => [
+                        'class' => 'form-control'
+                        ]
                 ],
                 'second_options' => [
-                    'label' => 'Répétez le mot de passe'
+                    'label' => 'Répétez le mot de passe',
+                    'attr' => [
+                        'class' => 'form-control'
+                        ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas !',
                 'mapped' => false,
-                'attr' => ['autocomplete' => 'new-password'],
+                'attr' => ['autocomplete' => 'new-password', 'class' => 'form-control'],
                 'constraints' => [
                     new NotBlank([
                         'message' => 'Please enter a password',
@@ -68,7 +74,51 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('envoyer', SubmitType::class, []);
+            ->add('pseudo', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('description', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('projets_voyages', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('voyages_accomplis', TextareaType::class, [
+                'required' => false,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('date_naissance', DateType::class, [
+                'attr' => [
+                    'class' => 'form-control'
+                ],
+                'widget' => 'single_text',
+            ])
+            // ->add('date_creation', HiddenType::class, [
+            //     'mapped' => false,
+            // ])
+            ->add('agreeTerms', CheckboxType::class, [
+                'mapped' => false,
+                'constraints' => [
+                    new IsTrue([
+                        'message' => 'You should agree to our terms.',
+                    ]),
+                ],
+            ])
+            ->add('envoyer', SubmitType::class, [
+                'attr' => [
+                    'class' => 'btn btn-success m-3'
+                ]
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
