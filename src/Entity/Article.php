@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArticleRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -46,7 +47,7 @@ class Article
     private $auteurArticle;
 
     /**
-     * @ORM\OneToMany(targetEntity=Galerie::class, mappedBy="article", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Galerie::class, mappedBy="article", orphanRemoval=true, cascade={"persist"})
      */
     private $galeries;
 

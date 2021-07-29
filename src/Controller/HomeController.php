@@ -30,20 +30,23 @@ class HomeController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findByStatut('1');
+
         // Si la variable $user est vide, on redirige vers la route nommée "homeVisitor".
-        if (empty($user)){
+        if (empty($user)) {
             return $this->redirectToRoute('homeVisitor');
         }
-    
+
         // On renvoie la vue twig avec les données instanciées dans la fonction.
         return $this->render('pages/home/indexBEM.html.twig', [
             'users' => $users,
             'countries' => $countries,
-            'themes' => $themes
+            'themes' => $themes,
+            'publications' => $articles
         ]);
     }
 
-        /**
+    /**
      * @Route("/homeVisitor", name="homeVisitor")
      */
     public function indexVisitor()
@@ -55,12 +58,12 @@ class HomeController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
         $articles =  $this->getDoctrine()->getRepository(Article::class)
-            ->findAll();
-            return $this->render('pages/home/indexVisitor.html.twig', [
-                'users' => $users,
-                'countries' => $countries,
-                'themes' => $themes,
-                'articles' => $articles
-            ]);
+            ->findByStatut(1);
+        return $this->render('pages/home/indexVisitor.html.twig', [
+            'users' => $users,
+            'countries' => $countries,
+            'themes' => $themes,
+            'articles' => $articles
+        ]);
     }
 }

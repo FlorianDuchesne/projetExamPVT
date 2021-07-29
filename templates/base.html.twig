@@ -7,11 +7,10 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																		           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																																																																																																																																												           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
-			<link
-			href="{{ asset('css/main.css') }}" rel="stylesheet"/>
+			<link href="{{ asset('css/main.css') }}" rel="stylesheet"/>
 			<link
 			href="{{ asset('css/dropdownButtons/style.css') }}" rel="stylesheet"/>
 		{#{{ encore_entry_link_tags('app') }}#}
@@ -20,7 +19,7 @@
 			<script src="https://kit.fontawesome.com/e2a8fec256.js" crossorigin="anonymous"></script>
 			<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 			<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-			{#{{ encore_entry_script_tags('app') }}#}
+			<script src="{{ asset('node_modules/readmore-js/readmore.min.js') }}"></script>
 		{% endblock %}
 	</head>
 	<body>
@@ -37,19 +36,19 @@
 					</button>
 				</form>
 				{% if app.user %}
-				<a href='{{ path('user_show', {id: app.user.id})}}'>
-					<div id='login' class="btn btn-info m-1">
-						<i class='fas fa-user m-1'></i>
-						<h5>{{ app.user.pseudo|capitalize }}</h5>
-					</div>
-				</a>
+					<a href='{{ path('user_show', {id: app.user.id})}}'>
+						<div id='login' class="btn btn-info m-1">
+							<i class='fas fa-user m-1'></i>
+							<h5>{{ app.user.pseudo|capitalize }}</h5>
+						</div>
+					</a>
 				{% else %}
-				<a href='{{ path('app_login')}}'>
-					<div id='login' class="btn btn-info m-1">
-						<i class='fas fa-user m-1'></i>
-						<h5>Mon compte</h5>
-					</div>
-				</a>
+					<a href='{{ path('app_login')}}'>
+						<div id='login' class="btn btn-info m-1">
+							<i class='fas fa-user m-1'></i>
+							<h5>Mon compte</h5>
+						</div>
+					</a>
 				{% endif %}
 			</div>
 			<nav class="navbar navbar-expand-lg container-fluid bg-info m-0 d-flex justify-content-center">
@@ -65,8 +64,8 @@
 							Pays
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownPays">
-						{% for country in countries %}
-							<a class="dropdown-item text-info text-uppercase" href="{{ path('pays_show', {id: country.id}) }}">{{ country.libelle }}</a>
+							{% for country in countries %}
+								<a class="dropdown-item text-info text-uppercase" href="{{ path('pays_show', {id: country.id}) }}">{{ country.libelle }}</a>
 							{% endfor %}
 						</div>
 					</li>
@@ -75,8 +74,8 @@
 							Thèmes
 						</a>
 						<div class="dropdown-menu" aria-labelledby="navbarDropdownTheme">
-						  {% for theme in themes %}
-							<a class="dropdown-item text-info text-uppercase" href="{{ path('theme_show', {id: theme.id}) }}">{{ theme.libelle }}</a>
+							{% for theme in themes %}
+								<a class="dropdown-item text-info text-uppercase" href="{{ path('theme_show', {id: theme.id}) }}">{{ theme.libelle }}</a>
 							{% endfor %}
 						</div>
 					</li>

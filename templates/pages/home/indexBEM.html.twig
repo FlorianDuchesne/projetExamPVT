@@ -17,27 +17,27 @@
 		}
 	</style>
 
-{% include 'components/lightbox.twig' %}
+	{% include 'components/lightbox.twig' %}
 
 	<div class="wrapper-whole">
 		<figure class="publishStuff">
 			<img class="publishStuff__img" src="{{ asset('img/publication.jpg') }}"/>
-			<h1 class="publishStuff__h1">Publie ton prochain article !</h1>
+			<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">
+				<h1 class="publishStuff__h1">Publie ton prochain article !</h1>
+			</a>
 		</figure>
 
 		<div class="wrapper-main">
 
 			<div class="wrapper-posts">
-				{% for user in users %}
-					{% for publication in user.publications %}
+				{% for publication in publications %}
 
 					{% include 'components/publication.twig' %}
 
-						{% endfor %}
-					{% endfor %}
-				</div>
-
-				{% include 'layouts/asideHome.twig' %}
+				{% endfor %}
 			</div>
+
+			{% include 'layouts/asideHome.twig' %}
 		</div>
-	{% endblock %}
+	</div>
+{% endblock %}

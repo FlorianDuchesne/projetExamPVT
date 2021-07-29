@@ -7,118 +7,132 @@
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/showUser/style.css') }}" rel="stylesheet"/>  
+	<link href="{{ asset('css/showUser/style.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 
 {% block body %}
 
-{% if user == app.user %}
-<div class="dashboard">
-{% if is_granted("ROLE_ADMIN") %}
-<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
-{% endif %}
-<a class="dashboard__link" href="#">Publier un nouvel article</a>
-<a class="dashboard__link" href="#">Voir mes brouillons</a>
-<a class="dashboard__link" href="{{ path('editProfil', {id: user.id}) }}">éditer mon profil</a>
-<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
-</div>
-{% endif %}
+	{% if user == app.user %}
+		<div class="dashboard">
+			{% if is_granted("ROLE_ADMIN") %}
+				<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
+			{% endif %}
+			<a class="dashboard__link" href="{{ path('ajoutArticle', {idAuteur: user.id}) }}">Publier un nouvel article</a>
+			<a class="dashboard__link" href="{{ path('brouillons', {id: user.id}) }}">Voir mes brouillons</a>
+			<a class="dashboard__link" href="{{ path('editProfil', {id: user.id}) }}">éditer mon profil</a>
+			<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
+		</div>
+	{% endif %}
 
-<div class="wrapper">
-  <div class="header">
-    <div class="avatar">
-      <figure class="header__user">
-        <img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
-      </figure>
-      <h1 class="user__name"> {{ user.pseudo }} </h1>
-    </div>
-    {% if user != app.user %}
-      {% if is_granted("ROLE_ADMIN") %}
-      {# href="{{ path('deleteUser', {id: user.id}) }}" #}
-        <button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
-      
-      	<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
-        <button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Etes-vous bien sûr de vouloir effectuer cette action définitive ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
-        <a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
-      </div>
-    </div>
-  </div>
-</div>
-      
-      {% endif %}
-      <button class="header__follow">suivre ce membre</button>
-      <button class="header__sendMessage">envoyer un message à ce membre</button>
-    {% endif %}
-  </div>
-  <main class="main">
-    <p class="main__description"> {{ user.description }}</p>
-    <div class="main__infos">
-      <h3 class="infos__title">Infos :</h3>
-      <ul class="infos__list">
-        <li class="infos__line"><strong>date d'inscription :</strong> {{ user.dateCreation | date("m/d/Y") }}</li>
-        <li class="infos__line"><strong>pays visités : </strong>{{ user.voyagesAccomplis }}</li>
-        <li class="infos__line"> <strong>envies de voyages :</strong> {{ user.projetsVoyages }}</li>
-        <li class="infos__line"> <strong>projet de PVT :</strong> lorem ipsum bla bla bla</li>
-      </ul>
-    </div>
-    <div class="main__articles">
-      <h3 class="articles__title">Articles les plus lus :</h3>
-      <div class="articles__flex">
-        {% for article in user.publications %}
-        <a href="{{ path('article_show', {id: article.id}) }}">
-        <figure class="article__picture">
-          {% if article.galeries is not empty %}
-          {% for galerie in article.galeries %}
-          {% if loop.first %}
-            <img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
-          {% endif %}
-          {% endfor %}
-          {% else %}
-          <div class="article__thumbnail article__thumbnail--empty"><div>
-          {% endif %}
-          <figcaption class="article__title"> {{ article.titre }} </figcaption>
-        </figure>
-        </a>
-        {% endfor %}
-      </div>
-    </div>
-    <a href="#" class="main__links">Tous les articles (22)</a><br>
-    <a href="#" class="main__links">Abonnés (42)</a><br>
-    <a href="#" class="main__links">Abonnements (33)</a><br>
-  </main>
-</div>
+	<div class="wrapper">
+		<div class="header">
+			<div class="avatar">
+				<figure class="header__user">
+					<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
+				</figure>
+				<h1 class="user__name">
+					{{ user.pseudo }}
+				</h1>
+			</div>
+			{% if user != app.user %}
+				{% if is_granted("ROLE_ADMIN") %}
+					{# href="{{ path('deleteUser', {id: user.id}) }}" #}
+					<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
 
-{% endblock %}
-
-
-						{# <div class="post">
-							<div class="post__user">
-								<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-								<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
+					<!-- Modal -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
+									<button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+										<span aria-hidden="true">&times;</span>
+									</button>
+								</div>
+								<div class="modal-body">
+									Etes-vous bien sûr de vouloir effectuer cette action définitive ?
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
+									<a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
+								</div>
 							</div>
-							<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
-							{% if (publication.galeries | length > 1) %}
-								<figure class="post__wrapperPictures--many">
-								{% else %}
-									<figure class="post__wrapperPictures">
-									{% endif %}
-									{% for galerie in publication.galeries %}
-										<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
-										<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
+						</div>
+					</div>
+
+				{% endif %}
+				<button class="header__follow">suivre ce membre</button>
+				<button class="header__sendMessage">envoyer un message à ce membre</button>
+			{% endif %}
+		</div>
+		<main class="main">
+			<p class="main__description">
+				{{ user.description }}</p>
+			<div class="main__infos">
+				<h3 class="infos__title">Infos :</h3>
+				<ul class="infos__list">
+					<li class="infos__line">
+						<strong>date d'inscription :</strong>
+						{{ user.dateCreation | date("m/d/Y") }}</li>
+					<li class="infos__line">
+						<strong>pays visités :
+						</strong>
+						{{ user.voyagesAccomplis }}</li>
+					<li class="infos__line">
+						<strong>envies de voyages :</strong>
+						{{ user.projetsVoyages }}</li>
+					<li class="infos__line">
+						<strong>projet de PVT :</strong>
+						lorem ipsum bla bla bla</li>
+				</ul>
+			</div>
+			<div class="main__articles">
+				<h3 class="articles__title">Articles les plus lus :</h3>
+				<div class="articles__flex">
+					{% for article in user.publications %}
+						<a href="{{ path('article_show', {id: article.id}) }}">
+							<figure class="article__picture">
+								{% if article.galeries is not empty %}
+									{% for galerie in article.galeries %}
+										{% if loop.first %}
+											<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
+										{% endif %}
 									{% endfor %}
- #}
+								{% else %}
+									<div class="article__thumbnail article__thumbnail--empty">
+										<div>
+										{% endif %}
+										<figcaption class="article__title">
+											{{ article.titre }}
+										</figcaption>
+									</figure>
+								</a>
+							{% endfor %}
+						</div>
+					</div>
+					<a href="{{ path('indexArticles', {id: user.id}) }}" class="main__links">Tous les articles (22)</a><br>
+					<a href="#" class="main__links">Abonnés (42)</a><br>
+					<a href="#" class="main__links">Abonnements (33)</a><br>
+				</main>
+			</div>
+
+		{% endblock %}
+
+
+		{# <div class="post">
+													<div class="post__user">
+														<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+														<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
+													</div>
+													<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
+													{% if (publication.galeries | length > 1) %}
+														<figure class="post__wrapperPictures--many">
+														{% else %}
+															<figure class="post__wrapperPictures">
+															{% endif %}
+															{% for galerie in publication.galeries %}
+																<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
+																<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
+															{% endfor %}
+						 #}

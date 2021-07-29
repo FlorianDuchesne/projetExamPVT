@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register
+{% endblock %}
+
+{% block body %}
+	<div class="container">
+
+		{% for message in app.flashes('maxImages') %}
+			<div class="alert alert-warning m-1">
+				{{ message }}
+			</div>
+		{% endfor %}
+
+		{% if editMode %}
+			<h1 class="m-5">Modifier l'article</h1>
+		{% else %}
+			<h1 class="m-5">Nouvel article</h1>
+		{% endif %}
+
+		{{ form_start(newArticleForm) }}
+		<h4 class="m-3 text-info text-center">Ajout de galerie d'image(s)</h4>
+		<ul id="galeries" data-prototype="{{ form_row(newArticleForm.galeries.vars.prototype)|e }}">
+
+			{% for galerie in newArticleForm.galeries %}
+
+				<li class="galerie list-group-item">
+
+					{{ form_row(galerie) }}
+
+				</li>
+			{% endfor %}
+
+		</ul>
+
+		{{ form_end(newArticleForm) }}
+	</div>
+{% endblock %}

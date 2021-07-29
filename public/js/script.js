@@ -1,4 +1,3 @@
-
 // Tentative de factorisation (échec total pour l'instant… il faut que je révise les fonctions et les portées !…)
 // C'est bon j'ai trouvé
 
@@ -72,7 +71,7 @@ function lightbox(elem) {
       case "Escape":
         console.log("Escape");
         closeLightbox();
-        break;  
+        break;
     }
   });
 
@@ -151,20 +150,142 @@ function closeLightbox(elem) {
 }
 
 function filePreview(input) {
+  console.log("avant condition, mais fonction déclenchée");
   if (input.files && input.files[0]) {
-      var reader = new FileReader();
-      reader.onload = function (e) {
-        console.log("test_filePreview");
-        $('.vich-image > a').remove();
-        $('.vich-image').after('<img class="preview" src="'+e.target.result+'" width="450" height="300"/>');
-        $('.vich-image').after('<p class="textPreview">Pour information, l\'image d\'avatar choisie sera arrondie, et si elle n\'est pas carrée, elle sera rognée.</p>');
-          }
-      reader.readAsDataURL(input.files[0]);
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      console.log("test_filePreview");
+      $(".vich-image > a").remove();
+      $(".vich-image").after(
+        '<img class="preview" src="' +
+          e.target.result +
+          '" width="450" height="auto"/>'
+      );
+      $(".vich-image").after(
+        "<p class=\"textPreview\">Pour information, l'image d'avatar choisie sera arrondie, et si elle n'est pas carrée, elle sera rognée.</p>"
+      );
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function filePreviewArticle(input, i) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      $(".vich-image > a").remove();
+      $("#article_galeries_" + [i] + " .vich-image ~ img").remove();
+      $("#article_galeries_" + [i] + " .vich-image").after(
+        '<img class="preview" src="' +
+          e.target.result +
+          '" width="450" height="auto"/>'
+      );
+      // $(".vich-image").after(
+      //   "<p class=\"textPreview\">Pour information, l'image d'avatar choisie sera arrondie, et si elle n'est pas carrée, elle sera rognée.</p>"
+      // );
+    };
+    reader.readAsDataURL(input.files[0]);
   }
 }
 
 $("#registration_form_imageFile_file").change(function () {
   filePreview(this);
 });
+$("#edit_user_imageFile_file").change(function () {
+  filePreview(this);
+});
 
+// for (let i = 0; i < 6; i++) {
+// $(
+//   "#galeries .list-group-item #article_galeries_1 #article_galeries_1_imageFile_file"
+// ).change(function () {
+//   filePreview(this);
+// });
+// }
+// ------> ne marche pas… même sans la boucle.
 
+///////////////////// ajout galerie article //////////////
+
+//création de 3 éléments HTMLElement
+var $addCollectionButton = $(
+  '<button type="button" class="add_collection_link btn btn-success">Ajouter une image</button>'
+);
+var $delCollectionButton = $(
+  '<button type="button" class="del_collection_link btn btn-danger">Supprimer l\'image</button>'
+);
+//le premier élément li de la liste (celui qui contient le bouton 'ajouter')
+var $newLinkLi = $("<li class='list-group-item'></li>").append(
+  $addCollectionButton
+);
+
+function generateDeleteButton() {
+  var $btn = $delCollectionButton.clone();
+  $btn.on("click", function () {
+    //événement clic du bouton supprimer
+    $(this).parent("li").remove();
+    $collection.data("index", $collection.data("index") - 1);
+  });
+  return $btn;
+}
+//fonction qui ajoute un nouveau champ li (en fonction de l'entry_type du collectionType) dans la collection
+function addCollectionForm($collection, $newLinkLi) {
+  //contenu du data attribute prototype qui contient le HTML d'un champ
+  var newForm = $collection.data("prototype");
+  //le nombre de champs déjà présents dans la collection
+  var index = $collection.data("index");
+  //on remplace l'emplacement prévu pour l'id d'un champ par son index dans la collection
+  newForm = newForm.replace(/__name__/g, index);
+  //on modifie le data index de la collection par le nouveau nombre d'éléments
+  $collection.data("index", index + 1);
+  //on construit l'élément li avec le champ et le bouton supprimer
+  var $newFormLi = $("<li class='list-group-item'></li>")
+    .append(newForm)
+    .append(generateDeleteButton());
+  //on ajoute la nouvelle li au dessus de celle qui contient le bouton "ajouter"
+  $newLinkLi.before($newFormLi);
+
+  for (let i = 0; i < 6; i++) {
+    $("#article_galeries_" + [i] + "_imageFile_file").change(function () {
+      filePreviewArticle(this, i);
+    });
+  }
+
+  for (let i = 6; i < 10; i++) {
+    $("#article_galeries_" + [i] + "_imageFile_file").change(function () {
+      $(".vich-image").after(
+        '<p class="textPreview">Le maximum d\'images par article est de cinq.</p>'
+      );
+    });
+  }
+}
+//rendu de la collection au chargement de la page
+$(document).ready(function () {
+  //on pointe la liste complete (le conteneur de la collection)
+  var $collection = $("ul#galeries");
+  //on y ajoute le bouton ajouter (à la fin du contenu)
+  $collection.append($newLinkLi);
+  //pour chaque li déjà présente dans la collection (dans le cas d'une modification)
+  $(".galerie").each(function () {
+    //on génère et ajoute un bouton "supprimer"
+    $(this).append(generateDeleteButton());
+  });
+  //le data index de la collection est égal au nombre de input à l'intérieur
+  $collection.data("index", $collection.find(":input").length);
+  $addCollectionButton.on("click", function (e) {
+    // au clic sur le bouton ajouter
+    //si la collection n'a pas encore autant d'élément que le maximum autorisé
+    // if($collection.data('index') < $("input[maxNb]").val()){
+    //on appelle la fonction qui ajoute un nouveau champ
+    addCollectionForm($collection, $newLinkLi);
+    //  }
+    //   else alert("Nb max atteint !")
+  });
+});
+
+////////////////////// READMORE
+
+$(".post__paragraph").readmore({
+  collapsedHeight: 210, // penser à rester à peu près à un multiple de 16 (taille d'un caractère !)
+  moreLink: '<a href="#">Lire plus</a>', // (raw HTML)
+  lessLink: '<a href="#">Fermer</a>', // (raw HTML)
+});

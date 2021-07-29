@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Pays;
+use App\Entity\User;
 use App\Entity\Theme;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,9 +20,9 @@ class CategoryController extends AbstractController
     {
 
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
 
         return $this->render('pages/theme/index.html.twig', [
             'themes' => $themes,
@@ -38,7 +39,7 @@ class CategoryController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-    
+
 
         return $this->render('pages/pays/index.html.twig', [
             'pays' => $pays,
@@ -54,9 +55,9 @@ class CategoryController extends AbstractController
     {
 
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
 
         return $this->render('pages/pays/show.html.twig', [
             'pays' => $pays,
@@ -72,30 +73,32 @@ class CategoryController extends AbstractController
     {
 
         $pays =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findBy([], ['libelle' => 'ASC' ], 3);
+            ->findBy([], ['libelle' => 'ASC'], 3);
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
+        $suggestionsUsers = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme);
 
         return $this->render('pages/theme/show.html.twig', [
             'pays' => $pays,
             'countries' => $countries,
             'theme' => $theme,
-            'themes' => $themes
+            'themes' => $themes,
+            'suggestionsUsers' => $suggestionsUsers
         ]);
     }
 
-        /**
+    /**
      * @Route("/pays/{idPays}/theme/{idTheme}", name="both_show")
      */
     public function bothCategoriesDetail(Pays $idPays, Theme $idTheme)
     {
 
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
 
         return $this->render('pages/bothCategories/show.html.twig', [
             'pays' => $idPays,

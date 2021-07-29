@@ -7,31 +7,68 @@
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/showArticle/showArticle.css') }}" rel="stylesheet"/>  
-    {#{{ encore_entry_link_tags('app') }}#}
+	<link
+	href="{{ asset('css/showArticle/showArticle.css') }}" rel="stylesheet"/>
+{#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
 
-<div class="wrapper">
-	<div class="post">
-		<div class="post__user">
-			<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-			<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
-		</div>
-		<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
+	<div class="wrapper">
+		<div class="post">
+			<div class="post__header">
+				<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
+					<h4 class="m-4">{{ publication }}</h4>
+				</a>
+				<div class="post__user">
+					<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+					<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
+				</div>
+			</div>
 			<figure class="post__wrapperPictures">
 				{% for galerie in publication.galeries %}
 					<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
 					<figcaption class="post__legende--show">{{ galerie.legende }}</figcaption>
 				{% endfor %}
 			</figure>
-			<p class="post__paragraph">{{ publication.texte }}</p>
+			<p class="post__paragraph">{{ publication.texte|raw }}</p>
 			<p class="post__categories">Pays :
 				{{ publication.pays }}, thème :
 				{{ publication.theme }}</p>
+
+			{% if publication.auteurArticle == app.user %}
+
+				<a class="btn btn-warning m3" href="{{ path('modifierArticle', {idAuteur: publication.auteurArticle.id, idArticle: publication.id}) }}">Modifier l'article</a>
+
+			{% endif %}
+			{% if (publication.auteurArticle == app.user) or (is_granted("ROLE_ADMIN")) %}
+
+				<button class="btn btn-danger m3" data-toggle="modal" data-target="#exampleModal">Supprimer l'article</button>
+
+			{% endif %}
+
+		</div>
 	</div>
-</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Action irréversible</h5>
+					<button type="button" class="close btn btn-secondary" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					Êtes-vous vraiment sûr de vouloir supprimer l'article ? Cette action est définitive.
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Revenir en arrière</button>
+					<a class="btn btn-danger m3" href="{{ path('supprimerArticle', {idArticle: publication.id, idAuteur:publication.auteurArticle.id}) }}">Confirmer</a>
+				</div>
+			</div>
+		</div>
+	</div>
 
 {% endblock %}

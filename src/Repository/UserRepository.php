@@ -36,6 +36,42 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->flush();
     }
 
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function SharedTheme($theme)
+    {
+
+        $query = $this->createQueryBuilder('u');
+        $query->select('u, COUNT(t) AS mycount')
+            ->innerJoin('u.publications', 'p')
+            ->innerJoin('p.theme', 't')
+            ->where('t = :theme')
+            ->setParameter('theme', $theme)
+            ->groupBy('u')
+            ->orderBy('mycount', 'ASC')
+            ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+
+        // $entityManager = $this->getEntityManager();
+
+        // $query = $entityManager->createQuery(
+        //     'SELECT u 
+        //     FROM App\Entity\User u
+        //     INNER JOIN u.publications p
+        //     INNER JOIN p.theme t
+        //     WHERE p.theme = theme 
+        //     GROUP BY u 
+        //     ORDER BY COUNT(p.theme) DESC'
+        // )->setParameter('theme', $theme)
+        // ->setMaxResults(5)
+        // ;
+
+        // returns an array of Product objects
+        // return $query->getResult();
+    }
+
     // /**
     //  * @return User[] Returns an array of User objects
     //  */

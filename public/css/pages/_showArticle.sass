@@ -1,22 +1,26 @@
 .wrapper
     width: 80%
     margin-top: 3em
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: auto
+    margin-right: auto
     .post
         margin: auto
         width: 75%
-        .post__user
-            @include blockFlex(center)
-            .user__avatar
-                @include avatar(100px)
-            .user__name
-                margin-left: 0.5em
+        .post__header
+            @include blockFlex(space-around)
+            margin-bottom: 3em
+            .post__title
+                color: $blue
+                text-decoration: none
                 text-transform: uppercase
-        .post__title
-            color: $blue
-            text-decoration: none
-            text-transform: uppercase
+                text-align: center
+            .post__user
+                @include blockFlex(center)
+                figure
+                    @include avatar(100px)
+                .user__name
+                    margin-left: 0.5em
+                    text-transform: uppercase
         .post__wrapperPictures
             display: block
             .post__picture

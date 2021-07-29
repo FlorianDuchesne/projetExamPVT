@@ -1,21 +1,31 @@
-						<div class="post">
-							<div class="post__user">
-								<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-								<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
-							</div>
-							<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
-							{% if (publication.galeries | length > 1) %}
-								<figure class="post__wrapperPictures--many">
-								{% else %}
-									<figure class="post__wrapperPictures">
-									{% endif %}
-									{% for galerie in publication.galeries %}
-										<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
-										<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
-									{% endfor %}
-								</figure>
-								<p class="post__paragraph">{{ publication.texte }}</p>
-								<p class="post__categories">Pays :
-									{{ publication.pays }}, thème :
-									{{ publication.theme }}</p>
-						</div>
+{# {% set read_more_link %}
+<span>…</span>
+<button class="text-info" href="#" .readmore()">Lire plus</button>
+{% endset %}
+ #}
+
+<div class="post">
+	<div class="post__user">
+		<figure class="user__avatar"><img src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+		<a class="user__name" href="{{ path('user_show', {id: publication.auteurArticle.id}) }}">
+			<h5>{{ publication.auteurArticle.pseudo }}</h5>
+		</a>
+	</div>
+	<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
+		<h4>{{ publication }}</h4>
+	</a>
+	{% if (publication.galeries | length > 1) %}
+		<figure class="post__wrapperPictures--many">
+		{% else %}
+			<figure class="post__wrapperPictures">
+			{% endif %}
+			{% for galerie in publication.galeries %}
+				<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
+				<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
+			{% endfor %}
+		</figure>
+		<article class="post__paragraph">{{ publication.texte|raw }}</article>
+		<p class="post__categories">Pays :
+			{{ publication.pays }}, thème :
+			{{ publication.theme }}</p>
+	</div>

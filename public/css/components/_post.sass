@@ -2,6 +2,7 @@
   margin-top: 3em
   .post__user
     @include blockFlex(start)
+    margin-bottom: 1em
     .user__avatar
       @include avatar(100px)
     .user__name
@@ -34,6 +35,10 @@
   .post__paragraph
     width: 85%
     font-family: $arial
+    overflow: hidden
   .post__categories
     font-family: $arial
     color: $blue
+.post__statut
+  font-family: $arial
+  color: $blue

@@ -4,11 +4,12 @@
   overflow: hidden
   height: $taille
   margin: 0
-  display: flex;
-  justify-content: center;
+  display: flex
+  justify-content: center
   .user__avatar
     width: auto
     height: 100%
+    overflow: initial
 
 @mixin blockFlex($justify)
   display: flex
@@ -38,7 +39,7 @@
       font-weight: bold
       font-size: larger
       text-transform: uppercase
-  
+
 @mixin banner($taille)
   .picture
     width: auto
@@ -70,9 +71,8 @@
   text-align: end
   width: 100%
 
-
 @mixin titre()
-    margin: 1em
-    text-align: center
-    text-transform: uppercase
-    letter-spacing: 0.5em
+  margin: 1em
+  text-align: center
+  text-transform: uppercase
+  letter-spacing: 0.5em
