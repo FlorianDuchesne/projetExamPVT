@@ -295,3 +295,7 @@ if ("#myModalVisitor") {
     $("#myModalVisitor").modal("show");
   });
 }
+
+$(".terms").click(function () {
+  $("#myModalRegister").modal("toggle");
+});

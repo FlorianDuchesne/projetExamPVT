@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ButtonType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
@@ -51,13 +52,13 @@ class RegistrationFormType extends AbstractType
                     'label' => 'Mot de passe',
                     'attr' => [
                         'class' => 'form-control'
-                        ]
+                    ]
                 ],
                 'second_options' => [
                     'label' => 'Répétez le mot de passe',
                     'attr' => [
                         'class' => 'form-control'
-                        ]
+                    ]
                 ],
                 'invalid_message' => 'Les mots de passe ne correspondent pas !',
                 'mapped' => false,
@@ -106,8 +107,19 @@ class RegistrationFormType extends AbstractType
             // ->add('date_creation', HiddenType::class, [
             //     'mapped' => false,
             // ])
+            ->add('Terms', ButtonType::class, [
+                'label' => 'Lire les conditions d\'utilisations',
+                'attr' => [
+                    'class' => 'btn btn-info m-3 terms',
+                ]
+            ])
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
+                'required' => true,
+                'label' => 'Accepter',
+                'attr' => [
+                    'class' => 'm-3'
+                ],
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',

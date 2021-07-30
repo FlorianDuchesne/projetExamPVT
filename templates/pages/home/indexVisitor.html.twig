@@ -77,17 +77,24 @@
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Action irréversible</h5>
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">&times;</span>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
+							<span class="btn btn-secondary" aria-hidden="true">&times;</span>
 						</button>
 					</div>
 					<div class="modal-body">
-						Êtes-vous vraiment sûr de vouloir fermer votre compte ? Cette action est définitive.
+						<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
+																												comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
+																												ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
+																												aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
+						<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
+																												la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
+																												l'activation des fonctionnalités des réseaux sociaux.</p>
+						<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-						{# <a class="btn btn-danger" href="{{ path('deleteUser', {id: app.user.id}) }}">Oui</a> #}
+						<a class="btn btn-secondary" href="#">Gérer mes choix</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" class="btn btn-danger">Tout refuser</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" class="btn btn-danger">Tout accepter</button>
 					</div>
 				</div>
 			</div>
