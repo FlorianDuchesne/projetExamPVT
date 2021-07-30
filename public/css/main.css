@@ -123,6 +123,7 @@
 
 .wrapperFlex .picture {
   width: 350px;
+  overflow: hidden;
   position: relative;
   margin: 1em;
 }

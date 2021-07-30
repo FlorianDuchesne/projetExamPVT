@@ -58,11 +58,20 @@ class CategoryController extends AbstractController
             ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
+        $suggestionsUsers = $this->getDoctrine()->getRepository(User::class)->SharedPays($pays->getId());
+        foreach ($suggestionsUsers as $suggestionsUsers) {
+            $array[] = $this->getDoctrine()->getRepository(User::class)->findById($suggestionsUsers);
+        }
+        if (!isset($array)) {
+            $array = true;
+        }
+
 
         return $this->render('pages/pays/show.html.twig', [
             'pays' => $pays,
             'countries' => $countries,
-            'themes' => $themes
+            'themes' => $themes,
+            'suggestionsUsers' => $array
         ]);
     }
 
@@ -78,14 +87,22 @@ class CategoryController extends AbstractController
             ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
-        $suggestionsUsers = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme);
+        $suggestionsUsers = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme->getId());
+        foreach ($suggestionsUsers as $suggestionsUsers) {
+            $array[] = $this->getDoctrine()->getRepository(User::class)->findById($suggestionsUsers);
+        }
+        if (!isset($array)) {
+            $array = true;
+        }
+
+        // dd($array);
 
         return $this->render('pages/theme/show.html.twig', [
             'pays' => $pays,
             'countries' => $countries,
             'theme' => $theme,
             'themes' => $themes,
-            'suggestionsUsers' => $suggestionsUsers
+            'suggestionsUsers' => $array
         ]);
     }
 

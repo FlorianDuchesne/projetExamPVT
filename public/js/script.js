@@ -289,3 +289,9 @@ $(".post__paragraph").readmore({
   moreLink: '<a href="#">Lire plus</a>', // (raw HTML)
   lessLink: '<a href="#">Fermer</a>', // (raw HTML)
 });
+
+if ("#myModalVisitor") {
+  $(window).on("load", function () {
+    $("#myModalVisitor").modal("show");
+  });
+}

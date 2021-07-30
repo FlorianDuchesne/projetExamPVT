@@ -39,20 +39,61 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
-    public function SharedTheme($theme)
+    public function SharedPays($paysId)
     {
 
-        $query = $this->createQueryBuilder('u');
-        $query->select('u, COUNT(t) AS mycount')
-            ->innerJoin('u.publications', 'p')
-            ->innerJoin('p.theme', 't')
-            ->where('t = :theme')
-            ->setParameter('theme', $theme)
-            ->groupBy('u')
-            ->orderBy('mycount', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult();
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT u.id FROM user u
+            INNER JOIN article a ON u.id = a.auteur_article_id 
+            INNER JOIN pays p ON p.id = a.pays_id 
+            WHERE p.id = :paysId 
+            GROUP BY a.auteur_article_id 
+            ORDER BY COUNT(a.pays_id) DESC
+            LIMIT 5
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['paysId' => $paysId]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+
+    /**
+     * @return User[] Returns an array of User objects
+     */
+    public function SharedTheme($themeId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT u.id FROM user u
+            INNER JOIN article a ON u.id = a.auteur_article_id 
+            INNER JOIN theme t ON t.id = a.theme_id 
+            WHERE t.id = :themeId 
+            GROUP BY a.auteur_article_id 
+            ORDER BY COUNT(a.theme_id) DESC
+            LIMIT 5
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['themeId' => $themeId]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+
+        // $query = $this->createQueryBuilder('u');
+        // $query->select('u, COUNT(p.theme) AS mycount')
+        //     ->innerJoin('u.publications', 'p')
+        //     ->innerJoin('p.theme', 't')
+        //     ->where('t.id = :themeId')
+        //     ->setParameter('themeId', $themeId)
+        //     ->groupBy('p.auteurArticle')
+        //     ->orderBy('mycount', 'DESC')
+        //     ->setMaxResults(10)
+        //     ->getQuery()
+        //     ->getResult();
 
         // $entityManager = $this->getEntityManager();
 
@@ -61,15 +102,12 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         //     FROM App\Entity\User u
         //     INNER JOIN u.publications p
         //     INNER JOIN p.theme t
-        //     WHERE p.theme = theme 
+        //     WHERE t.id = :t.id 
         //     GROUP BY u 
         //     ORDER BY COUNT(p.theme) DESC'
-        // )->setParameter('theme', $theme)
-        // ->setMaxResults(5)
-        // ;
+        // )->setParameter('t.id', $themeId);
 
-        // returns an array of Product objects
-        // return $query->getResult();
+        // return $query->setMaxResults(5)->getResult();
     }
 
     // /**

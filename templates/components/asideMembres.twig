@@ -2,10 +2,12 @@
 	<aside class="aside">
 		<h4 class="aside__h6">Membres susceptibles de vous intéresser :</h4>
 		{% for suggestionsUser in suggestionsUsers %}
-			<div class="aside__user">
-				<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestionsUser.avatar) }}"/></figure>
-				<h5 class="aside__user__name">{{ suggestionsUser.pseudo }}</h5>
-			</div>
+			{% for suggestionsUser in suggestionsUser %}
+				<div class="aside__user">
+					<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestionsUser.avatar) }}"/></figure>
+					<h5 class="aside__user__name">{{ suggestionsUser.pseudo }}</h5>
+				</div>
+			{% endfor %}
 		{% endfor %}
 	</aside>
 </div>

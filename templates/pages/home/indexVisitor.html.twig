@@ -1,67 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!{% endblock %}
+{% block title %}Hello PaysController!
+{% endblock %}
 
 {% block stylesheets %}
-
 	{{ parent() }}
-
-    {# <link
-    href="{{ asset('css/home/visitor/style.css') }}" rel="stylesheet"/>   #}
-    {#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
 
 
 	<div class="wrapper-whole">
-		<a href="{{ path('app_register') }}"><figure class="publishStuff">
-			<img class="publishStuff__img" src="{{ asset('img/inscription4.jpg') }}"/>
-			<h1 class="publishStuff__h1 publishStuff__h1--register">Inscris-toi !</h1>
-		</figure></a>
+		<a href="{{ path('app_register') }}">
+			<figure class="publishStuff">
+				<img class="publishStuff__img" src="{{ asset('img/inscription4.jpg') }}"/>
+				<h1 class="publishStuff__h1 publishStuff__h1--register">Inscris-toi !</h1>
+			</figure>
+		</a>
 
 		<main class="main">
-		<h1 class="titre">Pays</h1>
+			<h1 class="titre">Pays</h1>
 
-    <div class="wrapperFlex">
-			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-    {% for pays in countries|slice(0,3) %}
-    <a href="{{ path('pays_show', {id: pays.id}) }}">
-    <figure class="pays picture">
-        <img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
-        <figcaption class="title"> {{ pays.libelle }} </figcaption>
-    </figure></a>
-    {% endfor %}
-    </div>
-  <button class="link">Voir plus</button>
+			<div
+				class="wrapperFlex">
+				{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+				{% for pays in countries|slice(0,3) %}
+					<a href="{{ path('pays_show', {id: pays.id}) }}">
+						<figure class="pays picture">
+							<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+							<figcaption class="title">
+								{{ pays.libelle }}
+							</figcaption>
+						</figure>
+					</a>
+				{% endfor %}
+			</div>
+			<button class="link">Voir plus</button>
 
-		<h1 class="titre">Thèmes</h1>
-    <div class="wrapperFlex">
+			<h1 class="titre">Thèmes</h1>
+			<div
+				class="wrapperFlex">
 
-	{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-    {% for theme in themes|slice(0,3) %}
-    <a href="{{ path('theme_show', {id: theme.id}) }}">
-        <figure class="theme picture">
-            <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
-            <figcaption class="title"> {{ theme.libelle }} </figcaption>
-        </figure>
-    </a>
-    {% endfor %}
+				{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+				{% for theme in themes|slice(0,3) %}
+					<a href="{{ path('theme_show', {id: theme.id}) }}">
+						<figure class="theme picture">
+							<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+							<figcaption class="title">
+								{{ theme.libelle }}
+							</figcaption>
+						</figure>
+					</a>
+				{% endfor %}
 
-    </div>
-		  <button class="link">Voir plus</button>
+			</div>
+			<button class="link">Voir plus</button>
 
-		<h1 class="titre">Articles populaires</h1>
-    <div class="wrapperFlex">
+			<h1 class="titre">Articles populaires</h1>
+			<div
+				class="wrapperFlex">
 
-	{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-		{% for article in articles|slice(0,3) %}
-		{# On inclut la feuille twig dédiée aux vignettes d'articles #}
-		{% include 'components/thumbnailArticle.twig' %}
+				{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
+				{% for article in articles|slice(0,3) %}
+					{# On inclut la feuille twig dédiée aux vignettes d'articles #}
+					{% include 'components/thumbnailArticle.twig' %}
 
-		{% endfor %}
+				{% endfor %}
 
+			</div>
+			<button class="link">Voir plus</button>
+		</main>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModalVisitor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Action irréversible</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Êtes-vous vraiment sûr de vouloir fermer votre compte ? Cette action est définitive.
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
+						{# <a class="btn btn-danger" href="{{ path('deleteUser', {id: app.user.id}) }}">Oui</a> #}
+					</div>
+				</div>
+			</div>
 		</div>
-		  <button class="link">Voir plus</button>
-</main>
-{% endblock %}
+	{% endblock %}
