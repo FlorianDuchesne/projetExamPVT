@@ -19,6 +19,37 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByFollow($following, $user)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.statut = 1')
+            ->andWhere('a.auteurArticle IN (:following) OR a.auteurArticle IN (:user)')
+            ->setParameter('following', $following)
+            ->setParameter('user', $user)
+            ->orderBy('a.id', 'DESC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByAuteurArticleAndStatut($user)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.statut = 1')
+            ->andWhere('a.auteurArticle = (:val)')
+            ->setParameter('val', $user)
+            ->orderBy('a.id', 'DESC')
+            // ->setMaxResults(10)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Article[] Returns an array of Article objects
     //  */

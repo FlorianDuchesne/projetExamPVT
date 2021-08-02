@@ -27,7 +27,7 @@ class ArticleController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findByAuteurArticle($user);
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findByAuteurArticleAndStatut($user);
 
         return $this->render('pages/article/index.html.twig', [
             'controller_name' => 'ArticleController',

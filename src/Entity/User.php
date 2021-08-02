@@ -65,10 +65,10 @@ class User implements UserInterface, Serializable
     private $imageFile;
 
     /**
-    * @ORM\Column(type="datetime", nullable=true)
-    *
-    * @var \DateTime
-    */
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     * @var \DateTime
+     */
     private $updatedAt;
 
 
@@ -107,9 +107,29 @@ class User implements UserInterface, Serializable
      */
     private $token;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="following")
+     */
+    private $followers;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, inversedBy="followers")
+     * @ORM\JoinTable(name="following",
+     *      joinColumns={
+     *          @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     *      },
+     *      inverseJoinColumns={
+     *          @ORM\JoinColumn(name="following_user_id", referencedColumnName="id")
+     *      }
+     * )
+     */
+    private $following;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
+        $this->followers = new ArrayCollection();
+        $this->following = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -335,10 +355,10 @@ class User implements UserInterface, Serializable
      */
     public function setImageFile(?File $imageFile = null): void
     {
-            $this->imageFile = $imageFile;
-            if ($imageFile instanceof UploadedFile) {
-                $this->updatedAt = new \DateTime();
-            }    
+        $this->imageFile = $imageFile;
+        if ($imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime();
+        }
     }
 
     public function getImageFile(): ?File
@@ -356,10 +376,10 @@ class User implements UserInterface, Serializable
             // $this->salt,
         ));
     }
-    
+
     public function unserialize($serialized)
     {
-        list (
+        list(
             $this->id,
             $this->email,
             $this->password,
@@ -367,10 +387,10 @@ class User implements UserInterface, Serializable
             // $this->salt
         ) = unserialize($serialized);
     }
-    
+
     /**
-    * @return string
-    */
+     * @return string
+     */
     public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
@@ -379,11 +399,61 @@ class User implements UserInterface, Serializable
     /**
      * @param string $updatedAt
      */
-    public function setUpdatedAt(DateTimeInterface $updatedAt):self
+    public function setUpdatedAt(DateTimeInterface $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
 
         return $this;
     }
 
+    /**
+     * @return Collection|self[]
+     */
+    public function getFollowers(): Collection
+    {
+        return $this->followers;
+    }
+
+    public function addFollower(self $follower): self
+    {
+        if (!$this->followers->contains($follower)) {
+            $this->followers[] = $follower;
+        }
+
+        return $this;
+    }
+
+    public function removeFollower(self $follower): self
+    {
+        $this->followers->removeElement($follower);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getFollowing(): Collection
+    {
+        return $this->following;
+    }
+
+    public function addFollowing(self $following): self
+    {
+        if (!$this->following->contains($following)) {
+            $this->following[] = $following;
+            $following->addFollower($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFollowing(self $following): self
+    {
+        if ($this->following->removeElement($following)) {
+            $following->removeFollower($this);
+        }
+
+        return $this;
+    }
 }
