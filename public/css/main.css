@@ -19,6 +19,12 @@
           justify-content: space-between;
 }
 
+.wrapper-whole .wrapper-main--indexArticles {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
 .wrapper-whole .wrapper-main .wrapper-posts {
   width: 70%;
 }

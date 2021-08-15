@@ -39,6 +39,32 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
+    public function SharedPaysAndTheme($paysId, $themeId)
+    {
+
+        $conn = $this->getEntityManager()->getConnection();
+
+        $sql = '
+            SELECT u.id FROM user u
+            INNER JOIN article a ON u.id = a.auteur_article_id 
+            INNER JOIN pays p ON p.id = a.pays_id 
+            INNER JOIN theme t ON t.id = a.theme_id 
+            WHERE t.id = :themeId 
+            AND p.id = :paysId 
+            GROUP BY a.auteur_article_id 
+            ORDER BY COUNT(a.pays_id) DESC
+            LIMIT 5
+            ';
+        $stmt = $conn->prepare($sql);
+        $stmt->execute(['paysId' => $paysId, 'themeId' => $themeId]);
+
+        // returns an array of arrays (i.e. a raw data set)
+        return $stmt->fetchAllAssociative();
+    }
+
+    /**
+     * @return User[] Returns an array of User objects
+     */
     public function SharedPays($paysId)
     {
 

@@ -7,54 +7,58 @@
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/showArticle/showArticle.css') }}" rel="stylesheet"/>  
-    {#{{ encore_entry_link_tags('app') }}#}
+	<link
+	href="{{ asset('css/showArticle/showArticle.css') }}" rel="stylesheet"/>
+{#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
-<div class="container">
-<h1>Panneau admin</h1>
-    <h3>Thèmes</h3>
-    <a href="{{path('ajoutTheme')}}">Ajouter un thème</a>
-        <div class="dropdown">
-            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Modifier un thème
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for theme in themes %}
-                    <a class="dropdown-item" href="{{ path('editTheme', {id: theme.id}) }}">{{ theme.libelle }}</a>
-                {% endfor %}
-            </div>
-        </div>
+	<div class="container">
+		<h1 class="text-center m-2">Panneau admin</h1>
+		<main class="wrapperFlex">
+			<div>
+				<h3>Thèmes</h3>
+				<a href="{{path('ajoutTheme')}}" class="btn btn-info mb-3 mt-3">Ajouter un thème</a>
+				<div class="dropdown">
+					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						Modifier un thème
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						{% for theme in themes %}
+							<a class="dropdown-item" href="{{ path('editTheme', {id: theme.id}) }}">{{ theme.libelle }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div>
+				<h3>Pays</h3>
+				<a href="{{path('ajoutPays')}}" class="btn btn-info mb-3 mt-3">Ajouter un pays</a>
+				<div class="dropdown">
+					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+						Modifier un pays
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						{% for country in countries %}
+							<a class="dropdown-item" href="{{ path('editPays', {id: country.id}) }}">{{ country.libelle }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div>
+				<h3>Membres</h3>
+				<div class="dropdown">
+					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+						Voir les informations d'un membre
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						{% for membre in membres %}
+							<a class="dropdown-item" href="{{ path('user_show', {id: membre.id}) }}">{{ membre.pseudo }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</main>
+		<a href="#">Voir les signalements (0)</a>
+	</div>
 
-    <h3>Pays</h3>
-    <a href="{{path('ajoutPays')}}">Ajouter un pays</a>
-        <div class="dropdown">
-            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-            Modifier un pays
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for country in countries %}
-                    <a class="dropdown-item" href="{{ path('editPays', {id: country.id}) }}">{{ country.libelle }}</a>
-                {% endfor %}
-            </div>
-        </div>
-
-    <h3>Membres</h3>
-        <div class="dropdown">
-            <button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-            Voir les informations d'un membre
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                {% for membre in membres %}
-                    <a class="dropdown-item" href="{{ path('user_show', {id: membre.id}) }}">{{ membre.pseudo }}</a>
-                {% endfor %}
-            </div>
-        </div>
-<a href="#">Voir les signalements (0)</a>
-</div>
-
-</div>
-
-{% endblock %}
+</div>{% endblock %}

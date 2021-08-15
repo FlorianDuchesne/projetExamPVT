@@ -117,11 +117,21 @@ class CategoryController extends AbstractController
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
 
+        $suggestionsUsers = $this->getDoctrine()->getRepository(User::class)->SharedPaysAndTheme($idPays->getId(), $idTheme->getId());
+        foreach ($suggestionsUsers as $suggestionsUsers) {
+            $array[] = $this->getDoctrine()->getRepository(User::class)->findById($suggestionsUsers);
+        }
+        if (!isset($array)) {
+            $array = true;
+        }
+
+
         return $this->render('pages/bothCategories/show.html.twig', [
             'pays' => $idPays,
             'countries' => $countries,
             'theme' => $idTheme,
-            'themes' => $themes
+            'themes' => $themes,
+            'suggestionsUsers' => $array
         ]);
     }
 }

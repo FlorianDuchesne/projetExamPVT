@@ -1,28 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!{% endblock %}
+{% block title %}Hello PaysController!
+{% endblock %}
 
 {% block stylesheets %}
 
 	{{ parent() }}
 
-    <link
-    href="{{ asset('css/themes/themesList/style.css') }}" rel="stylesheet"/>  
-    {#{{ encore_entry_link_tags('app') }}#}
+	<link
+	href="{{ asset('css/themes/themesList/style.css') }}" rel="stylesheet"/>
+{#{{ encore_entry_link_tags('app') }}#}
 {% endblock %}
 
 {% block body %}
-    <h1 class="titre">Thèmes</h1>
-	<div class="wrapper-whole">
-        <div class="wrapperFlex">
-        {% for theme in themes %}
-        <a href="{{ path('theme_show', {id: theme.id}) }}">
-            <figure class="theme picture">
-                <img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
-                <figcaption class="title"> {{ theme.libelle }} </figcaption>
-            </figure>
-        </a>
-        {% endfor %}
-        </div>
-    </div>
+	<h1 class="titre">Thèmes</h1>
+	<div class="wrapperFlex row">
+		{% for theme in themes %}
+			<a href="{{ path('theme_show', {id: theme.id}) }}" class="col-4">
+				<figure class="theme picture">
+					<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+					<figcaption class="title">
+						{{ theme.libelle }}
+					</figcaption>
+				</figure>
+			</a>
+		{% endfor %}
+	</div>
 {% endblock %}

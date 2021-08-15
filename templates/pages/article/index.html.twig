@@ -21,13 +21,13 @@
 
 	<div class="wrapper-whole">
 		{% if brouillon %}
-			<h1>Brouillons de
+			<h1 class="text-center">Brouillons de
 				{{user.pseudo|capitalize}}</h1>
 		{% else %}
-			<h1>Articles de
+			<h1 class="text-center">Articles de
 				{{user.pseudo|capitalize}}</h1>
 		{% endif %}
-		<div class="wrapper-main">
+		<div class="wrapper-main wrapper-main--indexArticles">
 			<div class="wrapper-posts">
 				{% for publication in publications %}
 
