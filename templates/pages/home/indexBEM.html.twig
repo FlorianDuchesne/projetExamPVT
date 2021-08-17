@@ -20,6 +20,18 @@
 	{% include 'components/lightbox.twig' %}
 
 	<div class="wrapper-whole">
+
+		{% if app.user.following is empty %}
+
+			<figure class="publishStuff publishStuff">
+				<img class="publishStuff__img" src="{{ asset('img/membres.jpg') }}"/>
+				<a href="{{ path('users') }}">
+					<h1 class="publishStuff__h1 publishStuff__h1--follow">Suivez vos voyageurs préférés !</h1>
+				</a>
+			</figure>
+
+		{% endif %}
+
 		<figure class="publishStuff">
 			<img class="publishStuff__img" src="{{ asset('img/publication.jpg') }}"/>
 			<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">

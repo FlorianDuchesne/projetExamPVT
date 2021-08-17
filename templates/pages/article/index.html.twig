@@ -30,12 +30,17 @@
 		<div class="wrapper-main wrapper-main--indexArticles">
 			<div class="wrapper-posts">
 				{% for publication in publications %}
-
-					{% include 'components/publication.twig' %}
-					{% if publication.statut == 0 %}
-						<p class="post__statut">Brouillon</p>
-					{% else %}
+					{% if publication.statut == 1 %}
+						{% include 'components/publication.twig' %}
 						<p class="post__statut">Publié</p>
+					{% endif %}
+
+					{% if publication.statut == 0 %}
+						{% if user == app.user %}
+							{% include 'components/publication.twig' %}
+
+							<p class="post__statut">Brouillon</p>
+						{% endif %}
 					{% endif %}
 				{% endfor %}
 			</div>

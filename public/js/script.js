@@ -169,6 +169,23 @@ function filePreview(input) {
   }
 }
 
+function filePreviewCategorie(input) {
+  console.log("avant condition, mais fonction déclenchée");
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function (e) {
+      console.log("test_filePreview");
+      $(".vich-image > a").remove();
+      $(".vich-image").after(
+        '<img class="preview" src="' +
+          e.target.result +
+          '" width="450" height="auto"/>'
+      );
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 function filePreviewArticle(input, i) {
   if (input.files && input.files[0]) {
     var reader = new FileReader();
@@ -193,6 +210,12 @@ $("#registration_form_imageFile_file").change(function () {
 });
 $("#edit_user_imageFile_file").change(function () {
   filePreview(this);
+});
+$("#pays_imageFile_file").change(function () {
+  filePreviewCategorie(this);
+});
+$("#theme_imageFile_file").change(function () {
+  filePreviewCategorie(this);
 });
 
 // for (let i = 0; i < 6; i++) {
@@ -299,3 +322,14 @@ if ("#myModalVisitor") {
 $(".terms").click(function () {
   $("#myModalRegister").modal("toggle");
 });
+
+/* Toggle between showing and hiding the navigation menu links when the user clicks on the hamburger menu / bar icon */
+function menuBurger() {
+  console.log("working");
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "flex") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "flex";
+  }
+}

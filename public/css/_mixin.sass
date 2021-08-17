@@ -18,15 +18,23 @@
   flex-wrap: wrap
 
 @mixin thumbnail()
+.a
+  overflow: hidden
+  position: relative
+  @media screen and (min-width: 992px)
+    position: unset
+
   .picture
-    width: 350px
+    width: auto
     // height: $taille
     overflow: hidden
     position: relative
-    margin: 1em
+    @media screen and (max-width: 992px)
+      position: unset
+      width: 350px
+
     .thumbnail
       height: 250px
-      width: auto
       filter: brightness(80%)
       // transform: translateY(-50%);
     .title
@@ -70,6 +78,7 @@
   background: none
   text-align: end
   width: 100%
+  padding-right: 5em
 
 @mixin titre()
   margin: 1em

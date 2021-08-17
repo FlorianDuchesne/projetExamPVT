@@ -41,8 +41,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByAuteurArticleAndStatut($user)
     {
         return $this->createQueryBuilder('a')
-            ->where('a.statut = 1')
-            ->andWhere('a.auteurArticle = (:val)')
+            // ->where('a.statut = 1')
+            ->where('a.auteurArticle = (:val)')
             ->setParameter('val', $user)
             ->orderBy('a.id', 'DESC')
             // ->setMaxResults(10)

@@ -20,10 +20,10 @@
 				<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
 					<h4 class="m-4">{{ publication }}</h4>
 				</a>
-				<div class="post__user">
+				<a href="{{ path('user_show', {id: publication.auteurArticle.id}) }}" class="post__user">
 					<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
 					<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
-				</div>
+				</a>
 			</div>
 			<figure class="post__wrapperPictures">
 				{% for galerie in publication.galeries %}
@@ -70,5 +70,4 @@
 			</div>
 		</div>
 	</div>
-
 {% endblock %}

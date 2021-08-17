@@ -1,6 +1,12 @@
 .post
+  border-bottom: #f7a2a273 dashed 2px
   margin-top: 3em
+  padding-bottom: 3em
+  .post__entete
+    @include blockFlex(space-between)
+    width: 80%
   .post__user
+    text-decoration: none
     @include blockFlex(start)
     margin-bottom: 1em
     .user__avatar
@@ -8,6 +14,8 @@
     .user__name
       margin-left: 0.5em
       text-transform: uppercase
+      text-decoration: none
+      color: $blue
   .post__title
     color: $blue
     text-decoration: none

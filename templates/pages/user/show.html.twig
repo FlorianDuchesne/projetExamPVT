@@ -35,40 +35,43 @@
 					{{ user.pseudo }}
 				</h1>
 			</div>
-			{% if user != app.user %}
-				{% if is_granted("ROLE_ADMIN") %}
-					{# href="{{ path('deleteUser', {id: user.id}) }}" #}
-					<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
+			{% if app.user %}
+				{% if user != app.user %}
+					{% if is_granted("ROLE_ADMIN") %}
+						{# href="{{ path('deleteUser', {id: user.id}) }}" #}
+						<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
 
-					<!-- Modal -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content">
-								<div class="modal-header">
-									<h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
-									<button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
-										<span aria-hidden="true">&times;</span>
-									</button>
-								</div>
-								<div class="modal-body">
-									Etes-vous bien sûr de vouloir effectuer cette action définitive ?
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
-									<a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
+						<!-- Modal -->
+						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
+										<button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										Etes-vous bien sûr de vouloir effectuer cette action définitive ?
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
+										<a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
 
+					{% endif %}
+					{% if user.followers.contains(app.user) %}
+						<a class="header__follow" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre ce membre</a>
+					{% else %}
+						<a class="header__follow" href="{{ path('following', {id: user.id}) }}">suivre ce membre</a>
+					{% endif %}
+					<button class="header__sendMessage">envoyer un message à ce membre</button>
 				{% endif %}
-				{% if user.followers.contains(app.user) %}
-					<a class="header__follow" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre ce membre</a>
-				{% else %}
-					<a class="header__follow" href="{{ path('following', {id: user.id}) }}">suivre ce membre</a>
-				{% endif %}
-				<button class="header__sendMessage">envoyer un message à ce membre</button>
 			{% endif %}
+
 		</div>
 		<main class="main">
 			<p class="main__description">
@@ -116,28 +119,18 @@
 					{% endfor %}
 				</div>
 			</div>
-			<a href="{{ path('indexArticles', {id: user.id}) }}" class="main__links">Tous les articles (22)</a><br>
-			<a href="{{ path('followers', {id: user.id}) }}" class="main__links">Abonnés (42)</a><br>
-			<a href="{{ path('follows', {id: user.id}) }}" class="main__links">Abonnements (33)</a><br>
+
+			{% set count = 0 %}
+			{% for article in user.publications %}
+				{% if article.statut == 1 %}
+					{% set count = count + 1 %}
+				{% endif %}
+			{% endfor %}
+
+			<a href="{{ path('indexArticles', {id: user.id}) }}" class="main__links">Tous les articles ({{count}})</a><br>
+			<a href="{{ path('followers', {id: user.id}) }}" class="main__links">Abonnés ({{user.followers|length}})</a><br>
+			<a href="{{ path('follows', {id: user.id}) }}" class="main__links">Abonnements ({{user.following|length}})</a><br>
 		</main>
 	</div>
 
 {% endblock %}
-
-
-{# <div class="post">
-																														<div class="post__user">
-																															<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-																															<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
-																														</div>
-																														<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
-																														{% if (publication.galeries | length > 1) %}
-																															<figure class="post__wrapperPictures--many">
-																															{% else %}
-																																<figure class="post__wrapperPictures">
-																																{% endif %}
-																																{% for galerie in publication.galeries %}
-																																	<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
-																																	<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
-																																{% endfor %}
-																							 #}

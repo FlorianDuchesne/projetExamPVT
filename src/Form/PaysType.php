@@ -27,6 +27,9 @@ class PaysType extends AbstractType
                 'download_uri' => false,
                 'image_uri' => true,
                 'asset_helper' => true,
+                'attr' => [
+                    'class' => 'form-control'
+                ]
             ])
             // ->add('img', TextType::class, [
             //     'attr' => [

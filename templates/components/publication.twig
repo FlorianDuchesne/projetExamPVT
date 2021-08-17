@@ -5,15 +5,17 @@
  #}
 
 <div class="post">
-	<div class="post__user">
-		<figure class="user__avatar"><img src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-		<a class="user__name" href="{{ path('user_show', {id: publication.auteurArticle.id}) }}">
-			<h5>{{ publication.auteurArticle.pseudo }}</h5>
+	<div class="post__entete">
+		<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
+			<h4>{{ publication }}</h4>
 		</a>
+		<div class="post__user">
+			<figure class="user__avatar"><img src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+			<a class="user__name" href="{{ path('user_show', {id: publication.auteurArticle.id}) }}">
+				<h5>{{ publication.auteurArticle.pseudo }}</h5>
+			</a>
+		</div>
 	</div>
-	<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
-		<h4>{{ publication }}</h4>
-	</a>
 	{% if (publication.galeries | length > 1) %}
 		<figure class="post__wrapperPictures--many">
 		{% else %}
