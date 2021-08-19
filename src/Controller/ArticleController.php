@@ -8,11 +8,13 @@ use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Galerie;
+use App\Entity\Hashtag;
 use App\Form\ArticleType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -21,7 +23,7 @@ class ArticleController extends AbstractController
     /**
      * @Route("/indexArticles/{id}", name="indexArticles")
      */
-    public function index(User $user): Response
+    public function indexAuteur(User $user): Response
     {
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
@@ -36,6 +38,27 @@ class ArticleController extends AbstractController
             'publications' => $articles,
             'user' => $user,
             'brouillon' => false
+        ]);
+    }
+
+    /**
+     * @Route("/indexbyTag/{id}", name="indexTag")
+     */
+    public function indexTag(Hashtag $tag)
+    {
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findByTag($tag->getId());
+
+        return $this->render('pages/article/index.html.twig', [
+            'controller_name' => 'ArticleController',
+            'countries' => $countries,
+            'themes' => $themes,
+            'publications' => $articles,
+            'brouillon' => false,
+            'tag' => $tag
         ]);
     }
 
@@ -110,7 +133,7 @@ class ArticleController extends AbstractController
             if ($form->isSubmitted() && $form->isValid()) {
                 // encode the plain password
 
-                // dd($form);
+                // dd($form->get('hashtags'));
 
                 $article = $form->getData();
 
@@ -128,6 +151,7 @@ class ArticleController extends AbstractController
 
                 $article->setAuteurArticle($idAuteur);
                 $article->setDateCreation(new DateTime);
+                // $article->addHashtag()
                 if ($form->get('brouillon')->isClicked()) {
                     $article->setStatut("0");
                 } else {

@@ -15,7 +15,7 @@
 {% block body %}
 	<div class="container">
 		<h1 class="text-center m-2">Panneau admin</h1>
-		<main class="wrapperFlex">
+		<main class="wrapperFlex wrapperFlex--AlignStart">
 			<div>
 				<h3>Thèmes</h3>
 				<a href="{{path('ajoutTheme')}}" class="btn btn-info mb-3 mt-3">Ajouter un thème</a>
@@ -45,9 +45,22 @@
 				</div>
 			</div>
 			<div>
+				<h3>Mots-clés</h3>
+				<div class="dropdown">
+					<button class="btn btn-warning dropdown-toggle mb-3 mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+						Modifier un mot-clé
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						{% for tag in hashtags %}
+							<a class="dropdown-item" href="{{ path('editTag', {id: tag.id}) }}">{{ tag.name }}</a>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+			<div>
 				<h3>Membres</h3>
 				<div class="dropdown">
-					<button class="btn btn-warning dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+					<button class="btn btn-warning dropdown-toggle mt-3" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
 						Voir les informations d'un membre
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

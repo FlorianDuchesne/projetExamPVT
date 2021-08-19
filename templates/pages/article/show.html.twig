@@ -36,6 +36,13 @@
 				{{ publication.pays }}, thème :
 				{{ publication.theme }}</p>
 
+			<p>
+				Mots-clés :
+				{% for hashtag in publication.hashtags %}
+					<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
+				{% endfor %}
+			</p>
+
 			{% if publication.auteurArticle == app.user %}
 
 				<a class="btn btn-warning m3" href="{{ path('modifierArticle', {idAuteur: publication.auteurArticle.id, idArticle: publication.id}) }}">Modifier l'article</a>

@@ -66,9 +66,15 @@ class Article
      */
     private $titre;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Hashtag::class, mappedBy="publications")
+     */
+    private $hashtags;
+
     public function __construct()
     {
         $this->galeries = new ArrayCollection();
+        $this->hashtags = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -205,5 +211,32 @@ class Article
     public function __toString()
     {
         return $this->getTitre();
+    }
+
+    /**
+     * @return Collection|Hashtag[]
+     */
+    public function getHashtags(): Collection
+    {
+        return $this->hashtags;
+    }
+
+    public function addHashtag(Hashtag $hashtag): self
+    {
+        if (!$this->hashtags->contains($hashtag)) {
+            $this->hashtags[] = $hashtag;
+            $hashtag->addPublication($this);
+        }
+
+        return $this;
+    }
+
+    public function removeHashtag(Hashtag $hashtag): self
+    {
+        if ($this->hashtags->removeElement($hashtag)) {
+            $hashtag->removePublication($this);
+        }
+
+        return $this;
     }
 }

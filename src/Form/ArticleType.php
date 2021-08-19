@@ -6,7 +6,9 @@ use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
+use App\Entity\Hashtag;
 use App\Form\GalerieType;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -94,15 +96,30 @@ class ArticleType extends AbstractType
                 // L'entité est spécifiquement de la classe Salle
                 'class' => Pays::class,
             ])
+            ->add('hashtags', EntityType::class, [
+                'attr' => [
+                    // classe bootstrap attribuée au champ
+                    'class' => 'form-control js-basic-multiple'
+                ],
+                // L'entité est spécifiquement de la classe Salle
+                'class' => Hashtag::class,
+                'multiple' => true,
+                'choice_label' => 'name',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('t')
+                        ->orderBy('t.name', 'ASC');
+                },
+                'by_reference' => false
+            ])
             ->add('brouillon', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-warning m3'
+                    'class' => 'btn btn-warning mt-3 mb-3'
                 ],
                 'label' => 'Enregistrer comme brouillon'
             ])
             ->add('Publier', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success m3'
+                    'class' => 'btn btn-success mb-3'
                 ]
             ]);
     }

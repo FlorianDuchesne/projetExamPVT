@@ -24,9 +24,15 @@
 			<h1 class="text-center">Brouillons de
 				{{user.pseudo|capitalize}}</h1>
 		{% else %}
-			<h1 class="text-center">Articles de
-				{{user.pseudo|capitalize}}</h1>
+			{% if user is defined %}
+				<h1 class="text-center">Articles de
+					{{user.pseudo|capitalize}}</h1>
+			{% else %}
+				<h1 class="text-center">Articles avec le mot-clé
+					{{tag.name|capitalize}}</h1>
+			{% endif %}
 		{% endif %}
+
 		<div class="wrapper-main wrapper-main--indexArticles">
 			<div class="wrapper-posts">
 				{% for publication in publications %}

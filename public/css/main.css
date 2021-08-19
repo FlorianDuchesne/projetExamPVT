@@ -213,6 +213,12 @@
   padding: 2em;
 }
 
+.wrapperFlex--AlignStart {
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
+}
+
 .wrapper {
   width: 80%;
   margin-top: 3em;
@@ -881,6 +887,10 @@
 form li {
   color: #ff0000;
   list-style: none;
+}
+
+form span {
+  color: #1e4f66;
 }
 
 textarea {

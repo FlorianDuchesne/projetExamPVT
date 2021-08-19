@@ -22,6 +22,19 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Article objects
      */
+    public function findByTag($tag)
+    {
+        return $this->createQueryBuilder('a')
+            ->where(':tag MEMBER OF a.hashtags')
+            ->setParameter('tag', $tag)
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
     public function findByFollow($following, $user)
     {
         return $this->createQueryBuilder('a')
@@ -30,7 +43,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->setParameter('following', $following)
             ->setParameter('user', $user)
             ->orderBy('a.id', 'DESC')
-            // ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }
@@ -45,7 +57,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->where('a.auteurArticle = (:val)')
             ->setParameter('val', $user)
             ->orderBy('a.id', 'DESC')
-            // ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }
