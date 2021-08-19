@@ -123,51 +123,6 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/tags/ajout/ajax/{label}", name="ajoutTag", methods={"POST"})
-     * @return Response
-     * @Route("/editTag/{id}", name="editTag")
-     */
-    public function addHashtag(string $label = null, EntityManagerInterface $manager, Hashtag $tag = null, Request $request): Response
-    {
-        if (!$tag) {
-            $tag = new Hashtag;
-            $tag->setName(trim(strip_tags($label)));
-            $manager->persist($tag);
-            $manager->flush();
-            $id = $tag->getId();
-            return new JsonResponse(['id' => $id]);
-        }
-        if (isset($tag)) {
-
-            $membres = $this->getDoctrine()->getRepository(User::class)->findAll();
-            $countries =  $this->getDoctrine()->getRepository(Pays::class)
-                ->findAll();
-            $themes =  $this->getDoctrine()->getRepository(Theme::class)
-                ->findAll();
-
-            $form = $this->createForm(HashtagType::class, $tag);
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $tag = $form->getData();
-                $manager->flush();
-
-                return $this->redirectToRoute('admin');
-
-                $tag->setName(trim(strip_tags($label)));
-                $manager->flush();
-                return $this->redirectToRoute('admin');
-            }
-            return $this->render('pages/tag/ajoutTag.html.twig', [
-                'formAddTag' => $form->createView(),
-                'membres' => $membres,
-                'countries' => $countries,
-                'themes' => $themes,
-                'tag' => $tag
-            ]);
-        }
-    }
-
-    /**
      * @Route("/deleteTag/{id}", name="deleteTag")
      */
     public function deleteTag(Hashtag $tag, EntityManagerInterface $manager)

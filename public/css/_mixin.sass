@@ -18,35 +18,33 @@
   flex-wrap: wrap
 
 @mixin thumbnail()
-.a
-  overflow: hidden
-  position: relative
-  @media screen and (min-width: 992px)
-    position: unset
-
-  .picture
-    width: auto
-    // height: $taille
+  .a
     overflow: hidden
     position: relative
-    @media screen and (max-width: 992px)
+    @media screen and (min-width: 992px)
       position: unset
-      width: 350px
-
-    .thumbnail
-      height: 250px
-      filter: brightness(80%)
-      // transform: translateY(-50%);
-    .title
-      position: absolute
-      top: 50%
-      left: 50%
-      transform: translate(-50%, -50%)
-      text-align: center
-      color: $white
-      font-weight: bold
-      font-size: larger
-      text-transform: uppercase
+    .picture
+      width: auto
+      // height: $taille
+      overflow: hidden
+      position: relative
+      @media screen and (max-width: 992px)
+        position: unset
+        width: 350px
+      .thumbnail
+        height: 250px
+        filter: brightness(80%)
+        // transform: translateY(-50%);
+      .title
+        position: absolute
+        top: 50%
+        left: 50%
+        transform: translate(-50%, -50%)
+        text-align: center
+        color: $white
+        font-weight: bold
+        font-size: larger
+        text-transform: uppercase
 
 @mixin banner($taille)
   .picture

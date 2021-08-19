@@ -6,7 +6,9 @@ use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
+use App\Entity\Hashtag;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -68,6 +70,37 @@ class HomeController extends AbstractController
             'countries' => $countries,
             'themes' => $themes,
             'articles' => $articles
+        ]);
+    }
+
+    /**
+     * @Route("/search", name="search")
+     */
+    public function search(Request $request)
+    {
+
+        $search = $request->get('search');
+
+        $resultArticles = $this->getDoctrine()->getRepository(Article::class)->findBySearch($request);
+        // dd($resultArticles);
+        $resultUsers = $this->getDoctrine()->getRepository(User::class)->findBySearch($search);
+        $resultHashtags = $this->getDoctrine()->getRepository(Hashtag::class)->findBySearch($search);
+
+        $results = [$resultArticles, $resultUsers, $resultHashtags];
+
+        $users =  $this->getDoctrine()->getRepository(User::class)
+            ->findAll();
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+
+        return $this->render('pages/home/search.html.twig', [
+            'users' => $users,
+            'countries' => $countries,
+            'themes' => $themes,
+            'results' => $results,
+            'search' => $search
         ]);
     }
 }

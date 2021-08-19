@@ -1,90 +1,4 @@
 @charset "UTF-8";
-.a {
-  overflow: hidden;
-  position: relative;
-}
-
-@media screen and (min-width: 992px) {
-  .a {
-    position: unset;
-  }
-}
-
-.a .picture {
-  width: auto;
-  overflow: hidden;
-  position: relative;
-}
-
-@media screen and (max-width: 992px) {
-  .a .picture {
-    position: unset;
-    width: 350px;
-  }
-}
-
-.a .picture .thumbnail {
-  height: 250px;
-  -webkit-filter: brightness(80%);
-          filter: brightness(80%);
-}
-
-.a .picture .title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: larger;
-  text-transform: uppercase;
-}
-
-.a {
-  overflow: hidden;
-  position: relative;
-}
-
-@media screen and (min-width: 992px) {
-  .a {
-    position: unset;
-  }
-}
-
-.a .picture {
-  width: auto;
-  overflow: hidden;
-  position: relative;
-}
-
-@media screen and (max-width: 992px) {
-  .a .picture {
-    position: unset;
-    width: 350px;
-  }
-}
-
-.a .picture .thumbnail {
-  height: 250px;
-  -webkit-filter: brightness(80%);
-          filter: brightness(80%);
-}
-
-.a .picture .title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-          transform: translate(-50%, -50%);
-  text-align: center;
-  color: white;
-  font-weight: bold;
-  font-size: larger;
-  text-transform: uppercase;
-}
-
 .wrapper-whole {
   padding: 4em;
   width: auto;
@@ -211,6 +125,49 @@
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
   padding: 2em;
+}
+
+.wrapperFlex .a {
+  overflow: hidden;
+  position: relative;
+}
+
+@media screen and (min-width: 992px) {
+  .wrapperFlex .a {
+    position: unset;
+  }
+}
+
+.wrapperFlex .a .picture {
+  width: auto;
+  overflow: hidden;
+  position: relative;
+}
+
+@media screen and (max-width: 992px) {
+  .wrapperFlex .a .picture {
+    position: unset;
+    width: 350px;
+  }
+}
+
+.wrapperFlex .a .picture .thumbnail {
+  height: 250px;
+  -webkit-filter: brightness(80%);
+          filter: brightness(80%);
+}
+
+.wrapperFlex .a .picture .title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  text-align: center;
+  color: white;
+  font-weight: bold;
+  font-size: larger;
+  text-transform: uppercase;
 }
 
 .wrapperFlex--AlignStart {

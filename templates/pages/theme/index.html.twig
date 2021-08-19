@@ -16,7 +16,7 @@
 	<h1 class="titre">Thèmes</h1>
 	<div class="wrapperFlex row">
 		{% for theme in themes %}
-			<a href="{{ path('theme_show', {id: theme.id}) }}" class="col-4">
+			<a href="{{ path('theme_show', {id: theme.id}) }}" class="a col-4">
 				<figure class="theme picture">
 					<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
 					<figcaption class="title">

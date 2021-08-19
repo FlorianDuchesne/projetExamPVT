@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello PaysController!
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+
+
+	<div class="wrapper-whole">
+		<h1 class="text-center">Résultats de la recherche "{{search|capitalize}}"</h1>
+		<div class="wrapper-main">
+
+			<div class="wrapper-posts">
+				<h4 class="mt-2">Articles ({{results[0]|length}})</h4>
+
+				<form action="{{path('search')}}" method="POST">
+					<div class="d-flex">
+						<div class="m-3">
+							<h5 class="mt-2">Filtrer par thème :</h4>
+
+							<select class="js-example-basic-multiple" name="themes[]" multiple="multiple">
+								{% for theme in themes %}
+									<option value="{{theme.id}}">{{theme}}</option>
+								{% endfor %}
+							</select>
+						</div>
+						<div class="m-3">
+							<h5 class="mt-2">Filtrer par pays :</h4>
+
+							<select class="js-example-basic-multiple" name="pays[]" multiple="multiple">
+								{% for pays in countries %}
+									<option value="{{pays.id}}">{{pays}}</option>
+								{% endfor %}
+							</select>
+						</div>
+					</div>
+					<input name="search" type="hidden" value="{{search}}">
+
+					<button type="submit" class="btn btn-success m-3">Actualiser</button>
+				</form>
+
+				{% for publication in results[0] %}
+
+					{% include 'components/publication.twig' %}
+
+				{% endfor %}
+				<h4 class="mt-2">Membres ({{results[1]|length}})</h4>
+				{% for membre in results[1] %}
+					<div class="wrapper">
+
+						{% include 'components/membres.twig' %}
+
+					</div>
+
+				{% endfor %}
+				<h4 class="mt-2">Mots-clés ({{results[2]|length}})</h4>
+				<ul>
+					{% for hashtag in results[2] %}
+						<li>
+							<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+
+			</div>
+		</div>
+	</div>
+{% endblock %}

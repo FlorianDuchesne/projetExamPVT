@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																																																																								           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																																																																																																																																																																																												           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -32,11 +32,11 @@
 				<a href="{{ path('home') }}" class="col-2">
 					<img src="{{ asset('img/logo2.png') }}" class="col-12"/>
 				</a>
-				<a class="btn btn-info m-1" id="searchLittle">
+				<a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
 					<i class="fas fa-search"></i>
 				</a>
 			</form>
-			<form action="" method="post" class="col-3" id="searchBig">
+			<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
 				<input class="form-control me-sm-2" placeholder="Search" type="search" name="search"/>
 				<button type="submit" class="btn btn-info m-1">
 					<i class="fas fa-search"></i>

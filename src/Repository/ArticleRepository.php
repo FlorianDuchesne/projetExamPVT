@@ -22,6 +22,38 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Article objects
      */
+    public function findBySearch($request)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.texte LIKE :string');
+
+        if ($request->get('themes')) {
+            foreach (($request->get('themes')) as $value) {
+                $this->orWhere('a.theme = (:value)')
+                    ->setParameter('value', $value->getId());
+            }
+        }
+        if ($request->get('pays')) {
+            foreach (($request->get('pays')) as $value) {
+                $this->orWhere('a.pays = (:value)')
+                    ->setParameter('value', $value->getId());
+            }
+        }
+        // ->join('a.auteurArticle', 'u')
+        // ->join('a.hashtags', 'h')
+        $this->orWhere('a.lieu LIKE :string')
+            // ->orWhere('u.pseudo LIKE :string')
+            ->orWhere('a.titre LIKE :string')
+            // ->orWhere('h.name LIKE :string')
+            ->setParameter('string', '%' . $request->get('search') . '%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
     public function findByTag($tag)
     {
         return $this->createQueryBuilder('a')

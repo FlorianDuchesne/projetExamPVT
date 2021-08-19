@@ -19,6 +19,19 @@ class HashtagRepository extends ServiceEntityRepository
         parent::__construct($registry, Hashtag::class);
     }
 
+    /**
+     * @return Hashtag[] Returns an array of Hashtag objects
+     */
+    public function findBySearch($string)
+    {
+        return $this->createQueryBuilder('h')
+            ->where('h.name LIKE :string')
+            ->setParameter('string', '%' . $string . '%')
+            ->orderBy('h.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Hashtag[] Returns an array of Hashtag objects
     //  */

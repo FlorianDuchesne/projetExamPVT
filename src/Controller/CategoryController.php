@@ -5,8 +5,12 @@ namespace App\Controller;
 use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
+use App\Entity\Hashtag;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
@@ -133,5 +137,51 @@ class CategoryController extends AbstractController
             'themes' => $themes,
             'suggestionsUsers' => $array
         ]);
+    }
+
+    /**
+     * @Route("/tags/ajout/ajax/{label}", name="ajoutTag", methods={"POST"})
+     * @return Response
+     * @Route("/editTag/{id}", name="editTag")
+     */
+    public function addHashtag(string $label = null, EntityManagerInterface $manager, Hashtag $tag = null, Request $request): Response
+    {
+        // dd("fonction déclenchée");
+        if (!$tag) {
+            $tag = new Hashtag;
+            $tag->setName(trim(strip_tags($label)));
+            $manager->persist($tag);
+            $manager->flush();
+            $id = $tag->getId();
+            return new JsonResponse(['id' => $id]);
+        }
+        if (isset($tag)) {
+
+            $membres = $this->getDoctrine()->getRepository(User::class)->findAll();
+            $countries =  $this->getDoctrine()->getRepository(Pays::class)
+                ->findAll();
+            $themes =  $this->getDoctrine()->getRepository(Theme::class)
+                ->findAll();
+
+            $form = $this->createForm(HashtagType::class, $tag);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $tag = $form->getData();
+                $manager->flush();
+
+                return $this->redirectToRoute('admin');
+
+                $tag->setName(trim(strip_tags($label)));
+                $manager->flush();
+                return $this->redirectToRoute('admin');
+            }
+            return $this->render('pages/tag/ajoutTag.html.twig', [
+                'formAddTag' => $form->createView(),
+                'membres' => $membres,
+                'countries' => $countries,
+                'themes' => $themes,
+                'tag' => $tag
+            ]);
+        }
     }
 }
