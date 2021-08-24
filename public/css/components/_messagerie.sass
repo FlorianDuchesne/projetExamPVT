@@ -3,11 +3,19 @@
 
 .block__Messages
   width: 100%
-  // @include blockFlex(flex-end)
+  position: relative
+  // display: flex
   // flex-direction: column
-  display: flex
-  flex-direction: column
-  justify-content: flex-end
+  // justify-content: flex-end
+
+.messages__envoyer
+  // position: absolute
+  // bottom: 0
+  width: 100%
+
+.messages__conversation
+  overflow: scroll
+  height: 70vh
 
 .block__Messages--empty
   width: 100%
@@ -33,11 +41,12 @@
   background-color: #b7fff9
 
 .main__messagerie
-  height: 100vh
-  overflow: scroll
+  // height: 70vh
+  // overflow: scroll
 
 .messagerie__correspondants
   overflow: scroll
+  height: 70vh
 
 form
   width: 100%

@@ -107,27 +107,32 @@
 				{{ form(newMessageForm) }}{% endif %}
 				{% if correspondantActuel is defined %}
 					<div class="block__Messages">
-						{% for message in messagesUser %}
-							{% if (message.received == app.user) %}
-								<div class="blockMessage">
-									<p class="message">{{message.texte}}
-										<small>{{ message.send.pseudo }}</small>
-										<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
-									</p>
-								</div>
-							{% else %}
-								{% if (message.send == app.user) %}
-									<div class="blockMessage blockMessage--sender">
+						<div class="messages__conversation">
+							{% for message in messagesUser %}
+								{% if (message.received == app.user) %}
+									<div class="blockMessage">
 										<p class="message">{{message.texte}}
-											<strong>{{ message.send.pseudo }}</strong>
+											<small>{{ message.send.pseudo }}</small>
 											<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
 										</p>
 									</div>
+								{% else %}
+									{% if (message.send == app.user) %}
+										<div class="blockMessage blockMessage--sender">
+											<p class="message">{{message.texte}}
+												<strong>{{ message.send.pseudo }}</strong>
+												<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
+											</p>
+										</div>
+									{% endif %}
 								{% endif %}
-							{% endif %}
-						{% endfor %}
+							{% endfor %}
+						</div>
 						{% if answerForm is defined %}
-							{{ form(answerForm) }}{% endif %}
+							<div class="messages__envoyer">
+								{{ form(answerForm) }}
+								</div>
+							{% endif %}
 						</div>
 					{% else %}
 						{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}

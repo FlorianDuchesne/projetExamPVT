@@ -864,16 +864,16 @@ p {
 
 .block__Messages {
   width: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-pack: end;
-      -ms-flex-pack: end;
-          justify-content: flex-end;
+  position: relative;
+}
+
+.messages__envoyer {
+  width: 100%;
+}
+
+.messages__conversation {
+  overflow: scroll;
+  height: 70vh;
 }
 
 .block__Messages--empty {
@@ -909,13 +909,9 @@ p {
   background-color: #b7fff9;
 }
 
-.main__messagerie {
-  height: 100vh;
-  overflow: scroll;
-}
-
 .messagerie__correspondants {
   overflow: scroll;
+  height: 70vh;
 }
 
 form {
