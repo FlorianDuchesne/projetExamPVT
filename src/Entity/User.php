@@ -125,11 +125,23 @@ class User implements UserInterface, Serializable
      */
     private $following;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="received")
+     */
+    private $messagesReceived;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="send")
+     */
+    private $messagesSend;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
         $this->followers = new ArrayCollection();
         $this->following = new ArrayCollection();
+        $this->messagesReceived = new ArrayCollection();
+        $this->messagesSend = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -452,6 +464,66 @@ class User implements UserInterface, Serializable
     {
         if ($this->following->removeElement($following)) {
             $following->removeFollower($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesReceived(): Collection
+    {
+        return $this->messagesReceived;
+    }
+
+    public function addMessagesReceived(Message $messagesReceived): self
+    {
+        if (!$this->messagesReceived->contains($messagesReceived)) {
+            $this->messagesReceived[] = $messagesReceived;
+            $messagesReceived->setReceived($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesReceived(Message $messagesReceived): self
+    {
+        if ($this->messagesReceived->removeElement($messagesReceived)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesReceived->getReceived() === $this) {
+                $messagesReceived->setReceived(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Message[]
+     */
+    public function getMessagesSend(): Collection
+    {
+        return $this->messagesSend;
+    }
+
+    public function addMessagesSend(Message $messagesSend): self
+    {
+        if (!$this->messagesSend->contains($messagesSend)) {
+            $this->messagesSend[] = $messagesSend;
+            $messagesSend->setSend($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMessagesSend(Message $messagesSend): self
+    {
+        if ($this->messagesSend->removeElement($messagesSend)) {
+            // set the owning side to null (unless already changed)
+            if ($messagesSend->getSend() === $this) {
+                $messagesSend->setSend(null);
+            }
         }
 
         return $this;

@@ -17,7 +17,8 @@
 		</div>
 	</div>
 	<p class="post__categories">Lieu :
-		{{ publication.lieu }}</p>
+		<a href="{{path('indexLieu', {id: publication.id})}}">{{ publication.lieu }}</a>
+	</p>
 	{% if (publication.galeries | length > 1) %}
 		<figure class="post__wrapperPictures--many">
 		{% else %}
@@ -30,8 +31,9 @@
 		</figure>
 		<article class="post__paragraph">{{ publication.texte|raw }}</article>
 		<p class="post__categories">Pays :
-			{{ publication.pays }}, thème :
-			{{ publication.theme }}</p>
+			<a href="{{path('pays_show', {id: publication.pays.id})}}">{{ publication.pays }}</a>, thème :
+			<a href="{{ path('theme_show', {id: publication.theme.id}) }}">{{ publication.theme }}</a>
+		</p>
 		<p>Mots-clés :
 			{% for hashtag in publication.hashtags %}
 				<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>

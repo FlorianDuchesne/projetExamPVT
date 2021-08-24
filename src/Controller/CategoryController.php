@@ -6,6 +6,7 @@ use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Hashtag;
+use App\Form\HashtagType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

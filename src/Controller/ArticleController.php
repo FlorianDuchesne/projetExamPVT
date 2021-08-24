@@ -63,6 +63,27 @@ class ArticleController extends AbstractController
     }
 
     /**
+     * @Route("/indexbyLieu/{id}", name="indexLieu")
+     */
+    public function indexLieu(Article $article)
+    {
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findByLieu($article->getLieu());
+
+        return $this->render('pages/article/index.html.twig', [
+            'controller_name' => 'ArticleController',
+            'countries' => $countries,
+            'themes' => $themes,
+            'publications' => $articles,
+            'brouillon' => false,
+            'lieu' => $article->getLieu()
+        ]);
+    }
+
+    /**
      * @Route("/brouillons/{id}", name="brouillons")
      */
     public function brouillons(User $user): Response

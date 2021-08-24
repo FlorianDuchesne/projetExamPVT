@@ -9,6 +9,9 @@
 
 	<link href="{{ asset('css/showUser/style.css') }}" rel="stylesheet"/>
 {% endblock %}
+{% block javascripts %}
+	{{ parent() }}
+{% endblock %}
 
 
 {% block body %}
@@ -74,64 +77,67 @@
 			{% endif %}
 
 		</div>
-		<main class="main">
-			<p class="main__description">
-				{{ user.description }}</p>
-			<div class="main__infos">
-				<h3 class="infos__title">Infos :</h3>
-				<ul class="infos__list">
-					<li class="infos__line">
-						<strong>date d'inscription :</strong>
-						{{ user.dateCreation | date("m/d/Y") }}</li>
-					<li class="infos__line">
-						<strong>pays visités :
-						</strong>
-						{{ user.voyagesAccomplis }}</li>
-					<li class="infos__line">
-						<strong>envies de voyages :</strong>
-						{{ user.projetsVoyages }}</li>
-					<li class="infos__line">
-						<strong>projet de PVT :</strong>
-						lorem ipsum bla bla bla</li>
-				</ul>
-			</div>
-			<div class="main__articles">
-				<h3 class="articles__title">Articles les plus lus :</h3>
-				<div class="articles__flex">
-					{% for article in user.publications %}
-						{% if article.statut == 1 %}
-							<a href="{{ path('article_show', {id: article.id}) }}">
-								<figure class="article__picture">
-									{% if article.galeries is not empty %}
-										{% for galerie in article.galeries %}
-											{% if loop.first %}
-												<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
-											{% endif %}
-										{% endfor %}
-									{% else %}
-										<div class="article__thumbnail article__thumbnail--empty"></div>
-									{% endif %}
-									<figcaption class="article__title">
-										{{ article.titre }}
-									</figcaption>
-								</figure>
-							</a>
+		<main class="main d-flex main__messagerie">
+			<div class="messagerie__correspondants">
+				{% for correspondant in correspondants %}
+					{% if (correspondant != app.user)%}
+						{% if (correspondantActuel is defined) and (correspondant == correspondantActuel) %}
+							<div class="flex flex--userFirst">
+								<div class="user">
+									<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+									<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
+										<h5>{{ correspondant.pseudo }}</h5>
+									</a>
+								</div>
+							</div>
+						{% else %}
+							<div class="flex">
+								<div class="user">
+									<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+									<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
+										<h5>{{ correspondant.pseudo }}</h5>
+									</a>
+								</div>
+							</div>
 						{% endif %}
-					{% endfor %}
-				</div>
+					{% endif %}
+				{% endfor %}
 			</div>
-
-			{% set count = 0 %}
-			{% for article in user.publications %}
-				{% if article.statut == 1 %}
-					{% set count = count + 1 %}
-				{% endif %}
-			{% endfor %}
-
-			<a href="{{ path('indexArticles', {id: user.id}) }}" class="main__links">Tous les articles ({{count}})</a><br>
-			<a href="{{ path('followers', {id: user.id}) }}" class="main__links">Abonnés ({{user.followers|length}})</a><br>
-			<a href="{{ path('follows', {id: user.id}) }}" class="main__links">Abonnements ({{user.following|length}})</a><br>
-		</main>
-	</div>
-
-{% endblock %}
+			{% if newMessageForm is defined %}
+				{{ form(newMessageForm) }}{% endif %}
+				{% if correspondantActuel is defined %}
+					<div class="block__Messages">
+						{% for message in messagesUser %}
+							{% if (message.received == app.user) %}
+								<div class="blockMessage">
+									<p class="message">{{message.texte}}
+										<small>{{ message.send.pseudo }}</small>
+										<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
+									</p>
+								</div>
+							{% else %}
+								{% if (message.send == app.user) %}
+									<div class="blockMessage blockMessage--sender">
+										<p class="message">{{message.texte}}
+											<strong>{{ message.send.pseudo }}</strong>
+											<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
+										</p>
+									</div>
+								{% endif %}
+							{% endif %}
+						{% endfor %}
+						{% if answerForm is defined %}
+							{{ form(answerForm) }}{% endif %}
+						</div>
+					{% else %}
+						{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}
+							<div class="block__Messages--empty">
+								<p class="text-center m-3">Aucun message n'est sélectionné</p>
+								<div class="text-center">
+									<a href="{{ path('newMessage', {id: app.user.id}) }}" class="btn btn-info">Nouveau message</a>
+								</div>
+							</div>
+						{% endif %}
+					{% endif %}
+				</main>
+			{% endblock %}

@@ -78,9 +78,9 @@ class HomeController extends AbstractController
      */
     public function search(Request $request)
     {
-
+        // dd($request);
         $search = $request->get('search');
-
+        // dd($search);
         $resultArticles = $this->getDoctrine()->getRepository(Article::class)->findBySearch($request);
         // dd($resultArticles);
         $resultUsers = $this->getDoctrine()->getRepository(User::class)->findBySearch($search);
@@ -94,11 +94,15 @@ class HomeController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
+        $tags =  $this->getDoctrine()->getRepository(Hashtag::class)
+            ->findAll();
+
 
         return $this->render('pages/home/search.html.twig', [
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
+            'hashtags' => $tags,
             'results' => $results,
             'search' => $search
         ]);

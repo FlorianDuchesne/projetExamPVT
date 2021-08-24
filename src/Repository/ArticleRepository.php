@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Article;
+use App\Entity\Hashtag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -24,28 +25,47 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findBySearch($request)
     {
-        return $this->createQueryBuilder('a')
-            ->where('a.texte LIKE :string');
+        $qb = $this->createQueryBuilder('a')
+            ->where('a.texte LIKE :string')
+            ->orWhere('a.lieu LIKE :string')
+            ->orWhere('a.titre LIKE :string');
 
         if ($request->get('themes')) {
             foreach (($request->get('themes')) as $value) {
-                $this->orWhere('a.theme = (:value)')
-                    ->setParameter('value', $value->getId());
+                $qb->andWhere('a.theme = (:value)')
+                    ->setParameter('value', $value);
             }
         }
         if ($request->get('pays')) {
             foreach (($request->get('pays')) as $value) {
-                $this->orWhere('a.pays = (:value)')
-                    ->setParameter('value', $value->getId());
+                $qb->andWhere('a.pays = (:value)')
+                    ->setParameter('value', $value);
             }
         }
-        // ->join('a.auteurArticle', 'u')
-        // ->join('a.hashtags', 'h')
-        $this->orWhere('a.lieu LIKE :string')
-            // ->orWhere('u.pseudo LIKE :string')
-            ->orWhere('a.titre LIKE :string')
-            // ->orWhere('h.name LIKE :string')
+        if ($request->get('tag')) {
+            // dd($request->get('tag'));
+            foreach (($request->get('tag')) as $value) {
+                // dump($value);
+                $qb->andWhere(":value MEMBER OF a.hashtags")
+                    ->setParameter("value", $value);
+            }
+        }
+
+        return $qb
             ->setParameter('string', '%' . $request->get('search') . '%')
+            ->orderBy('a.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
+    public function findByLieu($string)
+    {
+        return $this->createQueryBuilder('a')
+            ->where(':string = a.lieu')
+            ->setParameter('string', $string)
             ->orderBy('a.id', 'DESC')
             ->getQuery()
             ->getResult();

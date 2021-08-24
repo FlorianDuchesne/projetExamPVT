@@ -28,8 +28,13 @@
 				<h1 class="text-center">Articles de
 					{{user.pseudo|capitalize}}</h1>
 			{% else %}
-				<h1 class="text-center">Articles avec le mot-clé
-					{{tag.name|capitalize}}</h1>
+				{% if tag is defined %}
+					<h1 class="text-center">Articles avec le mot-clé
+						{{tag.name|capitalize}}</h1>
+				{% else %}
+					<h1 class="text-center">Articles situés à
+						{{lieu|capitalize}}</h1>
+				{% endif %}
 			{% endif %}
 		{% endif %}
 

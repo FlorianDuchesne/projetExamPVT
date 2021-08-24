@@ -1,0 +1,62 @@
+.select2
+  width: 100% !important
+
+.block__Messages
+  width: 100%
+  // @include blockFlex(flex-end)
+  // flex-direction: column
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+
+.block__Messages--empty
+  width: 100%
+  // @include blockFlex(flex-end)
+  // flex-direction: column
+  display: block
+
+.blockMessage
+  width: 100%
+  display: flex
+  justify-content: flex-start
+  &--sender
+    justify-content: flex-end
+
+.message
+  display: inline-block
+  margin: 1em
+  background-color: #15d3c3
+  padding: 1em
+  border-radius: 1em
+
+.flex--userFirst
+  background-color: #b7fff9
+
+.main__messagerie
+  height: 100vh
+  overflow: scroll
+
+.messagerie__correspondants
+  overflow: scroll
+
+form
+  width: 100%
+//   position: relative
+
+// #short_message_envoyer
+//   position: absolute
+//   right: 0
+//   bottom: -1em
+
+div#short_message
+  @include blockFlex(flex-end)
+  flex-direction: column
+  align-items: flex-end
+  width: 100%
+  div:first-child
+    width: 100%
+
+textarea#short_message_texte, #message_texte
+  background-color: ghostwhite
+  border-radius: 20px
+  height: 100px

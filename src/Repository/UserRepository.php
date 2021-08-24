@@ -39,6 +39,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
+    public function findByMessages($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.messagesReceived', 'mr')
+            ->leftJoin('u.messagesSend', 'ms')
+            ->where(':user = ms.send')
+            ->orWhere(':user = ms.received')
+            ->orWhere(':user = mr.received')
+            ->orWhere(':user = mr.send')
+            ->setParameter('user', $user)
+            // ->orderBy('u.pseudo', 'ASC')
+            ->orderBy('mr.send', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return User[] Returns an array of User objects
+     */
     public function findBySearch($string)
     {
         return $this->createQueryBuilder('u')
