@@ -365,3 +365,81 @@ $(document).ready(function () {
 $(document).ready(function () {
   $(".js-basic-single").select2();
 });
+
+$("#newMessage").on("click", function (e) {
+  e.preventDefault();
+  console.log("clic OK");
+  $.ajax({
+    url: "/newMessage",
+    type: "POST",
+  }).done(function (response) {
+    console.log(response);
+    $("#newMessage").replaceWith(response);
+  });
+});
+
+// document.querySelectorAll("a.user__name").forEach(function (link) {
+//   link.addEventListener("click", onClickName);
+// });
+
+// function onClickName(event) {
+//   event.preventDefault();
+//   const url = this.href;
+//   // console.log(event);
+//   // console.log(url);
+//   $.ajax({
+//     url: url,
+//     type: "POST",
+//   }).done(function (response) {
+//     console.log(response);
+//   });
+// }
+
+// $("form").on("submit", function (e) {
+//   e.preventDefault();
+//   console.log("cliqué");
+//   $.ajax({
+//     url: e.currentTarget.action,
+//   }).done(function (response) {
+//     console.log(response);
+//     // $("main").load(response);
+//   });
+// });
+
+// console.log(e.currentTarget.action);
+// $("#message_envoyer").on("click", function (e) {
+//   e.preventDefault();
+//   console.log("clic OK");
+//   $.ajax({
+//     url: "/messagerie/{}",
+//     type: "POST",
+// }).done(function (response) {
+//   console.log(response);
+//   $("#newMessage").replaceWith(response);
+// });
+// });
+
+function onClickBtnLike(event) {
+  event.preventDefault();
+  const url = this.href;
+
+  $.ajax({
+    url: url,
+    type: "POST",
+  }).done(function (response) {
+    $(event.path[3].querySelector(".nbLikes")).replaceWith(
+      `<span class="nbLikes"> ${response.nbLikes}</span>`
+    );
+    if (event.path[0].classList.contains("far")) {
+      event.path[0].classList.replace("far", "fa");
+    } else {
+      event.path[0].classList.replace("fa", "far");
+    }
+  });
+}
+
+document.querySelectorAll("a.like").forEach(function (link) {
+  link.addEventListener("click", onClickBtnLike);
+});
+
+//

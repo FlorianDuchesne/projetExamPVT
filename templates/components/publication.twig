@@ -39,4 +39,31 @@
 				<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
 			{% endfor %}
 		</p>
+		<div>
+			<i class="fas fa-heart">
+				<span class="nbLikes">
+					{{publication.likes|length }}</span>
+			</i>
+		</div>
+		{% if app.user %}
+			{% set liked = false %}
+			{% for like in publication.likes %}
+				{% if (app.user == like.user) %}
+					{% set liked = true %}
+				{% endif %}
+			{% endfor %}
+			{% if (liked == true) %}
+				<div>
+					<a href="{{ path('like', {id: publication.id}) }}" class="like">
+						<i class="fa fa-heart"></i>
+					</a>
+				</div>
+			{% else %}
+				<div>
+					<a href="{{ path('like', {id: publication.id}) }}" class="like">
+						<i class="far fa-heart"></i>
+					</a>
+				</div>
+			{% endif %}
+		{% endif %}
 	</div>

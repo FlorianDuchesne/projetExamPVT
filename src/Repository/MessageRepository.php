@@ -29,7 +29,7 @@ class MessageRepository extends ServiceEntityRepository
             ->orWhere('m.received = :val')
             ->setParameter('val', $user)
             ->orderBy('m.DateTime', 'ASC')
-            ->setMaxResults(10)
+            // ->setMaxResults(10)
             ->getQuery()
             ->getResult();
     }

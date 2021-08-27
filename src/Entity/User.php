@@ -126,14 +126,19 @@ class User implements UserInterface, Serializable
     private $following;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="received")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="received", orphanRemoval=true)
      */
     private $messagesReceived;
 
     /**
-     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="send")
+     * @ORM\OneToMany(targetEntity=Message::class, mappedBy="send", orphanRemoval=true)
      */
     private $messagesSend;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user")
+     */
+    private $likes;
 
     public function __construct()
     {
@@ -142,6 +147,7 @@ class User implements UserInterface, Serializable
         $this->following = new ArrayCollection();
         $this->messagesReceived = new ArrayCollection();
         $this->messagesSend = new ArrayCollection();
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -523,6 +529,36 @@ class User implements UserInterface, Serializable
             // set the owning side to null (unless already changed)
             if ($messagesSend->getSend() === $this) {
                 $messagesSend->setSend(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Like[]
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addLike(Like $like): self
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes[] = $like;
+            $like->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLike(Like $like): self
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getUser() === $this) {
+                $like->setUser(null);
             }
         }
 

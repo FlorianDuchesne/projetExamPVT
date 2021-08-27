@@ -139,7 +139,7 @@
 							<div class="block__Messages--empty">
 								<p class="text-center m-3">Aucun message n'est sélectionné</p>
 								<div class="text-center">
-									<a href="{{ path('newMessage', {id: app.user.id}) }}" class="btn btn-info">Nouveau message</a>
+									<a href="{{ path('messagerie', {id: app.user.id}) }}" class="btn btn-info" id="newMessage">Nouveau message</a>
 								</div>
 							</div>
 						{% endif %}

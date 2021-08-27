@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use DateTime;
+use App\Entity\Like;
 use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
@@ -230,4 +231,53 @@ class ArticleController extends AbstractController
         //     'user' => $idAuteur
         // ]);
     }
+
+    /**
+     * @Route("/like/{id}/", name="like", methods={"POST"})
+     * @return Response
+     */
+    public function like(Article $article, EntityManagerInterface $manager)
+    {
+
+        $user = $this->getUser();
+        $like = $manager->getRepository(Like::class)->findOneBy(['post' => $article, 'user' => $user]);
+
+        if (!($like)) {
+
+            $like = new Like;
+            $like->setPost($article);
+            $like->setUser($user);
+            $manager->persist($like);
+            $manager->flush();
+        } else {
+
+            $manager->remove($like);
+            $manager->flush();
+        }
+
+
+        return new JsonResponse(['nbLikes' => count($article->getLikes()), 'idArticle' => $article->getId()]);
+        // return $this->redirectToRoute('home');
+    }
+
+    // /**
+    //  * @Route("/unlike/{id}/", name="unlike", methods={"POST"})
+    //  * @return Response
+    //  */
+    // public function unlike(Article $article, EntityManagerInterface $manager)
+    // {
+
+    //     $user = $this->getUser();
+
+    //     $like = $manager->getRepository(Like::class)->findOneBy(['post' => $article, 'user' => $user]);
+
+    //     // dd($like);
+
+    //     $manager->remove($like);
+
+    //     $manager->flush();
+
+    //     return new JsonResponse(['nbLikes' => count($article->getLikes()), 'idArticle' => $article->getId()]);
+    //     // return $this->redirectToRoute('home');
+    // }
 }

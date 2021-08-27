@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -145,122 +146,104 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/messagerie/{id}", name="messagerie")
+     * @Route("/messagerie/{id}", name="messagerieShow")
+     * @Route("/messagerie/index", name="messagerie")
      */
-    public function messagerieIndex(User $user)
+    public function messagerie(User $correspondant = null, Request $request)
     {
-        $countries =  $this->getDoctrine()->getRepository(Pays::class)
-            ->findAll();
-        $themes =  $this->getDoctrine()->getRepository(Theme::class)
-            ->findAll();
+
+        $user = $this->getUser();
 
         $messages = $this->getDoctrine()->getRepository(Message::class)
             ->findByUser($user);
         $correspondants =  $this->getDoctrine()->getRepository(User::class)
             ->findByMessages($user);
 
-
-        return $this->render('pages/user/messagerie.html.twig', [
-            'user' => $user,
-            'countries' => $countries,
-            'themes' => $themes,
-            'messages' => $messages,
-            'correspondants' => $correspondants,
-            // 'messagesSend' => $messagesSend
-        ]);
-    }
-
-    /**
-     * @Route("/messagerieShow/{id}", name="messagerieShow")
-     */
-    public function messagerieShow(User $user, Request $request)
-    {
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-        $messages = $this->getDoctrine()->getRepository(Message::class)
-            ->findByUser($this->getUser());
-        $messagesUser = $this->getDoctrine()->getRepository(Message::class)
-            ->findByUser($user);
-        $correspondants =  $this->getDoctrine()->getRepository(User::class)
-            ->findByMessages($this->getUser());
 
-        $form = $this->createForm(ShortMessageType::class);
-        $form->handleRequest($request);
+        if (isset($correspondant)) {
+            $messagesUser = $this->getDoctrine()->getRepository(Message::class)
+                ->findByUser($correspondant);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+            $form = $this->createForm(ShortMessageType::class);
+            $form->handleRequest($request);
 
-            $message = $form->getData();
+            if ($form->isSubmitted() && $form->isValid()) {
 
-            $message->setSend($this->getUser());
-            $message->setReceived($user);
+                $message = $form->getData();
 
-            $message->setDateTime(new DateTime);
+                $message->setSend($this->getUser());
+                $message->setReceived($correspondant);
+                $message->setDateTime(new DateTime);
 
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($message);
+                $entityManager->flush();
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($message);
-            // $entityManager->persist($galerie);
-            $entityManager->flush();
+                // return new JsonResponse(['id' => $correspondant->getId()]);
+
+                return $this->redirectToRoute('messagerieShow', ['id' => $correspondant->getId()]);
+            }
+
+            // return new JsonResponse([
+            //     'correspondantActuel' => $correspondant,
+            //     'messages' => $messages,
+            //     'messagesUser' => $messagesUser,
+            // 'answerForm' => $form->createView(),
+            // ]);
+
+            return $this->render('pages/user/messagerie.html.twig', [
+                'user' => $user,
+                'correspondantActuel' => $correspondant,
+                'correspondants' => $correspondants,
+                'countries' => $countries,
+                'themes' => $themes,
+                'messages' => $messages,
+                'messagesUser' => $messagesUser,
+                'answerForm' => $form->createView(),
+            ]);
+        } else {
+
+            $form = $this->createForm(MessageType::class);
+
+            $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                $message = $form->getData();
+
+                $message->setSend($user);
+                $message->setDateTime(new DateTime);
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($message);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('messagerieShow', ['id' => $message->getReceived()->getId()]);
+            }
+
+            return $this->render('pages/user/messagerie.html.twig', [
+                'user' => $user,
+                'correspondants' => $correspondants,
+                'countries' => $countries,
+                'themes' => $themes,
+                'messages' => $messages,
+            ]);
         }
-
-        return $this->render('pages/user/messagerie.html.twig', [
-            'user' => $this->getUser(),
-            'correspondantActuel' => $user,
-            'countries' => $countries,
-            'themes' => $themes,
-            'messages' => $messages,
-            'messagesUser' => $messagesUser,
-            'correspondants' => $correspondants,
-            'answerForm' => $form->createView(),
-            // 'messagesSend' => $messagesSend
-        ]);
     }
-
     /**
-     * @Route("/newMessage/{id}", name="newMessage")
+     * @Route("/newMessage", name="newMessage", methods={"POST"})
      */
-    public function newMessage(User $user, Request $request)
+    public function newMessage()
     {
-        $messages = $this->getDoctrine()->getRepository(Message::class)
-            ->findByUser($user);
-
-        $countries =  $this->getDoctrine()->getRepository(Pays::class)
-            ->findAll();
-        $themes =  $this->getDoctrine()->getRepository(Theme::class)
-            ->findAll();
-        $correspondants =  $this->getDoctrine()->getRepository(User::class)
-            ->findByMessages($user);
 
         $form = $this->createForm(MessageType::class);
 
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $message = $form->getData();
-
-            $message->setSend($user);
-            $message->setDateTime(new DateTime);
-
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($message);
-            // $entityManager->persist($galerie);
-            $entityManager->flush();
-        }
-
-
-        return $this->render('pages/user/messagerie.html.twig', [
-            'user' => $user,
-            'countries' => $countries,
-            'themes' => $themes,
-            'newMessageForm' => $form->createView(),
-            'messages' => $messages,
-            'correspondants' => $correspondants,
-
-            // 'messagesSend' => $messagesSend
+        return $this->render('components/newMessage.html.twig', [
+            'answerForm' => $form->createView(),
         ]);
     }
 }
