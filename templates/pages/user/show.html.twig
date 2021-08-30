@@ -14,16 +14,7 @@
 {% block body %}
 
 	{% if user == app.user %}
-		<div class="dashboard">
-			{% if is_granted("ROLE_ADMIN") %}
-				<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
-			{% endif %}
-			<a class="dashboard__link" href="{{ path('ajoutArticle', {idAuteur: user.id}) }}">Publier un nouvel article</a>
-			<a class="dashboard__link" href="{{ path('brouillons', {id: user.id}) }}">Voir mes brouillons</a>
-			<a class="dashboard__link" href="{{ path('editProfil', {id: user.id}) }}">éditer mon profil</a>
-			<a class="dashboard__link" href="{{ path('messagerie', {id: user.id}) }}">Messagerie</a>
-			<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
-		</div>
+		{% include 'components/dashboard.twig'%}
 	{% endif %}
 
 	<div class="wrapper">

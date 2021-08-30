@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body %}
+
+	{% set user = app.user %}
+	{% include 'components/dashboard.twig'%}
+
 	{% for flashError in app.flashes('essaiHacking') %}
 		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 	{% endfor %}

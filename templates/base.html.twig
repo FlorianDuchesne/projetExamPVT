@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																																																																												           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																																																																																																																																																																																																														           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -43,10 +43,23 @@
 				</button>
 			</form>
 			{% if app.user %}
-				<a href='{{ path('user_show', {id: app.user.id})}}'>
-					<div id='login' class="btn btn-info m-1">
-						<i class='fas fa-user m-1'></i>
-						<h5>{{ app.user.pseudo|capitalize }}</h5>
+				<a href='{{ path('user_show', {id: app.user.id})}}' class="link__Profil">
+					<div id='login' class="btn btn-info m-1 d-flex">
+						<div>
+							<i class='fas fa-user m-1'></i>
+							<h5>{{ app.user.pseudo|capitalize }}</h5>
+						</div>
+						{% set notification = false %}
+						{% for message in app.user.messagesReceived %}
+							{% if message.newMessage == 1 %}
+								{% set notification = true %}
+							{% endif %}
+						{% endfor %}
+						<div>
+							{% if notification == true %}
+								<i class="fas fa-circle notif"></i>
+							{% endif %}
+						</div>
 					</div>
 				</a>
 			{% else %}

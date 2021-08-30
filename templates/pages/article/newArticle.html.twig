@@ -4,6 +4,10 @@
 {% endblock %}
 
 {% block body %}
+
+	{% set user = app.user %}
+	{% include 'components/dashboard.twig'%}
+
 	<div class="container">
 
 		{% for message in app.flashes('maxImages') %}

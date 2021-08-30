@@ -7,6 +7,7 @@ use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Hashtag;
+use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,9 @@ class HomeController extends AbstractController
      */
     public function index(User $user = null)
     {
+
+        $form = $this->createForm(CommentaireType::class);
+
         // Symfony nous permet d'identifier avec "getUser" si le visiteur est un utilisateur identifié ou non.
         $user = $this->getUser();
 
@@ -27,7 +31,6 @@ class HomeController extends AbstractController
         if (empty($user)) {
             return $this->redirectToRoute('homeVisitor');
         }
-
 
         // On rassemble les données nécessaires à la vue grâce aux repositories des entités User, Pays et Theme.
         // C'est Doctrine, l'ORM de Symfony qui nous permet d'accéder aux repositories des différentes classes.
@@ -48,7 +51,8 @@ class HomeController extends AbstractController
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
-            'publications' => $articles
+            'publications' => $articles,
+            'commentaire' => $form,
         ]);
     }
 

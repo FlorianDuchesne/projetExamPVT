@@ -1,0 +1,80 @@
+<main class="main d-flex main__messagerie">
+	<div class="messagerie__correspondants">
+		{% for correspondant in correspondants %}
+			{% if (correspondant != app.user)%}
+				{% if (correspondantActuel is defined) and (correspondant == correspondantActuel) %}
+					<div class="flex flex--userFirst">
+						<div class="user">
+							<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+							<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
+								<h5>{{ correspondant.pseudo }}</h5>
+							</a>
+						</div>
+					</div>
+				{% else %}
+					<div class="flex">
+						<div class="user">
+							<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+							<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
+								<h5>{{ correspondant.pseudo }}</h5>
+							</a>
+							{% set notification = false %}
+							{% for message in correspondant.messagesSend %}
+								{% if message.newMessage == 1 %}
+									{% set notification = true %}
+								{% endif %}
+							{% endfor %}
+							<div>
+								{% if notification == true %}
+									<i class="fas fa-circle notif"></i>
+								{% endif %}
+								{% set notification = false %}
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+		{% endfor %}
+	</div>
+	{% if newMessageForm is defined %}
+		{{ form(newMessageForm) }}{% endif %}
+		{% if correspondantActuel is defined %}
+			<div class="block__Messages">
+				<div class="messages__conversation">
+					{% for message in messagesUser %}
+						{% if (message.received == app.user) %}
+							<div class="blockMessage">
+								<p class="message">{{message.texte}}
+									<small>{{ message.send.pseudo }}</small>
+									<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
+								</p>
+							</div>
+						{% else %}
+							{% if (message.send == app.user) %}
+								<div class="blockMessage blockMessage--sender">
+									<p class="message">{{message.texte}}
+										<strong>{{ message.send.pseudo }}</strong>
+										<small>{{ message.dateTime|date("m/d/Y H:i") }}</small>
+									</p>
+								</div>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+				</div>
+				{% if answerForm is defined %}
+					<div class="messages__envoyer">
+						{{ form(answerForm) }}
+						</div>
+					{% endif %}
+				</div>
+			{% else %}
+				{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}
+					<div class="block__Messages--empty">
+						<p class="text-center m-3">Aucun message n'est sélectionné</p>
+						<div class="text-center">
+							<a href="{{ path('messagerie', {id: app.user.id}) }}" class="btn btn-info" id="newMessage">Nouveau message</a>
+						</div>
+					</div>
+				{% endif %}
+			{% endif %}
+		</main>

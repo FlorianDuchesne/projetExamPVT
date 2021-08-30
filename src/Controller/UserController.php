@@ -168,6 +168,15 @@ class UserController extends AbstractController
             $messagesUser = $this->getDoctrine()->getRepository(Message::class)
                 ->findByUser($correspondant);
 
+            foreach ($messagesUser as $messageUser) {
+
+                if ($messageUser->getReceived() == $user) {
+                    $messageUser->setNewMessage("0");
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $entityManager->flush();
+                }
+            }
+
             $form = $this->createForm(ShortMessageType::class);
             $form->handleRequest($request);
 
@@ -177,23 +186,15 @@ class UserController extends AbstractController
 
                 $message->setSend($this->getUser());
                 $message->setReceived($correspondant);
+                $message->setNewMessage("1");
                 $message->setDateTime(new DateTime);
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($message);
                 $entityManager->flush();
 
-                // return new JsonResponse(['id' => $correspondant->getId()]);
-
                 return $this->redirectToRoute('messagerieShow', ['id' => $correspondant->getId()]);
             }
-
-            // return new JsonResponse([
-            //     'correspondantActuel' => $correspondant,
-            //     'messages' => $messages,
-            //     'messagesUser' => $messagesUser,
-            // 'answerForm' => $form->createView(),
-            // ]);
 
             return $this->render('pages/user/messagerie.html.twig', [
                 'user' => $user,
@@ -216,6 +217,7 @@ class UserController extends AbstractController
                 $message = $form->getData();
 
                 $message->setSend($user);
+                $message->setNewMessage("1");
                 $message->setDateTime(new DateTime);
 
                 $entityManager = $this->getDoctrine()->getManager();
@@ -234,6 +236,7 @@ class UserController extends AbstractController
             ]);
         }
     }
+
     /**
      * @Route("/newMessage", name="newMessage", methods={"POST"})
      */

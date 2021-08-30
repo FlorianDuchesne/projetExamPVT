@@ -19,6 +19,10 @@
 
 	{% include 'components/lightbox.twig' %}
 
+	{% if user == app.user %}
+		{% include 'components/dashboard.twig'%}
+	{% endif %}
+
 	<div class="wrapper-whole">
 		{% if brouillon %}
 			<h1 class="text-center">Brouillons de

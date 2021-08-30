@@ -66,4 +66,6 @@
 				</div>
 			{% endif %}
 		{% endif %}
-	</div>
+		{% set form = commentaire.createView %}
+		{{ form(form, {'action': path('addComment', {id: publication.id})}) }}
+		</div>

@@ -11,6 +11,7 @@ use App\Entity\Article;
 use App\Entity\Galerie;
 use App\Entity\Hashtag;
 use App\Form\ArticleType;
+use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -280,4 +281,32 @@ class ArticleController extends AbstractController
     //     return new JsonResponse(['nbLikes' => count($article->getLikes()), 'idArticle' => $article->getId()]);
     //     // return $this->redirectToRoute('home');
     // }
+
+
+    /**
+     * @Route("/article/addComment/{id}/", name="addComment")
+     */
+    public function addComment(Article $article, Request $request)
+    {
+        dd($request);
+        $user = $this->getUser();
+
+        $form = $this->createForm(CommentaireType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $commentaire = $form->getData();
+
+            $commentaire->setAuteur($user);
+            $commentaire->setArticle($article);
+            $commentaire->setDateTime(new DateTime);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($commentaire);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('home');
+        }
+    }
 }

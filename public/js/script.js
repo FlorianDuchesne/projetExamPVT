@@ -378,33 +378,49 @@ $("#newMessage").on("click", function (e) {
   });
 });
 
+/////////////////////////// tentative Ajax messagerie
+
 // document.querySelectorAll("a.user__name").forEach(function (link) {
 //   link.addEventListener("click", onClickName);
 // });
 
+// // $("#short_message_envoyer").on("click", function (e) {
+// // e.preventDefault();
+// // console.log(e);
+// // onClickName(e);
+// // e.addEventListener("click", onClickName);
+// // });
+
+// // $("form").on("submit", onClickName);
+
 // function onClickName(event) {
 //   event.preventDefault();
 //   const url = this.href;
-//   // console.log(event);
-//   // console.log(url);
+//   console.log(event);
+//   console.log(url);
 //   $.ajax({
 //     url: url,
 //     type: "POST",
 //   }).done(function (response) {
 //     console.log(response);
+//     $("main").replaceWith(response);
+//     document.querySelectorAll("a.user__name").forEach(function (link) {
+//       link.addEventListener("click", onClickName);
+//     });
+//     // $("#short_message_envoyer").on("click", function (e) {
+//     //   e.preventDefault();
+//     //   console.log(e);
+//     //   // onClickName(e);
+//     // });
+//     // $("#short_message_envoyer").on("click", function (e) {
+//     //   e.preventDefault();
+//     //   console.log(e);
+//     // link.addEventListener("click", onClickName);
+//     // });
 //   });
 // }
 
-// $("form").on("submit", function (e) {
-//   e.preventDefault();
-//   console.log("cliqué");
-//   $.ajax({
-//     url: e.currentTarget.action,
-//   }).done(function (response) {
-//     console.log(response);
-//     // $("main").load(response);
-//   });
-// });
+/////////////////////// tentative Ajax (marche pour switcher d'une conv' à une autre mais bloque les messages !)
 
 // console.log(e.currentTarget.action);
 // $("#message_envoyer").on("click", function (e) {

@@ -39,6 +39,11 @@ class Message
      */
     private $DateTime;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newMessage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -88,6 +93,18 @@ class Message
     public function setDateTime(\DateTimeInterface $DateTime): self
     {
         $this->DateTime = $DateTime;
+
+        return $this;
+    }
+
+    public function getNewMessage(): ?bool
+    {
+        return $this->newMessage;
+    }
+
+    public function setNewMessage(bool $newMessage): self
+    {
+        $this->newMessage = $newMessage;
 
         return $this;
     }
