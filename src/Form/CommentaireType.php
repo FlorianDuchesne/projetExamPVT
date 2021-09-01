@@ -22,7 +22,7 @@ class CommentaireType extends AbstractType
             ])
             ->add('envoyer', SubmitType::class, [
                 'attr' => [
-                    'class' => 'btn btn-success m-3'
+                    'class' => 'btn btn-info m-3'
                 ]
             ]);;
     }

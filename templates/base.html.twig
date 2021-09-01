@@ -7,7 +7,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																																																																																														           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																																																																																																																																																																																																																		           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -54,6 +54,13 @@
 							{% if message.newMessage == 1 %}
 								{% set notification = true %}
 							{% endif %}
+						{% endfor %}
+						{% for publication in app.user.publications %}
+							{% for commentaire in publication.commentaires %}
+								{% if commentaire.newComment == 1 %}
+									{% set notification = true %}
+								{% endif %}
+							{% endfor %}
 						{% endfor %}
 						<div>
 							{% if notification == true %}

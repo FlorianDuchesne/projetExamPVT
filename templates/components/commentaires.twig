@@ -1,0 +1,43 @@
+{% set form = commentaire.createView %}
+<p class="btnPublierComm">Commenter</p>
+<p class="btnCommentaires">Voir les commentaires ({{publication.commentaires|length}})</p>
+<div class="hidden">
+	{{ form(form, {'action': path('addComment', {id: publication.id})}) }}
+	</div>
+	<div class="hidden">
+		{% for commentaire in publication.commentaires %}
+			<div class="commentaire">
+				<p class="commentaire__auteur">
+					<small>
+						<strong>{{ commentaire.auteur.pseudo }}</strong>
+						-
+						{{ commentaire.dateTime|date("m/d/Y H:i") }}</small>
+					{% if app.user == commentaire.auteur %}
+						<a href="{{path('deleteComm', {id: commentaire.id})}}" class="confirm">
+							<i class="far fa-trash-alt"></i>
+						</a>
+					{% endif %}
+				</p>
+				<p class="commentaire__texte">{{ commentaire.texte }}</p>
+				{% if app.user %}
+					{% set likedComm = false %}
+					{% for like in commentaire.likes %}
+						{% if (app.user == like.user) %}
+							{% set likedComm = true %}
+						{% endif %}
+					{% endfor %}
+					<div>
+						<a href="{{ path('likeCommentaire', {idCommentaire: commentaire.id}) }}" class="likeComm">
+							{% if (likedComm == true) %}
+								<i class="fa fa-heart"></i>
+							{% else %}
+								<i class="far fa-heart"></i>
+							{% endif %}
+						</a>
+						<span class="nbLikes">
+							{{commentaire.likes|length }}</span>
+					</div>
+				{% endif %}
+			</div>
+		{% endfor %}
+	</div>

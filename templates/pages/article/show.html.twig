@@ -25,6 +25,15 @@
 					<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
 				</a>
 			</div>
+			<div class="post__lieuEtDate post__lieuEtDate--show">
+				<span class="post__categories">Lieu :
+					<a href="{{path('indexLieu', {id: publication.id})}}">{{ publication.lieu }}</a>
+				</span>
+				<span>
+					Publié le
+					{{publication.dateCreation|date("m/d/Y") }}
+				</span>
+			</div>
 			<figure class="post__wrapperPictures">
 				{% for galerie in publication.galeries %}
 					<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
@@ -33,15 +42,35 @@
 			</figure>
 			<p class="post__paragraph">{{ publication.texte|raw }}</p>
 			<p class="post__categories">Pays :
-				{{ publication.pays }}, thème :
-				{{ publication.theme }}</p>
-
-			<p>
-				Mots-clés :
-				{% for hashtag in publication.hashtags %}
-					<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
-				{% endfor %}
+				<a href="{{path('pays_show', {id: publication.pays.id})}}">{{ publication.pays }}</a>, thème :
+				<a href="{{ path('theme_show', {id: publication.theme.id}) }}">{{ publication.theme }}</a>
 			</p>
+			Mots-clés :
+			{% for hashtag in publication.hashtags %}
+				<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
+			{% endfor %}
+
+			{% if app.user %}
+				{% set liked = false %}
+				{% for like in publication.likes %}
+					{% if (app.user == like.user) %}
+						{% set liked = true %}
+					{% endif %}
+				{% endfor %}
+				<div>
+					<a href="{{ path('likeArticle', {idArticle: publication.id}) }}" class="like">
+						{% if (liked == true) %}
+							<i class="fa fa-heart"></i>
+						{% else %}
+							<i class="far fa-heart"></i>
+						{% endif %}
+					</a>
+					<span class="nbLikes">
+						{{publication.likes|length }}</span>
+				</div>
+			{% endif %}
+
+			{% include 'components/commentaires.twig'%}
 
 			{% if publication.auteurArticle == app.user %}
 

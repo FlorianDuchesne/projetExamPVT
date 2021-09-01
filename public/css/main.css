@@ -355,7 +355,7 @@
 }
 
 .wrapper .main {
-  border-top: 2px #b4d4e2 solid;
+  border-top: 2px #b7fff9 solid;
   margin: 2em;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -369,7 +369,7 @@
 .wrapper .main .main__infos {
   border-radius: 15px;
   padding: 1em;
-  background: #b4d4e2;
+  background: #b7fff9;
 }
 
 .wrapper .main .main__infos .infos__list .infos__line {
@@ -499,6 +499,26 @@
   text-transform: uppercase;
 }
 
+.post .post__lieuEtDate {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 85%;
+  margin: 1em 0em;
+}
+
+.post .post__lieuEtDate--show {
+  width: 100%;
+}
+
 .post .post__wrapperPictures {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -542,11 +562,19 @@
   color: #1e4f66;
 }
 
+.like, .likeComm {
+  text-decoration: none;
+}
+
+#commentaire {
+  margin-bottom: 1em;
+}
+
 .aside {
   top: 1em;
   position: -webkit-sticky;
   position: sticky;
-  background-color: #1e4f66;
+  background-color: #17a2b8;
   margin: 2em;
   padding: 2em;
   border-radius: 15px;
@@ -635,15 +663,17 @@
 }
 
 #lightbox i:hover {
-  background-color: crimson;
+  background-color: #ff0000;
 }
 
 #lightbox figure {
   width: 50vw;
+  margin: auto;
 }
 
 #lightbox figure img {
   width: 100%;
+  margin: auto;
 }
 
 #lightbox figure figcaption {
@@ -778,6 +808,17 @@
   right: 2em;
   left: unset;
   font-size: xxx-large;
+  border: 5px solid #20c997;
+  padding: 0.3em;
+  border-radius: 10px;
+  -webkit-transition: 1s;
+  transition: 1s;
+}
+
+.publishStuff .publishStuff__h1--register:hover {
+  background-color: #20c997;
+  -webkit-transition: 1s;
+  transition: 1s;
 }
 
 .publishStuff .publishStuff__h1--follow {
@@ -972,6 +1013,56 @@ textarea#short_message_texte, #message_texte {
   background-color: ghostwhite;
   border-radius: 20px;
   height: 100px;
+}
+
+.post form {
+  background-color: #15d3c3;
+  padding: 2em 2em 0em 2em;
+  border-radius: 20px;
+}
+
+.post form #commentaire div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+}
+
+#commentaire_texte {
+  height: 100px;
+}
+
+.commentaire {
+  background-color: #15d3c3;
+  margin: 1em 0em;
+  padding: 1em;
+  border-radius: 20px;
+}
+
+.commentaire .commentaire__auteur {
+  text-align: end;
+}
+
+.hidden {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
+
+.notifCommentaire {
+  background-color: #15d3c3;
+  border-radius: 10px;
+  margin: 1em;
+  padding: 1em;
+}
+
+.notifCommentaire p {
+  text-align: center;
+  margin: 0;
 }
 
 .dashboard {

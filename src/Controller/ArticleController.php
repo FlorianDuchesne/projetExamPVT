@@ -11,12 +11,14 @@ use App\Entity\Article;
 use App\Entity\Galerie;
 use App\Entity\Hashtag;
 use App\Form\ArticleType;
+use App\Entity\Commentaire;
 use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -113,6 +115,8 @@ class ArticleController extends AbstractController
     public function show(Article $article)
     {
 
+        $form = $this->createForm(CommentaireType::class);
+
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
@@ -120,12 +124,25 @@ class ArticleController extends AbstractController
         if ($article->getStatut() == 0) {
             return $this->redirectToRoute('home');
         }
+        if ($article->getAuteurArticle() == $this->getUser()) {
 
-        return $this->render('pages/article/show.html.twig', [
-            'publication' => $article,
-            'countries' => $countries,
-            'themes' => $themes
-        ]);
+            $commentaires = $this->getDoctrine()->getRepository(Commentaire::class)
+                ->findByArticle($article);
+
+            foreach ($commentaires as $commentaire) {
+
+                $commentaire->setNewComment("0");
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->flush();
+            }
+
+            return $this->render('pages/article/show.html.twig', [
+                'publication' => $article,
+                'countries' => $countries,
+                'themes' => $themes,
+                'commentaire' => $form,
+            ]);
+        }
     }
 
     /**
@@ -234,61 +251,59 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/like/{id}/", name="like", methods={"POST"})
+     * @Route("/likeArticle/{idArticle}/{idCommentaire}", name="likeArticle", methods={"POST"})
+     * @Route("/likeCommentaire/{idCommentaire}", name="likeCommentaire", methods={"POST"})
      * @return Response
      */
-    public function like(Article $article, EntityManagerInterface $manager)
+    public function like(Article $idArticle = null, Commentaire $idCommentaire = null, EntityManagerInterface $manager)
     {
 
         $user = $this->getUser();
-        $like = $manager->getRepository(Like::class)->findOneBy(['post' => $article, 'user' => $user]);
+        if (!$idCommentaire) {
+            $likeArticle = $manager->getRepository(Like::class)->findOneBy(['post' => $idArticle, 'user' => $user]);
 
-        if (!($like)) {
+            if (!($likeArticle)) {
 
-            $like = new Like;
-            $like->setPost($article);
-            $like->setUser($user);
-            $manager->persist($like);
-            $manager->flush();
+                $like = new Like;
+                $like->setPost($idArticle);
+                $like->setUser($user);
+                $manager->persist($like);
+                $manager->flush();
+            } else {
+
+                $manager->remove($likeArticle);
+                $manager->flush();
+            }
+
+            return new JsonResponse(['nbLikes' => count($idArticle->getLikes()), 'idArticle' => $idArticle->getId()]);
         } else {
+            $likeCommentaire = $manager->getRepository(Like::class)->findOneBy(['commentaire' => $idCommentaire, 'user' => $user]);
 
-            $manager->remove($like);
-            $manager->flush();
+            if (!($likeCommentaire)) {
+
+                $like = new Like;
+                $like->setCommentaire($idCommentaire);
+                $like->setUser($user);
+                $manager->persist($like);
+                $manager->flush();
+            } else {
+
+                $manager->remove($likeCommentaire);
+                $manager->flush();
+            }
+
+            return new JsonResponse(['nbLikes' => count($idCommentaire->getLikes()), 'idCommentaire' => $idCommentaire->getId()]);
         }
 
-
-        return new JsonResponse(['nbLikes' => count($article->getLikes()), 'idArticle' => $article->getId()]);
         // return $this->redirectToRoute('home');
     }
-
-    // /**
-    //  * @Route("/unlike/{id}/", name="unlike", methods={"POST"})
-    //  * @return Response
-    //  */
-    // public function unlike(Article $article, EntityManagerInterface $manager)
-    // {
-
-    //     $user = $this->getUser();
-
-    //     $like = $manager->getRepository(Like::class)->findOneBy(['post' => $article, 'user' => $user]);
-
-    //     // dd($like);
-
-    //     $manager->remove($like);
-
-    //     $manager->flush();
-
-    //     return new JsonResponse(['nbLikes' => count($article->getLikes()), 'idArticle' => $article->getId()]);
-    //     // return $this->redirectToRoute('home');
-    // }
-
 
     /**
      * @Route("/article/addComment/{id}/", name="addComment")
      */
     public function addComment(Article $article, Request $request)
     {
-        dd($request);
+        // dd($request);
         $user = $this->getUser();
 
         $form = $this->createForm(CommentaireType::class);
@@ -301,12 +316,38 @@ class ArticleController extends AbstractController
             $commentaire->setAuteur($user);
             $commentaire->setArticle($article);
             $commentaire->setDateTime(new DateTime);
+            $commentaire->setNewComment(1);
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($commentaire);
             $entityManager->flush();
 
-            return $this->redirectToRoute('home');
+            $referer = $request->headers->get('referer');
+
+            return new RedirectResponse($referer);
         }
+    }
+
+    /**
+     * @Route("/article/deleteComm/{id}/", name="deleteComm")
+     */
+    public function deleteComm(Commentaire $commentaire, Request $request)
+    {
+        // dd($request);
+        $user = $this->getUser();
+
+        if (($commentaire->getAuteur() == $user) || ($user->getRoles() != ['ROLE_USER'])) {
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($commentaire);
+            $entityManager->flush();
+
+            $referer = $request->headers->get('referer');
+
+            return new RedirectResponse($referer);
+        }
+
+        return $this->redirectToRoute('home');
     }
 }

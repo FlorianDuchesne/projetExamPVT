@@ -8,10 +8,18 @@
 	<div>
 		<a class="dashboard__link" href="{{ path('messagerie', {id: user.id}) }}">Messagerie</a>
 		{% set notification = false %}
+		{% set publicationsNotifiees = [] %}
 		{% for message in user.messagesReceived %}
 			{% if message.newMessage == 1 %}
 				{% set notification = true %}
 			{% endif %}
+		{% endfor %}
+		{% for publication in user.publications %}
+			{% for commentaire in publication.commentaires %}
+				{% if commentaire.newComment == 1 %}
+					{% set publicationsNotifiees = publicationsNotifiees|merge([publication]) %}
+				{% endif %}
+			{% endfor %}
 		{% endfor %}
 		{% if notification == true %}
 			<i class="fas fa-circle notif"></i>
@@ -19,3 +27,12 @@
 	</div>
 	<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
 </div>
+{% if publicationsNotifiees %}
+	{% for publicationNotifiee in publicationsNotifiees %}
+		<div class="notifCommentaire">
+			<p>Vous avez un nouveau commentaire sous votre article
+				<a href="{{ path('article_show', {id: publicationNotifiee.id}) }}">{{publicationNotifiee.titre}}</a>
+			</p>
+		</div>
+	{% endfor %}
+{% endif %}

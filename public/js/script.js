@@ -378,6 +378,35 @@ $("#newMessage").on("click", function (e) {
   });
 });
 
+// $("form").submit(function (e) {
+//   e.preventDefault(); // avoid to execute the actual submit of the form.
+
+//   var form = $(this);
+//   var url = form.attr("action");
+//   console.log(form);
+//   // $.ajax({
+//   //   type: "POST",
+//   //   url: url,
+//   //   data: form.serialize(), // serializes the form's elements.
+//   //   success: function (data) {
+//   //     console.log(data);
+//   //     // alert(data); // show response from the php script.
+//   //   },
+//   // });
+// });
+
+// $("#short_message_envoyer").on("click", function (e) {
+//   e.preventDefault();
+//   console.log(e.currentTarget.baseURI);
+//   $.ajax({
+//     url: e.currentTarget.baseURI,
+//     type: "POST",
+//   }).done(function (response) {
+//     console.log(response);
+//     $("#newMessage").replaceWith(response);
+//   });
+// });
+
 /////////////////////////// tentative Ajax messagerie
 
 // document.querySelectorAll("a.user__name").forEach(function (link) {
@@ -456,6 +485,50 @@ function onClickBtnLike(event) {
 
 document.querySelectorAll("a.like").forEach(function (link) {
   link.addEventListener("click", onClickBtnLike);
+});
+
+function onClickBtnLikeComm(event) {
+  event.preventDefault();
+  // console.log(event);
+  const url = this.href;
+  // console.log(url);
+
+  $.ajax({
+    url: url,
+    type: "POST",
+  }).done(function (response) {
+    // console.log(event.path);
+    $(event.path[3].querySelector(".nbLikes")).replaceWith(
+      `<span class="nbLikes"> ${response.nbLikes}</span>`
+    );
+    if (event.path[0].classList.contains("far")) {
+      event.path[0].classList.replace("far", "fa");
+    } else {
+      event.path[0].classList.replace("fa", "far");
+    }
+  });
+}
+
+document.querySelectorAll("a.likeComm").forEach(function (link) {
+  link.addEventListener("click", onClickBtnLikeComm);
+});
+
+$(".btnCommentaires").on("click", function (e) {
+  console.log(e);
+  $(e.currentTarget.nextElementSibling.nextElementSibling).toggleClass(
+    "visible"
+  );
+});
+
+$(".btnPublierComm").on("click", function (e) {
+  console.log(e);
+  $(e.currentTarget.nextElementSibling.nextElementSibling).toggleClass(
+    "visible"
+  );
+});
+
+$(".confirm").on("click", function () {
+  return confirm("Êtes-vous sûr ? Cette action est définitive !");
 });
 
 //

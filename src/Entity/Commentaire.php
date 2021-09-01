@@ -44,6 +44,11 @@ class Commentaire
      */
     private $dateTime;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $newComment;
+
     public function __construct()
     {
         $this->likes = new ArrayCollection();
@@ -128,6 +133,18 @@ class Commentaire
     public function setDateTime(\DateTimeInterface $dateTime): self
     {
         $this->dateTime = $dateTime;
+
+        return $this;
+    }
+
+    public function getNewComment(): ?bool
+    {
+        return $this->newComment;
+    }
+
+    public function setNewComment(bool $newComment): self
+    {
+        $this->newComment = $newComment;
 
         return $this;
     }
