@@ -19,6 +19,16 @@ class PaysRepository extends ServiceEntityRepository
         parent::__construct($registry, Pays::class);
     }
 
+    public function findBySearch($string)
+    {
+        return $this->createQueryBuilder('p')
+            ->where('p.libelle LIKE :string')
+            ->setParameter('string', '%' . $string . '%')
+            ->orderBy('p.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Pays[] Returns an array of Pays objects
     //  */

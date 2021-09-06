@@ -27,7 +27,8 @@ class ArticleType extends AbstractType
         $builder
             ->add('titre', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'ex: Quelques jours à Kyoto'
                 ]
             ])
             ->add('texte', CKEditorType::class, [
@@ -69,39 +70,27 @@ class ArticleType extends AbstractType
             ])
             ->add('lieu', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'ex: Kyoto'
                 ]
             ])
-            // ->add('auteurArticle', EntityType::class, [
-            //     'attr' => [
-            //         // classe bootstrap attribuée au champ
-            //         'class' => 'form-control'
-            //     ],
-            //     // L'entité est spécifiquement de la classe Salle
-            //     'class' => User::class,
-            // ])
             ->add('theme', EntityType::class, [
                 'attr' => [
                     // classe bootstrap attribuée au champ
                     'class' => 'form-control'
                 ],
-                // L'entité est spécifiquement de la classe Salle
                 'class' => Theme::class,
             ])
             ->add('pays', EntityType::class, [
                 'attr' => [
-                    // classe bootstrap attribuée au champ
                     'class' => 'form-control'
                 ],
-                // L'entité est spécifiquement de la classe Salle
                 'class' => Pays::class,
             ])
             ->add('hashtags', EntityType::class, [
                 'attr' => [
-                    // classe bootstrap attribuée au champ
                     'class' => 'form-control js-basic-multiple'
                 ],
-                // L'entité est spécifiquement de la classe Salle
                 'class' => Hashtag::class,
                 'multiple' => true,
                 'choice_label' => 'name',

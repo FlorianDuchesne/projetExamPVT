@@ -136,12 +136,12 @@ class User implements UserInterface, Serializable
     private $messagesSend;
 
     /**
-     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user")
+     * @ORM\OneToMany(targetEntity=Like::class, mappedBy="user", orphanRemoval=true)
      */
     private $likes;
 
     /**
-     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="auteur")
+     * @ORM\OneToMany(targetEntity=Commentaire::class, mappedBy="auteur", cascade={"persist"})
      */
     private $commentaires;
 

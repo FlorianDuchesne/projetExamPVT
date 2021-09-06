@@ -1,13 +1,21 @@
-				<div class="wrapperAside">
-					<div class="aside">
-						<h6 class="aside__h6">Découvrez ces profils :</h6>
-						<div class="aside__user">
-							<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-							<h5 class="aside__user__name">Robert</h5>
-						</div>
-					</div>
-					<div class="aside aside--bottom">
-						<h6 class="aside__h6">Tendances du moment :</h6>
-						<p class="aside__hashtags">#italie<br>#depart<br>#fomalites<br></p>
-					</div>
+<div class="wrapperAside">
+	<div class="aside">
+		<h6 class="aside__h6">Découvrez ces profils :</h6>
+		{% for suggestion in suggestions %}
+			<a href="{{ path('user_show', {id: suggestion.id}) }}">
+				<div class="aside__user">
+					<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestion.avatar) }}"/></figure>
+					<h5 class="aside__user__name">{{suggestion.pseudo}}</h5>
 				</div>
+			</a>
+		{% endfor %}
+	</div>
+	<div class="aside aside--bottom">
+		<h6 class="aside__h6">Tendances du moment :</h6>
+		{% for tendance in tendances %}
+			<p class="aside__hashtags">
+				<a href="{{ path('indexTag', {id: tendance.id}) }}">#{{ tendance.name }}</a>
+			</p>
+		{% endfor %}
+	</div>
+</div>

@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Pays;
 use App\Entity\User;
 use App\Entity\Theme;
+use App\Entity\Article;
 use App\Entity\Message;
 use App\Form\MessageType;
 use App\Form\ShortMessageType;
@@ -22,20 +23,49 @@ class UserController extends AbstractController
     /**
      * @Route("/usersList", name="users")
      */
-    public function index()
+    public function index(Request $request)
     {
         $membres = $this->getDoctrine()->getRepository(User::class)->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
+        // dd($membres);
+
+        // dd($request);
+        $results = [];
+
+        if (null !== ($request->get('themes'))) {
+            $themesSearched = $request->get('themes');
+            foreach ($themesSearched as $theme) {
+                $results[] = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme);
+            }
+        }
+
+        if (null !== ($request->get('pays'))) {
+
+            $paysSearched = $request->get('pays');
+            foreach ($paysSearched as $pays) {
+                $avoidRepeatArray = $this->getDoctrine()->getRepository(User::class)->SharedPays($pays);
+                foreach ($avoidRepeatArray as $testItem) {
+                    if (!in_array($testItem, $results)) {
+                        $results[] = $testItem;
+                    }
+                }
+            }
+            // dd($results);
+        }
+        if (!empty($results)) {
+            $membres = $results;
+        }
 
         return $this->render('pages/user/list.html.twig', [
             'membres' => $membres,
             'countries' => $countries,
-            'themes' => $themes
+            'themes' => $themes,
         ]);
     }
+
 
     /**
      * @Route("/user/{id}", name="user_show")
@@ -47,11 +77,14 @@ class UserController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
+        $articlesPopulaires = $this->getDoctrine()->getRepository(Article::class)
+            ->findByLikes($user);
 
         return $this->render('pages/user/show.html.twig', [
             'user' => $user,
             'countries' => $countries,
-            'themes' => $themes
+            'themes' => $themes,
+            'articlesPopulaires' => $articlesPopulaires
         ]);
     }
 
@@ -233,6 +266,7 @@ class UserController extends AbstractController
                 'countries' => $countries,
                 'themes' => $themes,
                 'messages' => $messages,
+                'answerForm' => $form->createView(),
             ]);
         }
     }

@@ -39,6 +39,23 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
+    public function findByLikes($user)
+    {
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.publications', 'a')
+            ->innerJoin('a.likes', 'l')
+            ->where('u != :user')
+            ->setParameter('user', $user)
+            ->groupBy('l.post')
+            ->orderBy('COUNT(l.post)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return User[] Returns an array of User objects
+     */
     public function findByMessages($user)
     {
         return $this->createQueryBuilder('u')
@@ -50,7 +67,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->orWhere(':user = mr.send')
             ->setParameter('user', $user)
             // ->orderBy('u.pseudo', 'ASC')
-            ->orderBy('mr.send', 'DESC')
+            ->orderBy('ms.DateTime', 'DESC')
             ->getQuery()
             ->getResult();
     }
@@ -71,101 +88,61 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     /**
      * @return User[] Returns an array of User objects
      */
-    public function SharedPaysAndTheme($paysId, $themeId)
+    public function SharedPaysAndTheme($pays, $theme, $user)
     {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT u.id FROM user u
-            INNER JOIN article a ON u.id = a.auteur_article_id 
-            INNER JOIN pays p ON p.id = a.pays_id 
-            INNER JOIN theme t ON t.id = a.theme_id 
-            WHERE t.id = :themeId 
-            AND p.id = :paysId 
-            GROUP BY a.auteur_article_id 
-            ORDER BY COUNT(a.pays_id) DESC
-            LIMIT 5
-            ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['paysId' => $paysId, 'themeId' => $themeId]);
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.publications', 'a')
+            ->innerJoin('a.pays', 'p')
+            ->innerJoin('a.theme', 't')
+            ->where('t = :theme')
+            ->andWhere('p = :pays')
+            ->andWhere('u != :user')
+            ->setParameter('theme', $theme)
+            ->setParameter('pays', $pays)
+            ->setParameter('user', $user)
+            ->groupBy('a.auteurArticle')
+            ->orderBy('COUNT(a.pays)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
      * @return User[] Returns an array of User objects
      */
-    public function SharedPays($paysId)
+    public function SharedPays($pays, $user)
     {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT u.id FROM user u
-            INNER JOIN article a ON u.id = a.auteur_article_id 
-            INNER JOIN pays p ON p.id = a.pays_id 
-            WHERE p.id = :paysId 
-            GROUP BY a.auteur_article_id 
-            ORDER BY COUNT(a.pays_id) DESC
-            LIMIT 5
-            ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['paysId' => $paysId]);
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.publications', 'a')
+            ->innerJoin('a.pays', 'p')
+            ->where('p = :pays')
+            ->andWhere('u != :user')
+            ->setParameter('pays', $pays)
+            ->setParameter('user', $user)
+            ->groupBy('a.auteurArticle')
+            ->orderBy('COUNT(a.pays)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
      * @return User[] Returns an array of User objects
      */
-    public function SharedTheme($themeId)
+    public function SharedTheme($theme, $user)
     {
-
-        $conn = $this->getEntityManager()->getConnection();
-
-        $sql = '
-            SELECT u.id FROM user u
-            INNER JOIN article a ON u.id = a.auteur_article_id 
-            INNER JOIN theme t ON t.id = a.theme_id 
-            WHERE t.id = :themeId 
-            GROUP BY a.auteur_article_id 
-            ORDER BY COUNT(a.theme_id) DESC
-            LIMIT 5
-            ';
-        $stmt = $conn->prepare($sql);
-        $stmt->execute(['themeId' => $themeId]);
-
-        // returns an array of arrays (i.e. a raw data set)
-        return $stmt->fetchAllAssociative();
-
-        // $query = $this->createQueryBuilder('u');
-        // $query->select('u, COUNT(p.theme) AS mycount')
-        //     ->innerJoin('u.publications', 'p')
-        //     ->innerJoin('p.theme', 't')
-        //     ->where('t.id = :themeId')
-        //     ->setParameter('themeId', $themeId)
-        //     ->groupBy('p.auteurArticle')
-        //     ->orderBy('mycount', 'DESC')
-        //     ->setMaxResults(10)
-        //     ->getQuery()
-        //     ->getResult();
-
-        // $entityManager = $this->getEntityManager();
-
-        // $query = $entityManager->createQuery(
-        //     'SELECT u 
-        //     FROM App\Entity\User u
-        //     INNER JOIN u.publications p
-        //     INNER JOIN p.theme t
-        //     WHERE t.id = :t.id 
-        //     GROUP BY u 
-        //     ORDER BY COUNT(p.theme) DESC'
-        // )->setParameter('t.id', $themeId);
-
-        // return $query->setMaxResults(5)->getResult();
+        return $this->createQueryBuilder('u')
+            ->innerJoin('u.publications', 'a')
+            ->innerJoin('a.theme', 't')
+            ->where('t = :theme')
+            ->andWhere('u != :user')
+            ->setParameter('theme', $theme)
+            ->setParameter('user', $user)
+            ->groupBy('a.auteurArticle')
+            ->orderBy('COUNT(a.theme)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

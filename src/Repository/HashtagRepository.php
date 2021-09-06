@@ -32,6 +32,21 @@ class HashtagRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Hashtag[] Returns an array of Hashtag objects
+     */
+    public function findByPopularity()
+    {
+        return $this->createQueryBuilder('h')
+            // ->where(':user = a.auteurArticle')
+            ->innerJoin('h.publications', 'a')
+            ->groupBy('h')
+            ->orderBy('COUNT(h)', 'DESC')
+            ->setMaxResults(5)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Hashtag[] Returns an array of Hashtag objects
     //  */

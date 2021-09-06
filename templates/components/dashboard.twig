@@ -2,19 +2,19 @@
 	{% if is_granted("ROLE_ADMIN") %}
 		<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
 	{% endif %}
-	<a class="dashboard__link" href="{{ path('ajoutArticle', {idAuteur: user.id}) }}">Publier un nouvel article</a>
-	<a class="dashboard__link" href="{{ path('brouillons', {id: user.id}) }}">Voir mes brouillons</a>
-	<a class="dashboard__link" href="{{ path('editProfil', {id: user.id}) }}">éditer mon profil</a>
+	<a class="dashboard__link" href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">Publier un nouvel article</a>
+	<a class="dashboard__link" href="{{ path('brouillons')}}">Voir mes brouillons</a>
+	<a class="dashboard__link" href="{{ path('editProfil', {id: app.user.id}) }}">éditer mon profil</a>
 	<div>
-		<a class="dashboard__link" href="{{ path('messagerie', {id: user.id}) }}">Messagerie</a>
+		<a class="dashboard__link" href="{{ path('messagerie', {id: app.user.id}) }}">Messagerie</a>
 		{% set notification = false %}
 		{% set publicationsNotifiees = [] %}
-		{% for message in user.messagesReceived %}
+		{% for message in app.user.messagesReceived %}
 			{% if message.newMessage == 1 %}
 				{% set notification = true %}
 			{% endif %}
 		{% endfor %}
-		{% for publication in user.publications %}
+		{% for publication in app.user.publications %}
 			{% for commentaire in publication.commentaires %}
 				{% if commentaire.newComment == 1 %}
 					{% set publicationsNotifiees = publicationsNotifiees|merge([publication]) %}

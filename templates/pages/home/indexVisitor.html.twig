@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!
+{% block title %}Accueil
 {% endblock %}
 
 {% block stylesheets %}
@@ -10,22 +10,32 @@
 {% block body %}
 
 
-	<div class="wrapper-whole">
-		<a href="{{ path('app_register') }}">
-			<figure class="publishStuff">
-				<img class="publishStuff__img" src="{{ asset('img/inscription4.jpg') }}"/>
+	{# <div class="wrapper-whole"> #}
+	<div class="bloc">
+		<figure class="publishStuff">
+			<div class="publishStuff__blocText">
+				<p class="publishStuff__text">Partage tes voyages,<br>
+					découvre ceux des autres,<br>
+					fais de nouvelles rencontres !</p>
+				<small class="btn btn-info">
+					<a href="{{path('aPropos')}}">En savoir plus</a>
+				</small>
+			</div>
+			{# <img class="publishStuff__img" src="{{ asset('img/inscription_test.jpg') }}"/> #}
+			<a href="{{ path('app_register') }}">
 				<h1 class="publishStuff__h1 publishStuff__h1--register">Inscris-toi !</h1>
-			</figure>
-		</a>
+			</a>
+		</figure>
 	</div>
+	{# </div> #}
 
 	<main class="main">
 		<h1 class="titre">Pays</h1>
 
 		<div
-			class="wrapperFlex row">
+			class="wrapperFlex row your-class">
 			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-			{% for pays in countries|slice(0,3) %}
+			{% for pays in countries %}
 				<a href="{{ path('pays_show', {id: pays.id}) }}" class="col-lg-3 col-sm-5 col-11 m-2 a">
 					<figure class="pays picture">
 						<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
@@ -36,14 +46,14 @@
 				</a>
 			{% endfor %}
 		</div>
-		<button class="link">Voir plus</button>
+		{# <button class="link">Voir plus</button> #}
 
 		<h1 class="titre">Thèmes</h1>
 		<div
-			class="wrapperFlex row">
+			class="wrapperFlex row your-class">
 
 			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-			{% for theme in themes|slice(0,3) %}
+			{% for theme in themes %}
 				<a href="{{ path('theme_show', {id: theme.id}) }}" class="col-lg-3 col-sm-5 col-11 m-2 a">
 					<figure class="theme picture">
 						<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
@@ -55,48 +65,51 @@
 			{% endfor %}
 
 		</div>
-		<button class="link">Voir plus</button>
+		{# <button class="link">Voir plus</button> #}
 
 		<h1 class="titre">Articles populaires</h1>
 		<div
-			class="wrapperFlex row">
+			class="wrapperFlex row your-class">
 
 			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
-			{% for article in articles|slice(0,3) %}
+			{% for article in articles %}
 				{# On inclut la feuille twig dédiée aux vignettes d'articles #}
 				{% include 'components/thumbnailArticle.twig' %}
 
 			{% endfor %}
 
 		</div>
-		<button class="link">Voir plus</button>
+		{# <button class="link">Voir plus</button> #}
 	</main>
 
 
 	<!-- Modal -->
-	<div class="modal fade" id="myModalVisitor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
-						<span class="btn btn-secondary" aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
-																																																																																					comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
-																																																																																					ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
-																																																																																					aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
-					<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
-																																																																																					la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
-																																																																																					l'activation des fonctionnalités des réseaux sociaux.</p>
-					<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
-				</div>
-				<div class="modal-footer">
-					<a class="btn btn-secondary" href="#">Gérer mes choix</a>
-					<button type="button" class="btn btn-danger" data-dismiss="modal" class="btn btn-danger">Tout refuser</button>
-					<button type="button" class="btn btn-success" data-dismiss="modal" class="btn btn-danger">Tout accepter</button>
+	{% if newVisitor == true %}
+		<div class="modal fade" id="myModalVisitor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close" style="border: none; background: none;">
+							<span class="btn btn-secondary" aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
+																																																																																																																																																																																																																																																							comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
+																																																																																																																																																																																																																																																							ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
+																																																																																																																																																																																																																																																							aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
+						<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
+																																																																																																																																																																																																																																																							la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
+																																																																																																																																																																																																																																																							l'activation des fonctionnalités des réseaux sociaux.</p>
+						<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
+					</div>
+					<div class="modal-footer">
+						<a class="btn btn-secondary" href="#">Gérer mes choix</a>
+						<button type="button" class="btn btn-danger" data-dismiss="modal" class="btn btn-danger">Tout refuser</button>
+						<button type="button" class="btn btn-success" data-dismiss="modal" class="btn btn-danger">Tout accepter</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	{% endblock %}
+	{% endif %}
+{% endblock %}

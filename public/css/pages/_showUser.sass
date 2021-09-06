@@ -4,9 +4,18 @@
   margin-left: auto
   margin-right: auto
   .header
-    position: relative
-    @include blockFlex(center)
+    @include blockFlex(space-between)
     height: 200px
+    .header__leftColumn
+      @include blockFlex(space-between)
+      flex-direction: column
+      align-items: flex-start
+      height: 100%
+    .header__rightColumn
+      @include blockFlex(space-between)
+      flex-direction: column
+      height: 100%
+      align-items: flex-end
     .header__user
       @include avatar(150px)
       // .user__picture
@@ -17,15 +26,15 @@
       color: $blue
       font-weight: bolder
       font-size: x-large
-    .header__follow
+    .header__text
       background: none
       border: none
       color: $blue
       font-weight: bold
       font-size: larger
-      position: absolute
-      top: 0
-      right: 0
+      // position: absolute
+      // top: 0
+      // right: 0
     .header__delete
       position: absolute
       top: 0
@@ -36,9 +45,9 @@
       color: $blue
       font-weight: bold
       font-size: larger
-      position: absolute
-      bottom: 0
-      right: 0
+      // position: absolute
+      // bottom: 0
+      // right: 0
   .main
     border-top: 2px $clearBlue solid
     margin: 2em
@@ -63,7 +72,7 @@
         @include blockFlex(start)
         .article__picture
           position: relative
-          margin: 1em
+          margin: auto
           .article__thumbnail
             filter: brightness(80%)
             height: 200px

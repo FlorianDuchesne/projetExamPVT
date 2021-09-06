@@ -9,7 +9,7 @@ var nextImage = false;
 let posts = document.querySelectorAll(
   "figure.post__wrapperPictures--many > img, figure.post__wrapperPictures > img"
 );
-console.log(posts);
+// console.log(posts);
 
 // je rassemble toutes les figures dans une constante
 for (var post of posts) {
@@ -287,6 +287,9 @@ $(document).ready(function () {
   var $collection = $("ul#galeries");
   //on y ajoute le bouton ajouter (à la fin du contenu)
   $collection.append($newLinkLi);
+  var $div = $('<p id="alert"></p>');
+  $collection.append($div);
+
   //pour chaque li déjà présente dans la collection (dans le cas d'une modification)
   $(".galerie").each(function () {
     //on génère et ajoute un bouton "supprimer"
@@ -295,11 +298,23 @@ $(document).ready(function () {
   //le data index de la collection est égal au nombre de input à l'intérieur
   $collection.data("index", $collection.find(":input").length);
   $addCollectionButton.on("click", function (e) {
+    console.log(e);
+    console.log($collection[0].childNodes.length);
+
+    if ($collection[0].childNodes.length < 8) {
+      addCollectionForm($collection, $newLinkLi);
+    } else {
+      alert("Vous ne pouvez pas enregistrer plus de cinq photos par article.");
+    }
+
+    // if ($collection.childNodes.length > 5) {
+    // if (e.currentTarget.parentElement == $collection.chilNodes[6]) {
+    // console.log("nombre max");
+    // }
     // au clic sur le bouton ajouter
     //si la collection n'a pas encore autant d'élément que le maximum autorisé
     // if($collection.data('index') < $("input[maxNb]").val()){
     //on appelle la fonction qui ajoute un nouveau champ
-    addCollectionForm($collection, $newLinkLi);
     //  }
     //   else alert("Nb max atteint !")
   });
@@ -366,17 +381,17 @@ $(document).ready(function () {
   $(".js-basic-single").select2();
 });
 
-$("#newMessage").on("click", function (e) {
-  e.preventDefault();
-  console.log("clic OK");
-  $.ajax({
-    url: "/newMessage",
-    type: "POST",
-  }).done(function (response) {
-    console.log(response);
-    $("#newMessage").replaceWith(response);
-  });
-});
+// $("#newMessage").on("click", function (e) {
+//   e.preventDefault();
+//   console.log("clic OK");
+//   $.ajax({
+//     url: "/newMessage",
+//     type: "POST",
+//   }).done(function (response) {
+//     console.log(response);
+//     $("#newMessage").replaceWith(response);
+//   });
+// });
 
 // $("form").submit(function (e) {
 //   e.preventDefault(); // avoid to execute the actual submit of the form.
@@ -515,6 +530,7 @@ document.querySelectorAll("a.likeComm").forEach(function (link) {
 
 $(".btnCommentaires").on("click", function (e) {
   console.log(e);
+  console.log(e.currentTarget.nextElementSibling.nextElementSibling);
   $(e.currentTarget.nextElementSibling.nextElementSibling).toggleClass(
     "visible"
   );
@@ -531,4 +547,24 @@ $(".confirm").on("click", function () {
   return confirm("Êtes-vous sûr ? Cette action est définitive !");
 });
 
+jQuery(function () {
+  $(".your-class").slick({
+    infinite: true,
+    slidesToShow: 3,
+    slidesToScroll: 3,
+    arrows: true,
+    nextArrow: '<i class="fa fa-arrow-right"></i>',
+    prevArrow: '<i class="fa fa-arrow-left"></i>',
+  });
+  console.log("slick actif");
+});
+
+// document
+//   .querySelector(".slick-prev")
+//   .innerHTML.replaceWith("<i class='fas fa-arrow-left'></i>");
+// console.log(document.querySelectorAll("button.slick-prev")[0]);
+// $(document).ready(function () {
+//   console.log($(".slick-prev".innerHTML));
+//   $(".slick-prev".innerHTML).replace("<i class='fas fa-arrow-left'></i>");
+// });
 //

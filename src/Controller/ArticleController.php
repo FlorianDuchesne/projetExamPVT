@@ -34,6 +34,7 @@ class ArticleController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
         $articles = $this->getDoctrine()->getRepository(Article::class)->findByAuteurArticleAndStatut($user);
+        $form = $this->createForm(CommentaireType::class);
 
         return $this->render('pages/article/index.html.twig', [
             'controller_name' => 'ArticleController',
@@ -41,7 +42,8 @@ class ArticleController extends AbstractController
             'themes' => $themes,
             'publications' => $articles,
             'user' => $user,
-            'brouillon' => false
+            'brouillon' => false,
+            'commentaire' => $form
         ]);
     }
 
@@ -55,6 +57,7 @@ class ArticleController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
         $articles = $this->getDoctrine()->getRepository(Article::class)->findByTag($tag->getId());
+        $form = $this->createForm(CommentaireType::class);
 
         return $this->render('pages/article/index.html.twig', [
             'controller_name' => 'ArticleController',
@@ -62,7 +65,8 @@ class ArticleController extends AbstractController
             'themes' => $themes,
             'publications' => $articles,
             'brouillon' => false,
-            'tag' => $tag
+            'tag' => $tag,
+            'commentaire' => $form
         ]);
     }
 
@@ -76,6 +80,7 @@ class ArticleController extends AbstractController
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
         $articles = $this->getDoctrine()->getRepository(Article::class)->findByLieu($article->getLieu());
+        $form = $this->createForm(CommentaireType::class);
 
         return $this->render('pages/article/index.html.twig', [
             'controller_name' => 'ArticleController',
@@ -83,15 +88,17 @@ class ArticleController extends AbstractController
             'themes' => $themes,
             'publications' => $articles,
             'brouillon' => false,
-            'lieu' => $article->getLieu()
+            'lieu' => $article->getLieu(),
+            'commentaire' => $form
         ]);
     }
 
     /**
-     * @Route("/brouillons/{id}", name="brouillons")
+     * @Route("/brouillons", name="brouillons")
      */
-    public function brouillons(User $user): Response
+    public function brouillons(): Response
     {
+        $user = $this->getUser();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
@@ -135,21 +142,21 @@ class ArticleController extends AbstractController
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->flush();
             }
-
-            return $this->render('pages/article/show.html.twig', [
-                'publication' => $article,
-                'countries' => $countries,
-                'themes' => $themes,
-                'commentaire' => $form,
-            ]);
         }
+
+        return $this->render('pages/article/show.html.twig', [
+            'publication' => $article,
+            'countries' => $countries,
+            'themes' => $themes,
+            'commentaire' => $form,
+        ]);
     }
 
     /**
      * @Route("/ajoutArticle/{idAuteur}", name="ajoutArticle")
      * @Route("/ajoutArticle/{idAuteur}/{idArticle}", name="modifierArticle")
      */
-    public function register(Request $request, User $idAuteur, UserInterface $userlogged, Article $idArticle = null): Response
+    public function addNewArticle(Request $request, User $idAuteur, UserInterface $userlogged, Article $idArticle = null): Response
     {
 
         $countries =  $this->getDoctrine()->getRepository(Pays::class)

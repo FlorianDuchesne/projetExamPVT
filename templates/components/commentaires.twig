@@ -1,15 +1,20 @@
-{% set form = commentaire.createView %}
-<p class="btnPublierComm">Commenter</p>
-<p class="btnCommentaires">Voir les commentaires ({{publication.commentaires|length}})</p>
-<div class="hidden">
-	{{ form(form, {'action': path('addComment', {id: publication.id})}) }}
-	</div>
+{% if commentaire is defined %}
+	{% set form = commentaire.createView %}
+	<span class="btnPublierComm btn btn-info">Commenter</span>
+	<span class="btnCommentaires btn btn-info">Voir les commentaires ({{publication.commentaires|length}})</span>
+	<div class="hidden">
+		{{ form(form, {'action': path('addComment', {id: publication.id})}) }}
+		</div>
+	{% endif %}
+
 	<div class="hidden">
 		{% for commentaire in publication.commentaires %}
 			<div class="commentaire">
 				<p class="commentaire__auteur">
 					<small>
-						<strong>{{ commentaire.auteur.pseudo }}</strong>
+						{% if commentaire.auteur.pseudo is defined %}
+							<strong>{{ commentaire.auteur.pseudo }}</strong>
+						{% endif %}
 						-
 						{{ commentaire.dateTime|date("m/d/Y H:i") }}</small>
 					{% if app.user == commentaire.auteur %}

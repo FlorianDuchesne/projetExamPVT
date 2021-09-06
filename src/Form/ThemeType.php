@@ -17,7 +17,8 @@ class ThemeType extends AbstractType
         $builder
             ->add('libelle', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'intitulé du thème'
                 ],
                 'required' => true,
             ])

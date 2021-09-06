@@ -14,14 +14,16 @@
 				{% else %}
 					<div class="flex">
 						<div class="user">
-							<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
 							<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
+								<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
 								<h5>{{ correspondant.pseudo }}</h5>
 							</a>
 							{% set notification = false %}
 							{% for message in correspondant.messagesSend %}
 								{% if message.newMessage == 1 %}
-									{% set notification = true %}
+									{% if message.received == app.user %}
+										{% set notification = true %}
+									{% endif %}
 								{% endif %}
 							{% endfor %}
 							<div>
@@ -70,11 +72,11 @@
 			{% else %}
 				{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}
 					<div class="block__Messages--empty">
-						<p class="text-center m-3">Aucun message n'est sélectionné</p>
-						<div class="text-center">
-							<a href="{{ path('messagerie', {id: app.user.id}) }}" class="btn btn-info" id="newMessage">Nouveau message</a>
+						<h5 class="text-center m-3">Commencer une nouvelle conversation</h5>
+						<div class="messages__envoyer">
+							{{ form(answerForm) }}
+							</div>
 						</div>
-					</div>
+					{% endif %}
 				{% endif %}
-			{% endif %}
-		</main>
+			</main>

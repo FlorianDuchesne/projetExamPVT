@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Profil
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,13 +12,54 @@
 
 
 {% block body %}
+	{% if is_granted("ROLE_ADMIN") %}
+		{# href="{{ path('deleteUser', {id: user.id}) }}" #}
+		<div class="text-center m-5">
+			<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
+		</div>
 
-	{% if user == app.user %}
-		{% include 'components/dashboard.twig'%}
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
+						<button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						Etes-vous bien sûr de vouloir effectuer cette action définitive ?
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
+						<a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
 	{% endif %}
 
 	<div class="wrapper">
 		<div class="header">
+			{% set count = 0 %}
+			{% for article in user.publications %}
+				{% if article.statut == 1 %}
+					{% set count = count + 1 %}
+				{% endif %}
+			{% endfor %}
+			<div class="header__leftColumn">
+				<small>
+					<a href="{{ path('indexArticles', {id: user.id}) }}" class="header__text">Tous les articles ({{count}})</a>
+				</small>
+				<small>
+					<a href="{{ path('followers', {id: user.id}) }}" class="header__text">Abonnés ({{user.followers|length}})</a>
+				</small>
+				<small>
+					<a href="{{ path('follows', {id: user.id}) }}" class="header__text">Abonnements ({{user.following|length}})</a>
+				</small>
+			</div>
 			<div class="avatar">
 				<figure class="header__user">
 					<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
@@ -29,38 +70,14 @@
 			</div>
 			{% if app.user %}
 				{% if user != app.user %}
-					{% if is_granted("ROLE_ADMIN") %}
-						{# href="{{ path('deleteUser', {id: user.id}) }}" #}
-						<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
-
-						<!-- Modal -->
-						<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Suppression irréversible</h5>
-										<button type="button" class="close btn btn-primary" data-dismiss="modal" aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										Etes-vous bien sûr de vouloir effectuer cette action définitive ?
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-primary" data-dismiss="modal">Non</button>
-										<a class="btn btn-danger" href="{{ path('deleteUser', {id: user.id}) }}">Supprimer</a>
-									</div>
-								</div>
-							</div>
-						</div>
-
-					{% endif %}
-					{% if user.followers.contains(app.user) %}
-						<a class="header__follow" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre ce membre</a>
-					{% else %}
-						<a class="header__follow" href="{{ path('following', {id: user.id}) }}">suivre ce membre</a>
-					{% endif %}
-					<button class="header__sendMessage">envoyer un message à ce membre</button>
+					<div class="header__rightColumn">
+						{% if user.followers.contains(app.user) %}
+							<a class="header__text" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre ce membre</a>
+						{% else %}
+							<a class="header__text" href="{{ path('following', {id: user.id}) }}">suivre ce membre</a>
+						{% endif %}
+						<button class="header__sendMessage">envoyer un message à ce membre</button>
+					</div>
 				{% endif %}
 			{% endif %}
 
@@ -81,17 +98,16 @@
 					<li class="infos__line">
 						<strong>envies de voyages :</strong>
 						{{ user.projetsVoyages }}</li>
-					<li class="infos__line">
-						<strong>projet de PVT :</strong>
-						lorem ipsum bla bla bla</li>
 				</ul>
 			</div>
-			<div class="main__articles">
-				<h3 class="articles__title">Articles les plus lus :</h3>
+			<div
+				class="main__articles">
+				{# {% if articlesPopulaires is defined %} #}
+				<h3 class="articles__title">Articles les plus populaires :</h3>
 				<div class="articles__flex">
-					{% for article in user.publications %}
+					{% for article in articlesPopulaires %}
 						{% if article.statut == 1 %}
-							<a href="{{ path('article_show', {id: article.id}) }}">
+							<a href="{{ path('article_show', {id: article.id}) }}" class="m-2">
 								<figure class="article__picture">
 									{% if article.galeries is not empty %}
 										{% for galerie in article.galeries %}
@@ -109,19 +125,10 @@
 							</a>
 						{% endif %}
 					{% endfor %}
+					{# {% endif %} #}
 				</div>
 			</div>
 
-			{% set count = 0 %}
-			{% for article in user.publications %}
-				{% if article.statut == 1 %}
-					{% set count = count + 1 %}
-				{% endif %}
-			{% endfor %}
-
-			<a href="{{ path('indexArticles', {id: user.id}) }}" class="main__links">Tous les articles ({{count}})</a><br>
-			<a href="{{ path('followers', {id: user.id}) }}" class="main__links">Abonnés ({{user.followers|length}})</a><br>
-			<a href="{{ path('follows', {id: user.id}) }}" class="main__links">Abonnements ({{user.following|length}})</a><br>
 		</main>
 	</div>
 

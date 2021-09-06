@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Index membres
 {% endblock %}
 
 {% block stylesheets %}
@@ -29,19 +29,64 @@
 				{{ user.pseudo|capitalize }}</h1>
 
 		{% endif %}
+		<div>
+			<form action="{{path('users')}}" method="POST">
+				<h4>Filtrer par centres d'intérêts des membres</h4>
+				<div class="d-flex">
+					<div class="m-3">
+						<h5 class="mt-2">Par thème :</h4>
 
-		{% for membre in membres %}
-			{% include 'layouts/membres.twig' %}
-		{% endfor %}
+						<select class="js-example-basic-multiple" name="themes[]" multiple="multiple">
+							{% for theme in themes %}
+								<option value="{{theme.id}}">{{theme}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="m-3">
+						<h5 class="mt-2">Par pays :</h4>
 
-		{% if membres is empty %}
-			{% if followers is defined %}
-				<p>{{ user.pseudo|capitalize }}
-					n'a pas encore d'abonnés</p>
+						<select class="js-example-basic-multiple" name="pays[]" multiple="multiple">
+							{% for pays in countries %}
+								<option value="{{pays.id}}">{{pays}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-success m-3">Actualiser</button>
+				</form>
+			</div>
+			{% if membres[0][0] is defined or membres[0][1] is defined %}
+
+				{% if (membres[0] is defined) and (membres[0] != null) %}
+					{% for membre in membres[0] %}
+
+						{% include 'layouts/membres.twig' %}
+					{% endfor %}
+				{% endif %}
+
+				{% if (membres[1] is defined) and (membres[1] != null) %}
+
+					{% for membre in membres[1] %}
+
+						{% include 'layouts/membres.twig' %}
+					{% endfor %}
+				{% endif %}
+
 			{% else %}
-				<p>{{ user.pseudo|capitalize }}
-					n'a pas encore d'abonnements</p>
-			{% endif %}
-		{% endif %}
+				{% for membre in membres %}
 
-	{% endblock %}
+					{% include 'layouts/membres.twig' %}
+				{% endfor %}
+			{% endif %}
+
+			{% if membres is empty %}
+				{% if followers is defined %}
+					<p>{{ user.pseudo|capitalize }}
+						n'a pas encore d'abonnés</p>
+				{% else %}
+					<p>{{ user.pseudo|capitalize }}
+						n'a pas encore d'abonnements</p>
+				{% endif %}
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}

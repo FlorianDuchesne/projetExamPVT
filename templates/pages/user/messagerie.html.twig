@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Messagerie
 {% endblock %}
 
 {% block stylesheets %}
@@ -13,12 +13,7 @@
 	{{ parent() }}
 {% endblock %}
 
-
 {% block body %}
-
-	{% if user == app.user %}
-		{% include 'components/dashboard.twig'%}
-	{% endif %}
 
 	<div class="wrapper">
 		<div class="header">
@@ -30,6 +25,7 @@
 					{{ user.pseudo }}
 				</h1>
 			</div>
+			<a href="{{ path('messagerie') }}" class="btn btn-info">Nouveau message</a>
 			{% if app.user %}
 				{% if user != app.user %}
 					{% if is_granted("ROLE_ADMIN") %}
@@ -69,4 +65,5 @@
 
 		</div>
 		{% include 'layouts/messagerie.twig'%}
-	{% endblock %}
+	</div>
+{% endblock %}

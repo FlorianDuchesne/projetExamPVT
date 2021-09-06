@@ -17,9 +17,6 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @IsGranted("ROLE_ADMIN")
- */
 class AdminController extends AbstractController
 {
     /**
@@ -45,8 +42,8 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/ajoutPays", name="ajoutPays")
-     * @Route("/editPays/{id}", name="editPays")
+     * @Route("/admin/ajoutPays", name="ajoutPays")
+     * @Route("/admin/editPays/{id}", name="editPays")
      */
     public function ajoutPays(Pays $pays = null, Request $request)
     {
@@ -84,8 +81,8 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/ajoutTheme", name="ajoutTheme")
-     * @Route("/editTheme/{id}", name="editTheme")
+     * @Route("/admin/ajoutTheme", name="ajoutTheme")
+     * @Route("/admin/editTheme/{id}", name="editTheme")
      */
     public function ajoutTheme(Theme $theme = null, Request $request)
     {
@@ -123,7 +120,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/deleteTag/{id}", name="deleteTag")
+     * @Route("/admin/deleteTag/{id}", name="deleteTag")
      */
     public function deleteTag(Hashtag $tag, EntityManagerInterface $manager)
     {
@@ -135,7 +132,7 @@ class AdminController extends AbstractController
 
 
     /**
-     * @Route("/deleteTheme/{id}", name="deleteTheme")
+     * @Route("/admin/deleteTheme/{id}", name="deleteTheme")
      */
     public function deleteTheme(Theme $theme, EntityManagerInterface $manager)
     {
@@ -146,7 +143,7 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/deletePays/{id}", name="deletePays")
+     * @Route("/admin/deletePays/{id}", name="deletePays")
      */
     public function deletePays(Pays $pays, EntityManagerInterface $manager)
     {

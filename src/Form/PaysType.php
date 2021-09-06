@@ -17,7 +17,8 @@ class PaysType extends AbstractType
         $builder
             ->add('libelle', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'nom du Pays'
                 ],
                 'required' => true,
             ])

@@ -24,7 +24,8 @@ class GalerieType extends AbstractType
             //     ]
             // ])
             ->add('imageFile', VichImageType::class, [
-                'label' => 'galerie',
+                'label' => 'Vos images doivent être entre 700 et 1700 pixels',
+                // 'label' => 'galerie',
                 'required' => false,
                 'allow_delete' => false,
                 'download_uri' => false,
@@ -49,7 +50,8 @@ class GalerieType extends AbstractType
             ])
             ->add('legende', TextType::class, [
                 'attr' => [
-                    'class' => 'form-control'
+                    'class' => 'form-control',
+                    'placeholder' => 'Décrivez vos photos !'
                 ],
                 'required' => false,
             ])
