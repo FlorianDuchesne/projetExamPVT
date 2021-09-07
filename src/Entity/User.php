@@ -145,6 +145,11 @@ class User implements UserInterface, Serializable
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Place::class, inversedBy="users", cascade={"persist"})
+     */
+    private $places;
+
     public function __construct()
     {
         $this->publications = new ArrayCollection();
@@ -154,6 +159,7 @@ class User implements UserInterface, Serializable
         $this->messagesSend = new ArrayCollection();
         $this->likes = new ArrayCollection();
         $this->commentaires = new ArrayCollection();
+        $this->places = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -597,6 +603,30 @@ class User implements UserInterface, Serializable
                 $commentaire->setAuteur(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Place[]
+     */
+    public function getPlaces(): Collection
+    {
+        return $this->places;
+    }
+
+    public function addPlace(Place $place): self
+    {
+        if (!$this->places->contains($place)) {
+            $this->places[] = $place;
+        }
+
+        return $this;
+    }
+
+    public function removePlace(Place $place): self
+    {
+        $this->places->removeElement($place);
 
         return $this;
     }

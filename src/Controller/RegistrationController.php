@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Pays;
+use App\Entity\Place;
 use App\Entity\User;
 use App\Entity\Theme;
 // use App\Form\InscriptionType;
@@ -27,17 +28,31 @@ class RegistrationController extends AbstractController
     {
 
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
 
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
-            
+            // dd($form);
+            foreach ($form->get('projetsVoyages') as $item) {
+                $place = new Place;
+                // dd($item->get('name')->getViewData());
+                $place->setName($item->get('name')->getViewData());
+                $place->setPlaceId($item->get('placeId')->getViewData());
+                $place->setStatut("0");
+                $place->addUser($user);
+            }
+            foreach ($form->get('voyagesAccomplis') as $item) {
+                $place = new Place;
+                $place->setName($item->get('name')->getViewData());
+                $place->setPlaceId($item->get('placeId')->getViewData());
+                $place->setStatut("1");
+                $place->addUser($user);
+            }
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -68,11 +83,11 @@ class RegistrationController extends AbstractController
     {
 
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
-        ->findAll();
+            ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
-        ->findAll();
+            ->findAll();
 
-        $userConnected =$tokenStorage->getToken()->getUser();
+        $userConnected = $tokenStorage->getToken()->getUser();
 
 
         // checker id user connecté et id route et conditionner la suite (user interface ?)
@@ -92,7 +107,7 @@ class RegistrationController extends AbstractController
             return $this->render('pages/registration/edit.html.twig', [
                 'editUserForm' => $form->createView(),
                 'countries' => $countries,
-                'themes' => $themes    
+                'themes' => $themes
             ]);
         } else {
             // $this->addFlash('essaiHacking', 'Vous ne pouvez modifier ou supprimer que votre propre compte.');
@@ -100,7 +115,6 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('home');
         }
     }
-
 }
 
 

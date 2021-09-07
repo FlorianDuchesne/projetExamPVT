@@ -7,7 +7,9 @@
 
 	{{ parent() }}
 
-	<link href="{{ asset('css/showUser/style.css') }}" rel="stylesheet"/>
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initMap"></script>
+	{# <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initMap"></script> #}
+
 {% endblock %}
 
 
@@ -41,7 +43,23 @@
 
 	{% endif %}
 
-	<div class="wrapper">
+	<div
+		class="wrapper">
+		{# <div>
+									<input id="autocomplete" placeholder="Indiquer un pays" type="text"/>
+								</div> #}
+		<div id="mapProfile"></div>
+		<div id="markers">
+			{% for place in user.places %}
+				<div class="marker">
+
+					<p>{{ place.name }}</p>
+					<p>{{ place.placeId }}</p>
+					<p>{{ place.statut }}</p>
+				</div>
+			{% endfor %}
+		</div>
+
 		<div class="header">
 			{% set count = 0 %}
 			{% for article in user.publications %}
@@ -131,5 +149,7 @@
 
 		</main>
 	</div>
+
+	<script src="{{asset('js/profileGeoloc.js')}}"></script>
 
 {% endblock %}

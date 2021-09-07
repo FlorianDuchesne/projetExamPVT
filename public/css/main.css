@@ -1180,6 +1180,15 @@ footer .fab {
   margin: 0em 3em;
 }
 
+#map, #mapVoyagesAccomplis, #mapProfile {
+  height: 600px;
+  width: 100%;
+}
+
+.mapHidden {
+  display: none;
+}
+
 .dashboard {
   width: 100%;
   background: #515bda;

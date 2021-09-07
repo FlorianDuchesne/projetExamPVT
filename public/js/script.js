@@ -218,15 +218,6 @@ $("#theme_imageFile_file").change(function () {
   filePreviewCategorie(this);
 });
 
-// for (let i = 0; i < 6; i++) {
-// $(
-//   "#galeries .list-group-item #article_galeries_1 #article_galeries_1_imageFile_file"
-// ).change(function () {
-//   filePreview(this);
-// });
-// }
-// ------> ne marche pas… même sans la boucle.
-
 ///////////////////// ajout galerie article //////////////
 
 //création de 3 éléments HTMLElement
@@ -306,17 +297,6 @@ $(document).ready(function () {
     } else {
       alert("Vous ne pouvez pas enregistrer plus de cinq photos par article.");
     }
-
-    // if ($collection.childNodes.length > 5) {
-    // if (e.currentTarget.parentElement == $collection.chilNodes[6]) {
-    // console.log("nombre max");
-    // }
-    // au clic sur le bouton ajouter
-    //si la collection n'a pas encore autant d'élément que le maximum autorisé
-    // if($collection.data('index') < $("input[maxNb]").val()){
-    //on appelle la fonction qui ajoute un nouveau champ
-    //  }
-    //   else alert("Nb max atteint !")
   });
 });
 
@@ -380,104 +360,6 @@ $(document).ready(function () {
 $(document).ready(function () {
   $(".js-basic-single").select2();
 });
-
-// $("#newMessage").on("click", function (e) {
-//   e.preventDefault();
-//   console.log("clic OK");
-//   $.ajax({
-//     url: "/newMessage",
-//     type: "POST",
-//   }).done(function (response) {
-//     console.log(response);
-//     $("#newMessage").replaceWith(response);
-//   });
-// });
-
-// $("form").submit(function (e) {
-//   e.preventDefault(); // avoid to execute the actual submit of the form.
-
-//   var form = $(this);
-//   var url = form.attr("action");
-//   console.log(form);
-//   // $.ajax({
-//   //   type: "POST",
-//   //   url: url,
-//   //   data: form.serialize(), // serializes the form's elements.
-//   //   success: function (data) {
-//   //     console.log(data);
-//   //     // alert(data); // show response from the php script.
-//   //   },
-//   // });
-// });
-
-// $("#short_message_envoyer").on("click", function (e) {
-//   e.preventDefault();
-//   console.log(e.currentTarget.baseURI);
-//   $.ajax({
-//     url: e.currentTarget.baseURI,
-//     type: "POST",
-//   }).done(function (response) {
-//     console.log(response);
-//     $("#newMessage").replaceWith(response);
-//   });
-// });
-
-/////////////////////////// tentative Ajax messagerie
-
-// document.querySelectorAll("a.user__name").forEach(function (link) {
-//   link.addEventListener("click", onClickName);
-// });
-
-// // $("#short_message_envoyer").on("click", function (e) {
-// // e.preventDefault();
-// // console.log(e);
-// // onClickName(e);
-// // e.addEventListener("click", onClickName);
-// // });
-
-// // $("form").on("submit", onClickName);
-
-// function onClickName(event) {
-//   event.preventDefault();
-//   const url = this.href;
-//   console.log(event);
-//   console.log(url);
-//   $.ajax({
-//     url: url,
-//     type: "POST",
-//   }).done(function (response) {
-//     console.log(response);
-//     $("main").replaceWith(response);
-//     document.querySelectorAll("a.user__name").forEach(function (link) {
-//       link.addEventListener("click", onClickName);
-//     });
-//     // $("#short_message_envoyer").on("click", function (e) {
-//     //   e.preventDefault();
-//     //   console.log(e);
-//     //   // onClickName(e);
-//     // });
-//     // $("#short_message_envoyer").on("click", function (e) {
-//     //   e.preventDefault();
-//     //   console.log(e);
-//     // link.addEventListener("click", onClickName);
-//     // });
-//   });
-// }
-
-/////////////////////// tentative Ajax (marche pour switcher d'une conv' à une autre mais bloque les messages !)
-
-// console.log(e.currentTarget.action);
-// $("#message_envoyer").on("click", function (e) {
-//   e.preventDefault();
-//   console.log("clic OK");
-//   $.ajax({
-//     url: "/messagerie/{}",
-//     type: "POST",
-// }).done(function (response) {
-//   console.log(response);
-//   $("#newMessage").replaceWith(response);
-// });
-// });
 
 function onClickBtnLike(event) {
   event.preventDefault();
@@ -558,13 +440,3 @@ jQuery(function () {
   });
   console.log("slick actif");
 });
-
-// document
-//   .querySelector(".slick-prev")
-//   .innerHTML.replaceWith("<i class='fas fa-arrow-left'></i>");
-// console.log(document.querySelectorAll("button.slick-prev")[0]);
-// $(document).ready(function () {
-//   console.log($(".slick-prev".innerHTML));
-//   $(".slick-prev".innerHTML).replace("<i class='fas fa-arrow-left'></i>");
-// });
-//
