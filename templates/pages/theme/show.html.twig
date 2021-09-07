@@ -35,12 +35,10 @@
 			</div>
 			{# <button class="link">Voir plus</button> #}
 		</section>
-
 		<main class="wrapper-main">
 			<div class="wrapper-posts">
 				{% for publication in theme.articles %}
 					{% if publication.statut == 1 %}
-
 
 						{% include 'components/publication.twig' %}
 

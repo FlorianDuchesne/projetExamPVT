@@ -47,10 +47,12 @@
 					{% endif %}
 
 					{% if publication.statut == 0 %}
-						{% if user == app.user %}
-							{% include 'components/publication.twig' %}
+						{% if user is defined %}
+							{% if user == app.user %}
+								{% include 'components/publication.twig' %}
 
-							<p class="post__statut">Brouillon</p>
+								<p class="post__statut">Brouillon</p>
+							{% endif %}
 						{% endif %}
 					{% endif %}
 				{% endfor %}

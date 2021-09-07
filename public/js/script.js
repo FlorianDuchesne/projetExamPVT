@@ -23,10 +23,23 @@ for (var post of posts) {
 }
 
 function lightbox(elem) {
+  console.log(elem);
   var currentImage = elem;
   // la figure ayant déclenché la fonction, et qui est l'objet de la fonction, est stockée dans la var "currentImage"
   var src = currentImage.src;
-  var legende = currentImage.nextElementSibling.firstChild.data;
+  // if (
+  //   currentImage.nextElementSibling.firstChild.data != null &&
+  //   typeof currentImage.nextElementSibling.firstChild.data != "undefined"
+  // ) {
+  if (currentImage.nextElementSibling.childNodes.length !== 0) {
+    var legende = currentImage.nextElementSibling.firstChild.data;
+  } else {
+    var legende = "";
+  }
+  // } else {
+  //   var legende = false;
+  // }
+  // console.log(currentImage);
 
   // l'élément ( = src) de l'élément qui est le premier enfant de ma figure ( = img) est stocké dans la var "src"
   document.getElementById("lightbox").style.opacity = 1;
@@ -99,7 +112,13 @@ function lightbox(elem) {
       prevImage();
     }
     src = prevImage.src;
-    legende = prevImage.nextElementSibling.firstChild.data;
+    if (prevImage.nextElementSibling.childNodes.length !== 0) {
+      legende = prevImage.nextElementSibling.firstChild.data;
+    }
+    //  else {
+    //   legende = " ";
+    // }
+
     // la variable src est définie comme l'élément src enfant de ma variable prevImage
     document.getElementById(
       "lightbox"
@@ -131,7 +150,12 @@ function lightbox(elem) {
       nextImage();
     }
     src = nextImage.src;
-    legende = nextImage.nextElementSibling.firstChild.data;
+    if (nextImage.nextElementSibling.childNodes.length !== 0) {
+      legende = nextImage.nextElementSibling.firstChild.data;
+    }
+    // else {
+    //   legende = " ";
+    // }
     document.getElementById(
       "lightbox"
     ).children[2].innerHTML = `<img src="${src}"/>`;
