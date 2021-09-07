@@ -28,7 +28,8 @@ class ArticleRepository extends ServiceEntityRepository
         $qb = $this->createQueryBuilder('a')
             ->where('a.texte LIKE :string')
             ->orWhere('a.lieu LIKE :string')
-            ->orWhere('a.titre LIKE :string');
+            ->orWhere('a.titre LIKE :string')
+            ->andWhere('a.statut = 1');
 
         if ($request->get('themes')) {
             foreach (($request->get('themes')) as $value) {
@@ -65,6 +66,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->where(':string = a.lieu')
+            ->andWhere('a.statut = 1')
             ->setParameter('string', $string)
             ->orderBy('a.id', 'DESC')
             ->getQuery()
@@ -78,6 +80,7 @@ class ArticleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('a')
             ->where(':tag MEMBER OF a.hashtags')
+            ->andWhere('a.statut = 1')
             ->setParameter('tag', $tag)
             ->orderBy('a.id', 'DESC')
             ->getQuery()

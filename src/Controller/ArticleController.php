@@ -80,7 +80,7 @@ class ArticleController extends AbstractController
             'themes' => $themes,
             'publications' => $articles,
             'brouillon' => false,
-            'lieu' => $article->getLieu()
+            'lieu' => $article->getLieu(),
         ]);
     }
 

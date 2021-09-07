@@ -36,58 +36,15 @@
 			</div>
 			<button class="link">Voir plus</button>
 		</section>
-		{# <aside class="aside">
-		<h4>Membres intéressés par ce thème :</h4>
-								<div class="aside__user">
-									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-									<h5 class="aside__user__name">Robert</h5>
-								</div>
-		            <div class="aside__user">
-									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-									<h5 class="aside__user__name">Robert</h5>
-								</div>
-								<div class="aside__user">
-									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-									<h5 class="aside__user__name">Robert</h5>
-								</div>
-								<div class="aside__user">
-									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-									<h5 class="aside__user__name">Robert</h5>
-								</div>
-								<div class="aside__user">
-									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/avatarRobert.jpg') }}"/></figure>
-									<h5 class="aside__user__name">Robert</h5>
-								</div>
-		</aside> #}
 		<main class="wrapper-main">
 			<div class="wrapper-posts">
 
 				{% for publication in theme.articles %}
+					{% if publication.statut == 1 %}
 
-					{% include 'components/publication.twig' %}
+						{% include 'components/publication.twig' %}
 
-					{# <div class="post">
-												<div class="post__user">
-													<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
-													<a class="user__name" href = "{{ path('user_show', {id: publication.auteurArticle.id}) }}"><h5>{{ publication.auteurArticle.pseudo }}</h5></a>
-												</div>
-												<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}"><h4>{{ publication }}</h4></a>
-												{% if (publication.galeries | length > 1) %}
-													<figure class="post__wrapperPictures--many">
-													{% else %}
-														<figure class="post__wrapperPictures">
-														{% endif %}
-														{% for galerie in publication.galeries %}
-															<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
-															<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
-														{% endfor %}
-													</figure>
-													<p class="post__paragraph">{{ publication.texte }}</p>
-													<p class="post__categories">Pays :
-														{{ publication.pays }}, thème :
-														{{ publication.theme }}</p>
-												</div> #}
-
+					{% endif %}
 				{% endfor %}
 			</div>
 
