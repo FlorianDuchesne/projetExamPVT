@@ -1,9 +1,10 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register
+{% block title %}Modifier compte
 {% endblock %}
 
 {% block body %}
+
 	{% for flashError in app.flashes('essaiHacking') %}
 		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 	{% endfor %}

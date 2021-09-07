@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Articles
 {% endblock %}
 
 {% block body %}
@@ -21,18 +21,18 @@
 
 	<div class="wrapper-whole">
 		{% if brouillon %}
-			<h1 class="text-center">Brouillons de
+			<h1 class="text-center m-5">Brouillons de
 				{{user.pseudo|capitalize}}</h1>
 		{% else %}
 			{% if user is defined %}
-				<h1 class="text-center">Articles de
+				<h1 class="text-center m-5">Articles de
 					{{user.pseudo|capitalize}}</h1>
 			{% else %}
 				{% if tag is defined %}
-					<h1 class="text-center">Articles avec le mot-clé
+					<h1 class="text-center m-5">Articles avec le mot-clé
 						{{tag.name|capitalize}}</h1>
 				{% else %}
-					<h1 class="text-center">Articles situés à
+					<h1 class="text-center m-5">Articles situés à
 						{{lieu|capitalize}}</h1>
 				{% endif %}
 			{% endif %}

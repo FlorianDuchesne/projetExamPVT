@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!
+{% block title %}Détail thème
 {% endblock %}
 
 {% block stylesheets %}
-
 	{{ parent() }}
+{% endblock %}
 
-	<link
-	href="{{ asset('css/theme/themeShow/style.css') }}" rel="stylesheet"/>
-{#{{ encore_entry_link_tags('app') }}#}
+{% block javascripts %}
+	{{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -20,25 +19,24 @@
 				<figcaption class="title">{{ theme.libelle }}</figcaption>
 			</figure>
 		</header>
-		<section class="pays">
-			<h2>Pays :</h2>
-			<div class="wrapperFlex row">
-				{% for pays in pays|slice(0,3) %}
-					<a href="{{ path('both_show', {idPays: pays.id, idTheme: theme.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
+		<section class="themes">
+			<h2>Thèmes :</h2>
+			<div class="wrapperFlex row your-class">
+				{% for country in countries %}
+					<a href="{{ path('both_show', {idPays: country.id, idTheme: country.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 						<figure class="picture">
-							<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+							<img src="{{ asset('img/pays/' ~ country.img) }}" alt="#" class="thumbnail">
 							<figcaption class="title">
-								{{ pays.libelle }}
+								{{ country.libelle }}
 							</figcaption>
 						</figure>
 					</a>
 				{% endfor %}
 			</div>
-			<button class="link">Voir plus</button>
+			{# <button class="link">Voir plus</button> #}
 		</section>
 		<main class="wrapper-main">
 			<div class="wrapper-posts">
-
 				{% for publication in theme.articles %}
 					{% if publication.statut == 1 %}
 
@@ -51,7 +49,6 @@
 			{% include 'components/asideMembres.twig' %}
 
 		</main>
-
 
 	</div>
 

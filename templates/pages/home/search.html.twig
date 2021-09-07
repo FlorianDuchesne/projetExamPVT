@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!
+{% block title %}Recherche
 {% endblock %}
 
 {% block stylesheets %}
@@ -72,6 +72,24 @@
 					{% for hashtag in results[2] %}
 						<li>
 							<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<h4 class="mt-2">Catégorie Pays ({{results[3]|length}})</h4>
+				<ul>
+					{% for pays in results[3] %}
+						<li>
+							<a href="{{ path('pays_show', {id: pays.id}) }}">{{pays.libelle}}</a>
+						</li>
+					{% endfor %}
+				</ul>
+
+				<h4 class="mt-2">Catégorie Thème ({{results[4]|length}})</h4>
+				<ul>
+					{% for theme in results[4] %}
+						<li>
+							<a href="{{ path('theme_show', {id: theme.id}) }}">{{theme.libelle}}</a>
 						</li>
 					{% endfor %}
 				</ul>

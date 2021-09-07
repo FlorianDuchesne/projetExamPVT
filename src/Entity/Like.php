@@ -28,6 +28,11 @@ class Like
      */
     private $user;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Commentaire::class, inversedBy="likes")
+     */
+    private $commentaire;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -53,6 +58,18 @@ class Like
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getCommentaire(): ?Commentaire
+    {
+        return $this->commentaire;
+    }
+
+    public function setCommentaire(?Commentaire $commentaire): self
+    {
+        $this->commentaire = $commentaire;
 
         return $this;
     }

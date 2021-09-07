@@ -1,15 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!
+{% block title %}Détail Pays
 {% endblock %}
 
 {% block stylesheets %}
-
 	{{ parent() }}
+{% endblock %}
 
-{# <link
-    href="{{ asset('css/pays/paysShow/style.css') }}" rel="stylesheet"/>   #}
-	{#{{ encore_entry_link_tags('app') }}#}
+{% block javascripts %}
+	{{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -22,8 +21,8 @@
 		</header>
 		<section class="themes">
 			<h2>Thèmes :</h2>
-			<div class="wrapperFlex row">
-				{% for theme in themes|slice(0,3) %}
+			<div class="wrapperFlex row your-class">
+				{% for theme in themes %}
 					<a href="{{ path('both_show', {idPays: pays.id, idTheme: theme.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 						<figure class="picture">
 							<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
@@ -34,7 +33,7 @@
 					</a>
 				{% endfor %}
 			</div>
-			<button class="link">Voir plus</button>
+			{# <button class="link">Voir plus</button> #}
 		</section>
 
 		<main class="wrapper-main">
@@ -52,7 +51,5 @@
 
 		</main>
 
-
 	</div>
-
 {% endblock %}

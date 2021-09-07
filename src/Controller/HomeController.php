@@ -7,10 +7,12 @@ use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Hashtag;
+use App\Form\CommentaireType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomeController extends AbstractController
@@ -20,6 +22,9 @@ class HomeController extends AbstractController
      */
     public function index(User $user = null)
     {
+
+        $form = $this->createForm(CommentaireType::class);
+
         // Symfony nous permet d'identifier avec "getUser" si le visiteur est un utilisateur identifié ou non.
         $user = $this->getUser();
 
@@ -27,7 +32,6 @@ class HomeController extends AbstractController
         if (empty($user)) {
             return $this->redirectToRoute('homeVisitor');
         }
-
 
         // On rassemble les données nécessaires à la vue grâce aux repositories des entités User, Pays et Theme.
         // C'est Doctrine, l'ORM de Symfony qui nous permet d'accéder aux repositories des différentes classes.
@@ -41,22 +45,37 @@ class HomeController extends AbstractController
         $following = $user->getFollowing();
 
         $articles = $this->getDoctrine()->getRepository(Article::class)->findByFollow($following, $user);
-
+        $tendances = $this->getDoctrine()->getRepository(Hashtag::class)->findByPopularity();
+        $suggestions = $this->getDoctrine()->getRepository(User::class)->findByLikes($user);
 
         // On renvoie la vue twig avec les données instanciées dans la fonction.
         return $this->render('pages/home/indexBEM.html.twig', [
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
-            'publications' => $articles
+            'publications' => $articles,
+            'commentaire' => $form,
+            'tendances' => $tendances,
+            'suggestions' => $suggestions
         ]);
     }
 
     /**
      * @Route("/homeVisitor", name="homeVisitor")
      */
-    public function indexVisitor()
+    public function indexVisitor(Session $session = null)
     {
+        // dd($session);
+        // cette partie là ne marche pas très bien…
+        if (($session->get('new')) == null) {
+            $session->set('new', true);
+        } else {
+            $session->set('new', false);
+        }
+        // dd($session);
+
+        $newVisitor = $session->get('new');
+
         $users =  $this->getDoctrine()->getRepository(User::class)
             ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
@@ -69,7 +88,8 @@ class HomeController extends AbstractController
             'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
-            'articles' => $articles
+            'articles' => $articles,
+            'newVisitor' => $newVisitor
         ]);
     }
 
@@ -85,8 +105,11 @@ class HomeController extends AbstractController
         // dd($resultArticles);
         $resultUsers = $this->getDoctrine()->getRepository(User::class)->findBySearch($search);
         $resultHashtags = $this->getDoctrine()->getRepository(Hashtag::class)->findBySearch($search);
+        $resultPays = $this->getDoctrine()->getRepository(Pays::class)->findBySearch($search);
+        $resultTheme = $this->getDoctrine()->getRepository(Theme::class)->findBySearch($search);
 
-        $results = [$resultArticles, $resultUsers, $resultHashtags];
+
+        $results = [$resultArticles, $resultUsers, $resultHashtags, $resultPays, $resultTheme];
 
         $users =  $this->getDoctrine()->getRepository(User::class)
             ->findAll();
@@ -105,6 +128,26 @@ class HomeController extends AbstractController
             'hashtags' => $tags,
             'results' => $results,
             'search' => $search
+        ]);
+    }
+
+    /**
+     * @Route("/aPropos", name="aPropos")
+     */
+    public function aPropos()
+    {
+
+
+        $users =  $this->getDoctrine()->getRepository(User::class)
+            ->findAll();
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+        return $this->render('pages/home/apropos.html.twig', [
+            'users' => $users,
+            'countries' => $countries,
+            'themes' => $themes,
         ]);
     }
 }

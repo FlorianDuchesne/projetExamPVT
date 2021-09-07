@@ -1,10 +1,42 @@
 .publishStuff
+  background-image: url("../../../img/inscription_test.jpg")
   position: relative
-  margin-bottom: 5em
+  // margin-bottom: 5em
+  height: 500px
+  background-attachment: fixed
+  background-position: center
+  // background-repeat: no-repeat
+  background-size: cover
+  opacity: 0
+  animation: fadeIn 0.8s 0.4s ease forwards
+  @keyframes fadeIn
+    0%
+      opacity: 0
+
+    100%
+      opacity: 1
+  &--publish
+    background-image: url("../../../img/nouvelArticle.jpg")
+  &--apropos
+    background-image: url("../../../img/apropos.jpg")
+  &--follow
+    background-image: url("../../../img/follow.jpg")
   // margin: 0
-  .publishStuff__img
-    width: 100%
-    filter: brightness(80%)
+  // .publishStuff__img
+  //   width: 100%
+  //   filter: brightness(80%)
+  .publishStuff__blocText
+    // width: 20vw
+    position: relative
+    top: 10%
+    left: 10%
+    .publishStuff__text
+      font-size: xx-large
+      font-weight: bold
+      color: $blue
+    a
+      color: white
+      text-decoration: none
   .publishStuff__h1
     position: absolute
     bottom: 20%
@@ -12,6 +44,13 @@
     color: $white
     text-transform: uppercase
     font-size: x-large
+    border: 5px solid $teal
+    padding: 0.3em
+    border-radius: 10px
+    transition: 1s
+    &:hover
+      background-color: $teal
+      transition: 1s
     &--register
       bottom: 1em
       right: 2em

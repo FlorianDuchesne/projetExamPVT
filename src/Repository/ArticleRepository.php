@@ -62,6 +62,22 @@ class ArticleRepository extends ServiceEntityRepository
     /**
      * @return Article[] Returns an array of Article objects
      */
+    public function findByLikes($user)
+    {
+        return $this->createQueryBuilder('a')
+            ->where(':user = a.auteurArticle')
+            ->innerJoin('a.likes', 'l')
+            ->setParameter('user', $user)
+            ->groupBy('l.post')
+            ->orderBy('COUNT(l.post)', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @return Article[] Returns an array of Article objects
+     */
     public function findByLieu($string)
     {
         return $this->createQueryBuilder('a')

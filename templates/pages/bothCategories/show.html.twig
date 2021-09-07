@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PaysController!
+{% block title %}Index catégories
 {% endblock %}
 
 {% block stylesheets %}
@@ -29,7 +29,6 @@
 				{% for publication in pays.articles %}
 					{% if publication.theme == theme %}
 						{% if publication.statut == 1 %}
-
 
 							{% include 'components/publication.twig' %}
 

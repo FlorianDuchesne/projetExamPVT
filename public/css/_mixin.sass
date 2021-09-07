@@ -32,6 +32,7 @@
         position: unset
         width: 350px
       .thumbnail
+        margin: auto
         height: 250px
         filter: brightness(80%)
         // transform: translateY(-50%);
@@ -83,3 +84,12 @@
   text-align: center
   text-transform: uppercase
   letter-spacing: 0.5em
+
+@mixin alert($couleur)
+  background-color: $couleur
+  border-radius: 10px
+  margin: 1em
+  padding: 1em
+  p
+    text-align: center
+    margin: 0

@@ -19,6 +19,16 @@ class ThemeRepository extends ServiceEntityRepository
         parent::__construct($registry, Theme::class);
     }
 
+    public function findBySearch($string)
+    {
+        return $this->createQueryBuilder('t')
+            ->where('t.libelle LIKE :string')
+            ->setParameter('string', '%' . $string . '%')
+            ->orderBy('t.id', 'DESC')
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return Theme[] Returns an array of Theme objects
     //  */

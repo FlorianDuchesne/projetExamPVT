@@ -20,6 +20,12 @@
     color: $blue
     text-decoration: none
     text-transform: uppercase
+  .post__lieuEtDate
+    @include blockFlex(space-between)
+    width: 85%
+    margin: 1em 0em
+    &--show
+      width: 100%
   .post__wrapperPictures
     // mixin
     display: flex
@@ -50,3 +56,9 @@
 .post__statut
   font-family: $arial
   color: $blue
+
+.like, .likeComm
+  text-decoration: none
+
+#commentaire
+  margin-bottom: 1em

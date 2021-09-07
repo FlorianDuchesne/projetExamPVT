@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!
+{% block title %}Accueil
 {% endblock %}
 
 {% block body %}
@@ -19,25 +19,28 @@
 
 	{% include 'components/lightbox.twig' %}
 
-	<div class="wrapper-whole">
 
-		{% if app.user.following is empty %}
+	{% if app.user.following is empty %}
 
-			<figure class="publishStuff publishStuff">
-				<img class="publishStuff__img" src="{{ asset('img/membres.jpg') }}"/>
-				<a href="{{ path('users') }}">
-					<h1 class="publishStuff__h1 publishStuff__h1--follow">Suivez vos voyageurs préférés !</h1>
-				</a>
-			</figure>
-
-		{% endif %}
-
-		<figure class="publishStuff">
-			<img class="publishStuff__img" src="{{ asset('img/publication.jpg') }}"/>
-			<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">
-				<h1 class="publishStuff__h1">Publie ton prochain article !</h1>
+		<figure
+			class="publishStuff publishStuff--follow">
+			{# <img class="publishStuff__img" src="{{ asset('img/membres.jpg') }}"/> #}
+			<a href="{{ path('users') }}">
+				<h1 class="publishStuff__h1 publishStuff__h1--follow">Suivez vos voyageurs préférés !</h1>
 			</a>
 		</figure>
+
+	{% endif %}
+
+	<figure
+		class="publishStuff publishStuff--publish">
+		{# <img class="publishStuff__img" src="{{ asset('img/publication.jpg') }}"/> #}
+		<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">
+			<h1 class="publishStuff__h1">Publie ton prochain article !</h1>
+		</a>
+	</figure>
+
+	<div class="wrapper-whole">
 
 		<div class="wrapper-main">
 
