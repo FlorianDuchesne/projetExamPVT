@@ -45,10 +45,16 @@
 				<a href="{{path('pays_show', {id: publication.pays.id})}}">{{ publication.pays }}</a>, thème :
 				<a href="{{ path('theme_show', {id: publication.theme.id}) }}">{{ publication.theme }}</a>
 			</p>
-			Mots-clés :
-			{% for hashtag in publication.hashtags %}
-				<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
-			{% endfor %}
+			{% if (publication.hashtags|length > 0) %}
+				<p>Mots-clés :
+					{% for hashtag in publication.hashtags %}
+						<strong>
+							<a href="{{ path('indexTag', {id: hashtag.id}) }}">{{hashtag.name}}</a>
+						</strong>
+					{% endfor %}
+				</p>
+			{% endif %}
+
 
 			{% if app.user %}
 				{% set liked = false %}

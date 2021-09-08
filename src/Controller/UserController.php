@@ -8,6 +8,7 @@ use App\Entity\User;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Message;
+use App\Entity\Place;
 use App\Form\MessageType;
 use App\Form\ShortMessageType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -93,9 +94,9 @@ class UserController extends AbstractController
      */
     public function follow(User $user, EntityManagerInterface $manager)
     {
-        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        $countries =  $manager->getRepository(Pays::class)
             ->findAll();
-        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        $themes =  $manager->getRepository(Theme::class)
             ->findAll();
 
         $userFollowing = $this->getUser();
@@ -116,9 +117,9 @@ class UserController extends AbstractController
      */
     public function unfollow(User $user, EntityManagerInterface $manager)
     {
-        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+        $countries =  $manager->getRepository(Pays::class)
             ->findAll();
-        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+        $themes =  $manager->getRepository(Theme::class)
             ->findAll();
 
         $userFollowing = $this->getUser();
@@ -137,7 +138,7 @@ class UserController extends AbstractController
     /**
      * @Route("/followers/{id}", name="followers")
      */
-    public function followers(User $user, EntityManagerInterface $manager)
+    public function followers(User $user)
     {
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
@@ -159,7 +160,7 @@ class UserController extends AbstractController
     /**
      * @Route("/follows/{id}", name="follows")
      */
-    public function abonnements(User $user, EntityManagerInterface $manager)
+    public function abonnements(User $user)
     {
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
@@ -271,16 +272,35 @@ class UserController extends AbstractController
         }
     }
 
+    // /**
+    //  * @Route("/newMessage", name="newMessage", methods={"POST"})
+    //  */
+    // public function newMessage()
+    // {
+
+    //     $form = $this->createForm(MessageType::class);
+
+    //     return $this->render('components/newMessage.html.twig', [
+    //         'answerForm' => $form->createView(),
+    //     ]);
+    // }
+
     /**
-     * @Route("/newMessage", name="newMessage", methods={"POST"})
+     * @Route("/searchPlaceId", name="searchPlaceId", methods={"POST"})
      */
-    public function newMessage()
+    public function searchPlaceId(EntityManagerInterface $manager)
     {
+        $user = $this->getUser();
 
-        $form = $this->createForm(MessageType::class);
-
-        return $this->render('components/newMessage.html.twig', [
-            'answerForm' => $form->createView(),
-        ]);
+        $places = $manager->getRepository(Place::class)->findByUser($user);
+        $placesID = [];
+        $placesName = [];
+        $placesStatut = [];
+        foreach ($places as $place) {
+            $placesID[] = $place->getPlaceId();
+            $placesName[] = $place->getName();
+            $placesStatut[] = $place->getStatut();
+        }
+        return new JsonResponse(['placesId' => $placesID, 'placesNames' => $placesName, 'placesStatut' => $placesStatut]);
     }
 }
