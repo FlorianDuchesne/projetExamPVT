@@ -22,18 +22,23 @@ function initMap() {
   let markersStatuts = [];
 
   $(document).ready(function () {
+    let userId = document.URL.charAt(document.URL.length - 1);
+    console.log(userId);
+    let url = "/searchPlaceId/" + userId;
+    console.log(url);
     $.ajax({
-      url: "/searchPlaceId",
+      url: url,
       type: "POST",
     }).done(function (response) {
-      // console.log(response);
+      console.log(response);
       markersPlaces.push(response.placesId);
       markersNames.push(response.placesNames);
       markersStatuts.push(response.placesStatut);
-      console.log("markersPlaces");
-      console.log(markersPlaces[0]);
-      // console.log(markersStatuts[0]);
+      // console.log("markersPlaces");
+      // console.log(markersPlaces[0]);
+      // console.log(markersStatuts[0][0]);
       // console.log(markersPlaces.length);
+      var i = 0;
 
       var service = new google.maps.places.PlacesService(mapProfile);
       // pour chaque élément, incrémenter
@@ -43,9 +48,18 @@ function initMap() {
             placeId: element,
           },
           function (result, status) {
+            console.log(markersStatuts[0][i]);
+            if (markersStatuts[0][i] == true) {
+              var icon = "/img/redPin.png";
+            } else {
+              var icon = "/img/bluePin.png";
+            }
+            console.log(markersNames[0][i]);
+            i++;
             console.log("element");
             console.log(element);
             var marker = new google.maps.Marker({
+              icon: icon,
               map: mapProfile,
               place: {
                 placeId: element,
@@ -55,55 +69,6 @@ function initMap() {
           }
         )
       );
-
-      // console.log(markersNames[0]);
-      // console.log(markersStatuts[0]);
-      // return markersPlaces, markersNames, markersStatuts;
     });
-    // return markersPlaces, markersNames, markersStatuts;
   });
-
-  // console.log(markersPlaces);
-
-  // console.log(markers);
-  // markersPlaces.forEach((element) => console.log(element));
-
-  // console.log(markers.indexOf("Fr0ancfort--le-Main"));
-  // markers.forEach(function (item, index, array) {
-  //   console.log(item, index);
-  // });
-  // markers.forEach((element) => console.log(element));
-
-  // The marker, positioned at Uluru
 }
-
-// let markersPlaces;
-// let markersNames;
-// let markersStatuts;
-// let markersPlaces = [];
-// let markersNames = [];
-// let markersStatuts = [];
-
-// $(document).ready(function () {
-//   $.ajax({
-//     url: "/searchPlaceId",
-//     type: "POST",
-//   }).done(function (response) {
-//     // console.log(response);
-//     markersPlaces.push(response.placesId);
-//     markersNames.push(response.placesNames);
-//     markersStatuts.push(response.placesStatut);
-//     console.log(markersPlaces);
-//     console.log(markersPlaces.length);
-
-//     // console.log(markersNames[0]);
-//     // console.log(markersStatuts[0]);
-//     return markersPlaces, markersNames, markersStatuts;
-//   });
-//   return markersPlaces, markersNames, markersStatuts;
-// });
-// console.log(markersPlaces.length);
-// console.log(markersNames[0]);
-// console.log(markersStatuts[0]);
-
-// });

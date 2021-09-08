@@ -286,11 +286,14 @@ class UserController extends AbstractController
     // }
 
     /**
-     * @Route("/searchPlaceId", name="searchPlaceId", methods={"POST"})
+     * @Route("/searchPlaceId/{id}", name="searchPlaceId", methods={"POST"})
      */
-    public function searchPlaceId(EntityManagerInterface $manager)
+    public function searchPlaceId(User $user, EntityManagerInterface $manager)
     {
-        $user = $this->getUser();
+
+        // $user = $manager->getRepository(User::class)->find($id);
+
+        // $user = $this->getUser();
 
         $places = $manager->getRepository(Place::class)->findByUser($user);
         $placesID = [];
@@ -301,6 +304,6 @@ class UserController extends AbstractController
             $placesName[] = $place->getName();
             $placesStatut[] = $place->getStatut();
         }
-        return new JsonResponse(['placesId' => $placesID, 'placesNames' => $placesName, 'placesStatut' => $placesStatut]);
+        return new JsonResponse(['user' => $user, 'placesId' => $placesID, 'placesNames' => $placesName, 'placesStatut' => $placesStatut]);
     }
 }
