@@ -74,9 +74,10 @@
 					<span class="nbLikes">
 						{{publication.likes|length }}</span>
 				</div>
+				{% include 'components/commentaires.twig'%}
+
 			{% endif %}
 
-			{% include 'components/commentaires.twig'%}
 
 			{% if publication.auteurArticle == app.user %}
 

@@ -24,7 +24,7 @@ class GalerieType extends AbstractType
             //     ]
             // ])
             ->add('imageFile', VichImageType::class, [
-                'label' => 'Vos images doivent être entre 700 et 1700 pixels',
+                'label' => 'Vos images doivent être comprises entre 700 et 1700 pixels',
                 // 'label' => 'galerie',
                 'required' => false,
                 'allow_delete' => false,

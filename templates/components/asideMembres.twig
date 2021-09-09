@@ -1,15 +1,31 @@
 {% if app.user %}
-	<div class="wrapperAside">
-		<aside class="aside">
-			<h4 class="aside__h6">Membres susceptibles de vous intéresser :</h4>
-			{% for suggestionsUser in suggestionsUsers %}
-				<a href="{{ path('user_show', {id: suggestionsUser.id}) }}">
-					<div class="aside__user">
-						<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestionsUser.avatar) }}"/></figure>
-						<h5 class="aside__user__name">{{ suggestionsUser.pseudo }}</h5>
-					</div>
-				</a>
-			{% endfor %}
-		</aside>
-	</div>
+	{% set nbSuggestions = suggestionsUsers|length %}
+	{% set nbFollowsInSuggestions = 0 %}
+
+	{% for suggestion in suggestionsUsers %}
+
+		{% if app.user.following.contains(suggestion) %}
+			{% set nbFollowsInSuggestions = nbFollowsInSuggestions + 1 %}
+		{% endif %}
+	{% endfor %}
+	{% if nbSuggestions != nbFollowsInSuggestions %}
+		{% if suggestionsUsers is not empty %}
+
+			<div class="wrapperAside">
+				<aside class="aside">
+					<h4 class="aside__h6">Membres susceptibles de vous intéresser :</h4>
+					{% for suggestionsUser in suggestionsUsers %}
+						{% if not (app.user.following.contains(suggestionsUser)) %}
+							<a href="{{ path('user_show', {id: suggestionsUser.id}) }}">
+								<div class="aside__user">
+									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestionsUser.avatar) }}"/></figure>
+									<h5 class="aside__user__name">{{ suggestionsUser.pseudo }}</h5>
+								</div>
+							</a>
+						{% endif %}
+					{% endfor %}
+				</aside>
+			</div>
+		{% endif %}
+	{% endif %}
 {% endif %}

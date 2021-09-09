@@ -92,6 +92,7 @@ class ArticleType extends AbstractType
                     'class' => 'form-control js-basic-multiple'
                 ],
                 'class' => Hashtag::class,
+                'required' => false,
                 'multiple' => true,
                 'choice_label' => 'name',
                 'query_builder' => function (EntityRepository $er) {

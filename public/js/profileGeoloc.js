@@ -22,7 +22,10 @@ function initMap() {
   let markersStatuts = [];
 
   $(document).ready(function () {
-    let userId = document.URL.charAt(document.URL.length - 1);
+    console.log(document.URL);
+    let adress = document.URL;
+    console.log(adress.length);
+    let userId = adress.slice(27, adress.length);
     console.log(userId);
     let url = "/searchPlaceId/" + userId;
     console.log(url);
