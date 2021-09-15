@@ -43,81 +43,70 @@
 
 	{% endif %}
 
-	<div
-		class="wrapper">
-		{# <div>
-													<input id="autocomplete" placeholder="Indiquer un pays" type="text"/>
-												</div> #}
-		<div id="mapProfile"></div>
-		{# <div id="markers">
-							{% for place in user.places %}
-								<div class="marker">
-				
-									<p>{{ place.name }}</p>
-									<p>{{ place.placeId }}</p>
-									<p>{{ place.statut }}</p>
-								</div>
-							{% endfor %}
-						</div> #}
+	<div class="wrapper__header">
+		<div class="wrapper">
 
-		<div class="header">
-			{% set count = 0 %}
-			{% for article in user.publications %}
-				{% if article.statut == 1 %}
-					{% set count = count + 1 %}
-				{% endif %}
-			{% endfor %}
-			<div class="header__leftColumn">
-				<small>
-					<a href="{{ path('indexArticles', {id: user.id}) }}" class="header__text">Tous les articles ({{count}})</a>
-				</small>
-				<small>
-					<a href="{{ path('followers', {id: user.id}) }}" class="header__text">Abonnés ({{user.followers|length}})</a>
-				</small>
-				<small>
-					<a href="{{ path('follows', {id: user.id}) }}" class="header__text">Abonnements ({{user.following|length}})</a>
-				</small>
-			</div>
-			<div class="avatar">
-				<figure class="header__user">
-					<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
-				</figure>
-				<h1 class="user__name">
-					{{ user.pseudo }}
-				</h1>
-			</div>
-			{% if app.user %}
-				{% if user != app.user %}
-					<div class="header__rightColumn">
-						{% if user.followers.contains(app.user) %}
-							<a class="header__text" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre ce membre</a>
-						{% else %}
-							<a class="header__text" href="{{ path('following', {id: user.id}) }}">suivre ce membre</a>
-						{% endif %}
-						<button class="header__sendMessage">envoyer un message à ce membre</button>
+			<div class="header">
+				<div class="avatar">
+					<figure class="header__user">
+						<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
+					</figure>
+					<div class="user__infos">
+						<h1 class="user__name">
+							{{ user.pseudo }}
+						</h1>
+						<p>Inscrit(e) depuis le
+							{{ user.dateCreation | date("m/d/Y") }}
+						</p>
 					</div>
-				{% endif %}
-			{% endif %}
+				</div>
 
+				{% set count = 0 %}
+				{% for article in user.publications %}
+					{% if article.statut == 1 %}
+						{% set count = count + 1 %}
+					{% endif %}
+				{% endfor %}
+				<div class="header__leftColumn">
+					<small>
+						<a href="{{ path('indexArticles', {id: user.id}) }}" class="header__text">
+							<span>{{count}}</span>
+							articles
+						</a>
+					</small>
+					<small>
+						<a href="{{ path('followers', {id: user.id}) }}" class="header__text">
+							<span>{{user.followers|length}}</span>
+							abonnés</a>
+					</small>
+					<small>
+						<a href="{{ path('follows', {id: user.id}) }}" class="header__text">
+							<span>{{user.following|length}}</span>
+							abonnements</a>
+					</small>
+				</div>
+				{% if app.user %}
+					{% if user != app.user %}
+						<div class="header__rightColumn">
+							<a href="{{ path('messagerieShow', {id: user.id}) }}" class="btn btn-info">
+								<i class="fas fa-envelope"></i>
+							</a>
+							{% if user.followers.contains(app.user) %}
+								<a class="btn btn-info" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre</a>
+							{% else %}
+								<a class="btn btn-info" href="{{ path('following', {id: user.id}) }}">Suivre</a>
+							{% endif %}
+						</div>
+					{% endif %}
+				{% endif %}
+			</div>
 		</div>
+	</div>
+	<div class="wrapper">
 		<main class="main">
 			<p class="main__description">
 				{{ user.description }}</p>
-			<div class="main__infos">
-				<h3 class="infos__title">Infos :</h3>
-				<ul class="infos__list">
-					<li class="infos__line">
-						<strong>date d'inscription :</strong>
-						{{ user.dateCreation | date("m/d/Y") }}</li>
-					<li class="infos__line">
-						<strong>pays visités :
-						</strong>
-						{{ user.voyagesAccomplis }}</li>
-					<li class="infos__line">
-						<strong>envies de voyages :</strong>
-						{{ user.projetsVoyages }}</li>
-				</ul>
-			</div>
+			<div id="mapProfile"></div>
 			<div class="main__articles">
 				{% if articlesPopulaires is defined %}
 					<h3 class="articles__title">Articles les plus populaires :</h3>
@@ -150,5 +139,4 @@
 	</div>
 
 	<script src="{{asset('js/profileGeoloc.js')}}"></script>
-
 {% endblock %}

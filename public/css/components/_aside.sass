@@ -5,21 +5,33 @@
   margin: 2em
   padding: 2em
   border-radius: 15px
+  a
+    text-decoration: none
   .aside__h6
     color: $white
   .aside__user
+    @include blockFlex(start)
+  .aside__user__bloc
     @include blockFlex(start)
     .aside__user__avatar
       @include avatar(50px)
     .aside__user__name
       //variable
       color: $white
+      text-transform: uppercase
       font-size: medium
       margin-left: 0.5em
+  .aside__button
+    margin: 0 0 1em 2em
+    background-color: $white
   .aside__hashtags
     a
       text-decoration: none
-      color: $white
+      color: $blue
       font-style: italic
 .aside--bottom
   top: 230px
+
+.aside
+  @media screen and (max-width: 576px)
+    display: none

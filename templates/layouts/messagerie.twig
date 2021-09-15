@@ -43,8 +43,10 @@
 		{% if correspondantActuel is defined %}
 			<div class="block__Messages">
 				<div class="messages__conversation">
+					{% set correspondance = false %}
 					{% for message in messagesUser %}
 						{% if (message.received == app.user) %}
+							{% set correspondance = true %}
 							<div class="blockMessage">
 								<p class="message">{{message.texte}}
 									<small>{{ message.send.pseudo }}</small>
@@ -53,6 +55,7 @@
 							</div>
 						{% else %}
 							{% if (message.send == app.user) %}
+								{% set correspondance = true %}
 								<div class="blockMessage blockMessage--sender">
 									<p class="message">{{message.texte}}
 										<strong>{{ message.send.pseudo }}</strong>
@@ -62,21 +65,27 @@
 							{% endif %}
 						{% endif %}
 					{% endfor %}
-				</div>
-				{% if answerForm is defined %}
-					<div class="messages__envoyer">
-						{{ form(answerForm) }}
-						</div>
-					{% endif %}
-				</div>
-			{% else %}
-				{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}
-					<div class="block__Messages--empty">
-						<h5 class="text-center m-3">Commencer une nouvelle conversation</h5>
+					{% if correspondance == false %}
+						<p class="text-center">Faites un nouveau message ci-dessous pour démarrer la conversation avec
+							{{correspondantActuel.pseudo|capitalize}}
+						</p>
+						<p>
+						{% endif %}
+					</div>
+					{% if answerForm is defined %}
 						<div class="messages__envoyer">
 							{{ form(answerForm) }}
 							</div>
-						</div>
+						{% endif %}
+					</div>
+				{% else %}
+					{% if (correspondantActuel is not defined) and (newMessageForm is not defined) %}
+						<div class="block__Messages--empty">
+							<h5 class="text-center m-3">Commencer une nouvelle conversation</h5>
+							<div class="messages__envoyer">
+								{{ form(answerForm) }}
+								</div>
+							</div>
+						{% endif %}
 					{% endif %}
-				{% endif %}
-			</main>
+				</main>

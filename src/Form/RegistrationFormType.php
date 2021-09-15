@@ -75,12 +75,6 @@ class RegistrationFormType extends AbstractType
                     new NotBlank([
                         'message' => 'Veuillez rentrer un mot de passe',
                     ]),
-                    // new Length([
-                    //     'min' => 6,
-                    //     'minMessage' => 'Your password should be at least {{ limit }} characters',
-                    //     // max length allowed by Symfony for security reasons
-                    //     'max' => 4096,
-                    // ]),
                     new Regex(
                         [
                             'pattern' => "/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/",
@@ -148,20 +142,6 @@ class RegistrationFormType extends AbstractType
                 'required' => false,
                 'mapped' => false
             ])
-            // ->add('projets_voyages', TextareaType::class, [
-            //     'required' => false,
-            //     'attr' => [
-            //         'class' => 'form-control',
-            //         'placeholder' => 'quels sont vos projets de voyage ?'
-            //     ]
-            // ])
-            // ->add('voyages_accomplis', TextareaType::class, [
-            //     'required' => false,
-            //     'attr' => [
-            //         'class' => 'form-control',
-            //         'placeholder' => 'où avez-vous déjà voyagé ?'
-            //     ]
-            // ])
             ->add('date_naissance', DateType::class, [
                 'label' => 'Date de naissance',
                 'attr' => [
@@ -177,9 +157,6 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ]
             ])
-            // ->add('date_creation', HiddenType::class, [
-            //     'mapped' => false,
-            // ])
             ->add('Terms', ButtonType::class, [
                 'label' => 'Lire les conditions d\'utilisations',
                 'attr' => [

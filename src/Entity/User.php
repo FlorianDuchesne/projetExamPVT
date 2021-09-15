@@ -59,7 +59,9 @@ class User implements UserInterface, Serializable
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="avatar", fileNameProperty="avatar")
-     * @Assert\Image(maxWidth = 1700, maxWidthMessage="la largeur de l'image ne doit pas dépasser 1700 px", mimeTypes="image/*", mimeTypesMessage="Le fichier doit être une image", allowPortrait = false, allowPortraitMessage= "Les images doivent être carrées ou horizontales")
+     * @Assert\Image(maxWidth = 1700, maxWidthMessage="la largeur de l'image ne doit pas dépasser 1700 px", 
+     * mimeTypes="image/*", mimeTypesMessage="Le fichier doit être une image", allowPortrait = false, 
+     * allowPortraitMessage= "Les images doivent être carrées ou horizontales")
      * @var File|null
      */
     private $imageFile;
@@ -77,15 +79,15 @@ class User implements UserInterface, Serializable
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $projetsVoyages;
+    // /**
+    //  * @ORM\Column(type="text", nullable=true)
+    //  */
+    // private $projetsVoyages;
 
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $voyagesAccomplis;
+    // /**
+    //  * @ORM\Column(type="text", nullable=true)
+    //  */
+    // private $voyagesAccomplis;
 
     /**
      * @ORM\Column(type="datetime", nullable=false, options={"default": "CURRENT_TIMESTAMP"})

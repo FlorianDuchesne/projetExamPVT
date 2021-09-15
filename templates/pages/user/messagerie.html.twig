@@ -17,14 +17,6 @@
 
 	<div class="wrapper">
 		<div class="header">
-			<div class="avatar">
-				<figure class="header__user">
-					<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
-				</figure>
-				<h1 class="user__name">
-					{{ user.pseudo }}
-				</h1>
-			</div>
 			<a href="{{ path('messagerie') }}" class="btn btn-info">Nouveau message</a>
 			{% if app.user %}
 				{% if user != app.user %}

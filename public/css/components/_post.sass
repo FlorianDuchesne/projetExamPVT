@@ -4,13 +4,15 @@
   padding-bottom: 3em
   .post__entete
     @include blockFlex(space-between)
+    flex-direction: column-reverse
+    align-items: flex-start
     width: 80%
   .post__user
     text-decoration: none
     @include blockFlex(start)
     margin-bottom: 1em
     .user__avatar
-      @include avatar(100px)
+      @include avatar(60px)
     .user__name
       margin-left: 0.5em
       text-transform: uppercase
@@ -46,7 +48,8 @@
       height: auto
     .post__legende
       display: none
-  .post__paragraph
+  .post__paragraph, .post__paragraph--solo
+    text-align: justify
     width: 85%
     font-family: $arial
     overflow: hidden

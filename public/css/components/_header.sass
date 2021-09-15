@@ -1,5 +1,14 @@
+header
+  position: fixed
+  z-index: 5
+
 #entete
   background: $teal
+  img
+    width: 100%
+
+// #entete
+//   @media screen and (max-width: 576px)
 
 #myLinks
   @media screen and (max-width: 576px)
@@ -9,6 +18,9 @@
 
 #searchBig
   display: flex
+  width: 40%
+  input
+    background-color: $clearBlue
   @media screen and (max-width: 576px)
     display: none
 
@@ -28,3 +40,9 @@
 
 .link__Profil
   text-decoration: none
+
+.entete__blockUn
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 60%

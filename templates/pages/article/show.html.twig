@@ -16,7 +16,7 @@
 
 	<div class="wrapper">
 		<div class="post">
-			<div class="post__header">
+			<div class="post__entete">
 				<a class="post__title" href="{{ path('article_show', {id: publication.id}) }}">
 					<h4 class="m-4">{{ publication }}</h4>
 				</a>
@@ -40,7 +40,7 @@
 					<figcaption class="post__legende--show">{{ galerie.legende }}</figcaption>
 				{% endfor %}
 			</figure>
-			<p class="post__paragraph">{{ publication.texte|raw }}</p>
+			<article class="post__paragraph--solo">{{ publication.texte|raw }}</article>
 			<p class="post__categories">Pays :
 				<a href="{{path('pays_show', {id: publication.pays.id})}}">{{ publication.pays }}</a>, thème :
 				<a href="{{ path('theme_show', {id: publication.theme.id}) }}">{{ publication.theme }}</a>

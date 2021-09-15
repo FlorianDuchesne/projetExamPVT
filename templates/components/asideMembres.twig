@@ -16,12 +16,13 @@
 					<h4 class="aside__h6">Membres susceptibles de vous intéresser :</h4>
 					{% for suggestionsUser in suggestionsUsers %}
 						{% if not (app.user.following.contains(suggestionsUser)) %}
-							<a href="{{ path('user_show', {id: suggestionsUser.id}) }}">
-								<div class="aside__user">
+							<div class="aside__user__bloc">
+								<a href="{{ path('user_show', {id: suggestionsUser.id}) }}" class="aside__user">
 									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestionsUser.avatar) }}"/></figure>
 									<h5 class="aside__user__name">{{ suggestionsUser.pseudo }}</h5>
-								</div>
-							</a>
+								</a>
+								<a class="btn aside__button" href="{{ path('following', {id: suggestionsUser.id}) }}">Suivre</a>
+							</div>
 						{% endif %}
 					{% endfor %}
 				</aside>

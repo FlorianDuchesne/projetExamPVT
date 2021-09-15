@@ -1,10 +1,103 @@
-.dashboard
-  width: 100%
-  background: #515bda
-  @include blockFlex(space-around)
-  padding: 3em
-  .dashboard__link
+// .dashboard
+//   width: 100%
+//   background: #515bda
+//   @include blockFlex(space-around)
+//   padding: 3em
+//   .dashboard__link
+//     color: $white
+//     text-transform: uppercase
+//     font-weight: bold
+//     text-decoration: none
+#login
+  height: 45px
+  background-color: $primary
+  position: absolute
+  right: 0.2em
+  top: 0.2em
+  z-index: 2
+  width: 130px
+  transition: 0.5s
+  h5
     color: $white
-    text-transform: uppercase
-    font-weight: bold
+    margin: auto
+    text-align: center
+  i
+    color: $white
+    font-size: x-large
+    margin: 0.2em
+  a
+    // position: relative
+    color: $white
+    height: 30px
+    i
+      // position: absolute
+      // right: 50%
+      // top: 50%
+      // transform: translate(50%, -50%)
+      margin: 0.1em 0.7em
+      color: $white
+      font-size: x-large
+    small
+      text-align: center
+      // position: absolute
+      // right: 50%
+      // top: 50%
+      // transform: translate(50%, -50%)
+      color: $white
+      // width: 100px
+    // font-weight: 200
+    // .fas
+    //   font-size: x-large
+
+#login:hover
+  height: auto
+  transition: 0.5s
+  width: 200px
+  .dashboard
+    max-height: 100%
+    opacity: 1
+    transition-delay: 4s
+    transition: 2s
+    // display: block
+
+.dashboard
+  margin: 1em 0em
+  // transition: 2s
+  max-height: 0
+  opacity: 0
+  // display: none
+  // div
+  //   position: relative
+  a
+    // margin: 0.3em
+    // width: 40%
+    margin: 0.5em
     text-decoration: none
+    display: block
+    small
+      display: none
+  a:hover
+    i
+      display: none
+    small
+      display: block
+  // i
+  //   color: $white
+  //   font-size: x-large
+  .rangUn, .rangDeux, .rangTrois
+    border-bottom: 2px solid $white
+    display: flex
+    // flex-wrap: wrap
+    justify-content: space-around
+    align-items: center
+  #login .rangQuatre
+    margin: auto
+    i
+      margin-top: 0.5em
+    // position: relative
+  .colUn, .colDeux
+    width: 50%
+  .colUn
+    border-right: 2px solid white
+  .rangUn
+    border-top: 2px solid $white

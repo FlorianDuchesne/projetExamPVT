@@ -65,13 +65,10 @@
 			{% endfor %}
 
 		</div>
-		{# <button class="link">Voir plus</button> #}
 
 		<h1 class="titre">Articles populaires</h1>
-		<div
-			class="wrapperFlex row your-class">
+		<div class="wrapperFlex row your-class">
 
-			{# Ici, on fait une boucle, mais on ne retient que les trois premiers résultats de la boucle grâce au filtre "slice" #}
 			{% for article in articles %}
 				{# On inclut la feuille twig dédiée aux vignettes d'articles #}
 				{% include 'components/thumbnailArticle.twig' %}
@@ -79,7 +76,6 @@
 			{% endfor %}
 
 		</div>
-		{# <button class="link">Voir plus</button> #}
 	</main>
 
 
@@ -95,12 +91,12 @@
 					</div>
 					<div class="modal-body">
 						<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
-																																																																																																																																																																																																																																																							comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
-																																																																																																																																																																																																																																																							ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
-																																																																																																																																																																																																																																																							aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
+																																																																																																																																																																																																																																																														comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
+																																																																																																																																																																																																																																																														ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
+																																																																																																																																																																																																																																																														aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
 						<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
-																																																																																																																																																																																																																																																							la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
-																																																																																																																																																																																																																																																							l'activation des fonctionnalités des réseaux sociaux.</p>
+																																																																																																																																																																																																																																																														la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
+																																																																																																																																																																																																																																																														l'activation des fonctionnalités des réseaux sociaux.</p>
 						<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
 					</div>
 					<div class="modal-footer">

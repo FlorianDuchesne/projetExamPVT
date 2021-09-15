@@ -2,12 +2,13 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																																																																																																																																																																																						           and uncomment the following Encore helpers to start using Symfony UX #}
+																																																																																																																																																																																																																																																																																																																																																																																																										           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -32,51 +33,54 @@
 
 		<header class="navbar-expand-lg d-flex flex-wrap">
 			<div id="entete" class=" container-fluid d-flex justify-content-between align-items-center">
-				<a href="{{ path('home') }}" class="col-2">
-					<img src="{{ asset('img/logo2.png') }}" class="col-12"/>
-				</a>
-				<a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
-					<i class="fas fa-search"></i>
-				</a>
-			</form>
-			<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
-				<input class="form-control me-sm-2" placeholder="Rechercher un pays, un article…" type="search" name="search"/>
-				<button type="submit" class="btn btn-info m-1">
-					<i class="fas fa-search"></i>
-				</button>
-			</form>
+				<div class="entete__blockUn">
+					<a href="{{ path('home') }}" class="col-2">
+						<img src="{{ asset('img/logo2.png') }}" class="col-12 logo"/>
+					</a>
+					<a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
+						<i class="fas fa-search"></i>
+					</a>
+				</form>
+				<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
+					<input class="form-control me-sm-2" placeholder="Rechercher un membre, un article…" type="search" name="search"/>
+					<button type="submit" class="btn btn-info m-1">
+						<i class="fas fa-search"></i>
+					</button>
+				</form>
+			</div>
 			{% if app.user %}
-				<a href='{{ path('user_show', {id: app.user.id})}}' class="link__Profil">
-					<div id='login' class="btn btn-info m-1 d-flex">
-						<div>
-							<i class='fas fa-user m-1'></i>
-							<h5>{{ app.user.pseudo|capitalize }}</h5>
-						</div>
-						{% set notification = false %}
-						{% for message in app.user.messagesReceived %}
-							{% if message.newMessage == 1 %}
+				<div id='login' class="btn m-1">
+					<div>
+						{# <i class="fas fa-user-cog"></i> #}
+						<h5>{{ app.user.pseudo|capitalize }}</h5>
+					</div>
+					{% set notification = false %}
+					{% for message in app.user.messagesReceived %}
+						{% if message.newMessage == 1 %}
+							{% set notification = true %}
+						{% endif %}
+					{% endfor %}
+					{% for publication in app.user.publications %}
+						{% for commentaire in publication.commentaires %}
+							{% if commentaire.newComment == 1 %}
 								{% set notification = true %}
 							{% endif %}
 						{% endfor %}
-						{% for publication in app.user.publications %}
-							{% for commentaire in publication.commentaires %}
-								{% if commentaire.newComment == 1 %}
-									{% set notification = true %}
-								{% endif %}
-							{% endfor %}
-						{% endfor %}
-						<div>
-							{% if notification == true %}
-								<i class="fas fa-circle notif"></i>
-							{% endif %}
-						</div>
+					{% endfor %}
+					<div>
+						{% if notification == true %}
+							<i class="fas fa-circle notif"></i>
+						{% endif %}
 					</div>
-				</a>
+					{% if app.user %}
+						{% include 'components/dashboard.twig'%}
+					{% endif %}
+				</div>
 			{% else %}
 				<a href='{{ path('app_login')}}'>
-					<div id='login' class="btn btn-info m-1">
+					<div class="btn btn-primary m-1">
 						<i class='fas fa-user m-1'></i>
-						<h5>Mon compte</h5>
+						{# <h5>Mon compte</h5> #}
 					</div>
 				</a>
 			{% endif %}
@@ -85,15 +89,11 @@
 			</button>
 		</div>
 		<nav class="navbar navbar-expand-lg container-fluid bg-info m-0 justify-content-center" id="myLinks">
-			<ul class="navbar-nav d-flex justify-content-between col-11">
-				<li class="nav-item">
-					<a class="nav-link text-white text-uppercase" href="{{ path('home') }}">Accueil</a>
-				</li>
-				{% if app.user %}
-					<li class="nav-item">
-						<a class="nav-link text-white text-uppercase" href="{{ path('users') }}">Membres</a>
-					</li>
-				{% endif %}
+			<ul
+				class="navbar-nav d-flex justify-content-between col-11">
+				{# <li class="nav-item">
+																																																																									<a class="nav-link text-white text-uppercase" href="{{ path('home') }}">Accueil</a>
+																																																																								</li> #}
 				<li class="nav-item dropdown dropdownHover">
 					<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('pays') }}" id="navbarDropdownPays">
 						Pays
@@ -114,6 +114,11 @@
 						{% endfor %}
 					</div>
 				</li>
+				{% if app.user %}
+					<li class="nav-item">
+						<a class="nav-link text-white text-uppercase" href="{{ path('users') }}">Membres</a>
+					</li>
+				{% endif %}
 				<li class="nav-item">
 					<a class="nav-link text-white text-uppercase" href="#">Carte</a>
 				</li>
@@ -122,9 +127,9 @@
 				</li>
 			</ul>
 		</nav>
-		{% if app.user %}
-			{% include 'components/dashboard.twig'%}
-		{% endif %}
+		{# {% if app.user %}
+																																			{% include 'components/dashboard.twig'%}
+																																		{% endif %} #}
 	</body>
 </html></header>{% block body %}{% endblock %}<footer class="d-flex justify-content-around p-3">
 <div>2021 © Florian Duchesne MENTIONS LÉGALES</div>

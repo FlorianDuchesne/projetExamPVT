@@ -1,31 +1,69 @@
 <div class="dashboard">
-	{% if is_granted("ROLE_ADMIN") %}
-		<a class="dashboard__link" href="{{ path('admin') }}">Espace admin</a>
-	{% endif %}
-	<a class="dashboard__link" href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">Publier un nouvel article</a>
-	<a class="dashboard__link" href="{{ path('brouillons')}}">Voir mes brouillons</a>
-	<a class="dashboard__link" href="{{ path('editProfil', {id: app.user.id}) }}">éditer mon profil</a>
-	<div>
-		<a class="dashboard__link" href="{{ path('messagerie', {id: app.user.id}) }}">Messagerie</a>
-		{% set notification = false %}
-		{% set publicationsNotifiees = [] %}
-		{% for message in app.user.messagesReceived %}
-			{% if message.newMessage == 1 %}
-				{% set notification = true %}
+	<div class="rangUn">
+		<div class="colUn">
+			<a href='{{ path('user_show', {id: app.user.id})}}' class="link__Profil">
+				<i class="fas fa-user-circle"></i>
+				<small class="dashboard__link">Mon profil</small>
+			</a>
+		</div>
+		<div class="colDeux">
+			{% if is_granted("ROLE_ADMIN") %}
+				<a href="{{ path('admin') }}">
+					<i class="fas fa-user-lock"></i>
+					<small class="dashboard__link">Espace admin</small>
+				</a>
 			{% endif %}
-		{% endfor %}
-		{% for publication in app.user.publications %}
-			{% for commentaire in publication.commentaires %}
-				{% if commentaire.newComment == 1 %}
-					{% set publicationsNotifiees = publicationsNotifiees|merge([publication]) %}
-				{% endif %}
-			{% endfor %}
-		{% endfor %}
-		{% if notification == true %}
-			<i class="fas fa-circle notif"></i>
-		{% endif %}
+		</div>
 	</div>
-	<a class="dashboard__link" href="{{ path('app_logout') }}">Se déconnecter</a>
+	<div class="rangDeux">
+		<div class="colUn">
+			<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">
+				<i class="fas fa-pencil-alt"></i>
+				<small class="dashboard__link">Nouvel article</small>
+			</a>
+		</div>
+		<div class="colDeux">
+			<a href="{{ path('brouillons')}}">
+				<i class="fas fa-edit"></i>
+				<small class="dashboard__link">Voir brouillons</small>
+			</a>
+		</div>
+	</div>
+	<div class="rangTrois">
+		<div class="colUn">
+			<a href="{{ path('editProfil', {id: app.user.id}) }}">
+				<i class="fas fa-user-edit"></i>
+				<small class="dashboard__link">éditer profil</small>
+			</a>
+		</div>
+		<div class="colDeux">
+			<a href="{{ path('messagerie', {id: app.user.id}) }}">
+				<i class="fas fa-envelope"></i>
+				<small class="dashboard__link">Messagerie</small>
+				{% set notification = false %}
+				{% set publicationsNotifiees = [] %}
+				{% for message in app.user.messagesReceived %}
+					{% if message.newMessage == 1 %}
+						{% set notification = true %}
+					{% endif %}
+				{% endfor %}
+				{% for publication in app.user.publications %}
+					{% for commentaire in publication.commentaires %}
+						{% if commentaire.newComment == 1 %}
+							{% set publicationsNotifiees = publicationsNotifiees|merge([publication]) %}
+						{% endif %}
+					{% endfor %}
+				{% endfor %}
+				{% if notification == true %}
+					<i class="fas fa-circle notif"></i>
+				{% endif %}
+			</a>
+		</div>
+	</div>
+	<a href="{{ path('app_logout') }}" class="rangQuatre">Se déconnecter
+		{# <i class="fas fa-sign-out-alt"></i>
+				<small class="dashboard__link">Se déconnecter</small> #}
+	</a>
 </div>
 {% if publicationsNotifiees %}
 	{% for publicationNotifiee in publicationsNotifiees %}
