@@ -1,7 +1,11 @@
 {% if commentaire is defined %}
 	{% set form = commentaire.createView %}
 	<span class="btnPublierComm btn btn-info">Commenter</span>
-	<span class="btnCommentaires btn btn-info">Voir les commentaires ({{publication.commentaires|length}})</span>
+	{% if publication.commentaires|length > 0 %}
+		<span class="btnCommentaires btn btn-info">Voir les commentaires ({{publication.commentaires|length}})</span>
+	{% else %}
+		<span class="btnCommentaires"></span>
+	{% endif %}
 	<div class="hidden">
 		{{ form(form, {'action': path('addComment', {id: publication.id})}) }}
 		</div>
