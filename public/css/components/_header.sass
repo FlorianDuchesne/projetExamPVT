@@ -1,11 +1,14 @@
 header
-  position: fixed
+  // position: fixed
   z-index: 5
+  width: 100vw
 
 #entete
   background: $teal
-  img
-    width: 100%
+  align-items: flex-end
+  height: 100px
+  a
+    width: 170px
 
 // #entete
 //   @media screen and (max-width: 576px)
@@ -17,10 +20,18 @@ header
     display: flex
 
 #searchBig
-  display: flex
+  // display: flex
   width: 40%
+  margin: auto
+  padding-top: 5em
   input
-    background-color: $clearBlue
+    border-radius: 2rem
+    background-color: #ffffff6e
+  input::placeholder
+    color: white
+    opacity: 1
+  .recherche__textefiltres
+    color: $white
   @media screen and (max-width: 576px)
     display: none
 
@@ -46,3 +57,11 @@ header
   justify-content: space-between
   align-items: center
   width: 60%
+
+#up
+  position: fixed
+  bottom: 2em
+  right: 1em
+  color: $red
+  font-size: x-large
+  font-weight: 200

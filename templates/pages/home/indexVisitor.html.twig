@@ -21,6 +21,46 @@
 					<a href="{{path('aPropos')}}">En savoir plus</a>
 				</small>
 			</div>
+			<a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
+				<i class="fas fa-search"></i>
+			</a>
+			<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
+				<div class="d-flex">
+					<input class="form-control me-sm-2" placeholder="Rechercher un membre, un article…" type="search" name="search"/>
+					<button type="submit" class="btn btn-info m-1">
+						<i class="fas fa-search"></i>
+					</button>
+				</div>
+				<div class="d-flex">
+					<div class="m-3">
+						<h5 class="mt-2 recherche__textefiltres">Filtrer par thème :</h4>
+
+						<select class="js-example-basic-multiple" name="themes[]" multiple="multiple">
+							{% for theme in themes %}
+								<option value="{{theme.id}}">{{theme}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="m-3">
+						<h5 class="mt-2 recherche__textefiltres">Filtrer par pays :</h4>
+
+						<select class="js-example-basic-multiple" name="pays[]" multiple="multiple">
+							{% for pays in countries %}
+								<option value="{{pays.id}}">{{pays}}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<div class="m-3">
+						<h5 class="mt-2 recherche__textefiltres">Filtrer par mot-clé :</h4>
+
+						<select class="js-example-basic-multiple" name="tag[]" multiple="multiple">
+							{% for tag in hashtags %}
+								<option value="{{tag.id}}">{{tag.name}}</option>
+							{% endfor %}
+						</select>
+					</div>
+				</div>
+			</form>
 			{# <img class="publishStuff__img" src="{{ asset('img/inscription_test.jpg') }}"/> #}
 			<a href="{{ path('app_register') }}">
 				<h1 class="publishStuff__h1 publishStuff__h1--register">Inscris-toi !</h1>
@@ -91,12 +131,12 @@
 					</div>
 					<div class="modal-body">
 						<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
-																																																																																																																																																																																																																																																														comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
-																																																																																																																																																																																																																																																														ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
-																																																																																																																																																																																																																																																														aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
+																																																																																																																																																																																																																																																																					comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
+																																																																																																																																																																																																																																																																					ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
+																																																																																																																																																																																																																																																																					aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
 						<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
-																																																																																																																																																																																																																																																														la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
-																																																																																																																																																																																																																																																														l'activation des fonctionnalités des réseaux sociaux.</p>
+																																																																																																																																																																																																																																																																					la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
+																																																																																																																																																																																																																																																																					l'activation des fonctionnalités des réseaux sociaux.</p>
 						<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
 					</div>
 					<div class="modal-footer">

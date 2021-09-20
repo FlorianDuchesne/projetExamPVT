@@ -36,13 +36,15 @@ class HomeController extends AbstractController
         // On rassemble les données nécessaires à la vue grâce aux repositories des entités User, Pays et Theme.
         // C'est Doctrine, l'ORM de Symfony qui nous permet d'accéder aux repositories des différentes classes.
         // On accède aux méthodes de chaque repository, ce qui nous permet d'utiliser la méthode findAll.
-        $users =  $this->getDoctrine()->getRepository(User::class)
-            ->findAll();
+        // $users =  $this->getDoctrine()->getRepository(User::class)
+        //     ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
         $following = $user->getFollowing();
+        $hashtags =  $this->getDoctrine()->getRepository(Hashtag::class)
+            ->findAll();
 
         $articles = $this->getDoctrine()->getRepository(Article::class)->findByFollow($following, $user);
         $tendances = $this->getDoctrine()->getRepository(Hashtag::class)->findByPopularity();
@@ -50,13 +52,14 @@ class HomeController extends AbstractController
 
         // On renvoie la vue twig avec les données instanciées dans la fonction.
         return $this->render('pages/home/indexBEM.html.twig', [
-            'users' => $users,
+            // 'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
             'publications' => $articles,
             'commentaire' => $form,
             'tendances' => $tendances,
-            'suggestions' => $suggestions
+            'suggestions' => $suggestions,
+            'hashtags' => $hashtags
         ]);
     }
 
@@ -76,7 +79,9 @@ class HomeController extends AbstractController
 
         $newVisitor = $session->get('new');
 
-        $users =  $this->getDoctrine()->getRepository(User::class)
+        // $users =  $this->getDoctrine()->getRepository(User::class)
+        //     ->findAll();
+        $hashtags =  $this->getDoctrine()->getRepository(Hashtag::class)
             ->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
@@ -85,11 +90,12 @@ class HomeController extends AbstractController
         $articles =  $this->getDoctrine()->getRepository(Article::class)
             ->findByStatut(1);
         return $this->render('pages/home/indexVisitor.html.twig', [
-            'users' => $users,
+            // 'users' => $users,
             'countries' => $countries,
             'themes' => $themes,
             'articles' => $articles,
-            'newVisitor' => $newVisitor
+            'newVisitor' => $newVisitor,
+            'hashtags' => $hashtags
         ]);
     }
 

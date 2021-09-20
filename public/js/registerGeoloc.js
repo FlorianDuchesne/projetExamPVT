@@ -10,6 +10,7 @@ function initAutocomplete() {
   );
 
   autocomplete.addListener("place_changed", onPlaceChanged);
+
   autocompleteVoyagesAccomplis.addListener(
     "place_changed",
     onPlaceChangedVoyagesAccomplis

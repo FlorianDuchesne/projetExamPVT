@@ -5,13 +5,11 @@
   margin: 2em
   padding: 2em
   border-radius: 15px
-  a
-    text-decoration: none
   .aside__h6
     color: $white
+  a
+    text-decoration: none
   .aside__user
-    @include blockFlex(start)
-  .aside__user__bloc
     @include blockFlex(start)
     .aside__user__avatar
       @include avatar(50px)
@@ -21,6 +19,8 @@
       text-transform: uppercase
       font-size: medium
       margin-left: 0.5em
+  .aside__user__bloc
+    @include blockFlex(start)
   .aside__button
     margin: 0 0 1em 2em
     background-color: $white
