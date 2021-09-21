@@ -30,10 +30,11 @@
 
 	{% endif %}
 
-	<figure class="publishStuff publishStuff--publish">
-		<a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
-			<i class="fas fa-search"></i>
-		</a>
+	<figure
+		class="publishStuff publishStuff--publish">
+		{# <a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
+					<i class="fas fa-search"></i>
+				</a> #}
 		<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
 			<div class="d-flex">
 				<input class="form-control me-sm-2" placeholder="Rechercher un membre, un article…" type="search" name="search"/>

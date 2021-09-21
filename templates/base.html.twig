@@ -8,7 +8,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																																																																																																																																																																																																																																																																																																																																																																																																																																								           and uncomment the following Encore helpers to start using Symfony UX #}
+				and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -33,26 +33,13 @@
 
 		<header class="navbar-expand-lg d-flex flex-wrap">
 			<div
-				id="entete" class=" container-fluid d-flex justify-content-between">
+				id="entete" class="d-flex justify-content-between">
 				{# <div class="entete__blockUn"> #}
 				<a href="{{ path('home') }}" class="col-2">
 					<img src="{{ asset('img/logo2.png') }}" class="col-12 logo"/>
 				</a>
-				{# <a class="btn btn-info m-1" id="searchLittle" href="{{ path('search')}}">
-																																																																		<i class="fas fa-search"></i>
-																																																																	</a>
-																																																																<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
-																																																																	<input class="form-control me-sm-2" placeholder="Rechercher un membre, un article…" type="search" name="search"/>
-																																																																	<button type="submit" class="btn btn-info m-1">
-																																																																		<i class="fas fa-search"></i>
-																																																																	</button>
-																																																																</form> #}
-				<nav class="navbar navbar-expand-lg container-fluid m-0 justify-content-center" id="myLinks">
-					<ul
-						class="navbar-nav d-flex justify-content-between col-11">
-						{# <li class="nav-item">
-																																																																																																																																																																			<a class="nav-link text-white text-uppercase" href="{{ path('home') }}">Accueil</a>
-																																																																																																																																																																		</li> #}
+				<nav id="myLinks">
+					<ul class="navbar-nav d-flex justify-content-between">
 						<li class="nav-item dropdown dropdownHover">
 							<a class="nav-link dropdown-toggle text-white text-uppercase" href="{{ path('pays') }}" id="navbarDropdownPays">
 								Pays
@@ -91,65 +78,77 @@
 						</li>
 					</ul>
 				</nav>
-			</div>
-			{% if app.user %}
-				<div id='login' class="btn m-1">
-					<div>
-						{# <i class="fas fa-user-cog"></i> #}
-						<h5>{{ app.user.pseudo|capitalize }}</h5>
-					</div>
-					{% set notification = false %}
-					{% for message in app.user.messagesReceived %}
-						{% if message.newMessage == 1 %}
-							{% set notification = true %}
-						{% endif %}
-					{% endfor %}
-					{% for publication in app.user.publications %}
-						{% for commentaire in publication.commentaires %}
-							{% if commentaire.newComment == 1 %}
-								{% set notification = true %}
+				{% if app.user %}
+					<div class="d-flex">
+						<div id='login' class="btn">
+							<div>
+								{# <i class="fas fa-user-cog"></i> #}
+								<h5>{{ app.user.pseudo|capitalize }}</h5>
+							</div>
+							{% set notification = false %}
+							{% for message in app.user.messagesReceived %}
+								{% if message.newMessage == 1 %}
+									{% set notification = true %}
+								{% endif %}
+							{% endfor %}
+							{% for publication in app.user.publications %}
+								{% for commentaire in publication.commentaires %}
+									{% if commentaire.newComment == 1 %}
+										{% set notification = true %}
+									{% endif %}
+								{% endfor %}
+							{% endfor %}
+							<div>
+								{% if notification == true %}
+									<i class="fas fa-circle notif"></i>
+								{% endif %}
+							</div>
+							{% if app.user %}
+								{% include 'components/dashboard.twig'%}
 							{% endif %}
-						{% endfor %}
-					{% endfor %}
-					<div>
-						{% if notification == true %}
-							<i class="fas fa-circle notif"></i>
-						{% endif %}
+						</div>
+						<button onclick="menuBurger()" class="btn btn-info" id="menuBurger">
+							<i class="fas fa-bars"></i>
+						</button>
 					</div>
-					{% if app.user %}
-						{% include 'components/dashboard.twig'%}
-					{% endif %}
-				</div>
-			{% else %}
-				<a id='loginVisitor' href='{{ path('app_login')}}'>
-					<div class="btn btn-primary m-1">
-						<i class='fas fa-user m-1'></i>
-						{# <h5>Mon compte</h5> #}
-					</div>
-				</a>
-			{% endif %}
-			<button onclick="menuBurger()" class="btn btn-info" id="menuBurger">
-				<i class="fas fa-bars"></i>
-			</button>
-		</div>
+				{% else %}
+					<a id='loginVisitor' href='{{ path('app_login')}}'>
+						<div class="btn btn-primary m-1">
+							<i class='fas fa-user m-1'></i>
+							{# <h5>Mon compte</h5> #}
+						</div>
+					</a>
+				{% endif %}
+			</div>
+		</header>
 		{# {% if app.user %}
-																																																																	{% include 'components/dashboard.twig'%}
-																																																																{% endif %} #}
+																														{% include 'components/dashboard.twig'%}
+																														{% endif %} #}
+		{% block body %}{% endblock %}
+		<footer>
+			<div class="d-flex">
+				<div>2021 © Florian Duchesne MENTIONS LÉGALES</div>
+				{# <div class="d-flex"> #}
+				<div>
+					<a href="http://facebook.com">
+						<i class="fab fa-facebook"></i>
+					</a>
+					<a href="http://instagram.com/">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="http://twitter.com/">
+						<i class="fab fa-twitter"></i>
+					</a>
+				</div>
+				{# </div> #}
+				<div>
+					<a href="{{ path('aPropos')}}">A propos</a>
+				</div>
+			</div>
+		</footer>
+		<a href="#entete" id="up">
+			<i class="fas fa-chevron-up"></i>
+		</a>
 	</body>
-</html></header>{% block body %}{% endblock %}<footer class="d-flex justify-content-around p-3">
-<div>2021 © Florian Duchesne MENTIONS LÉGALES</div>
-<div class="d-flex">
-	<a href="http://facebook.com">
-		<i class="fab fa-facebook"></i>
-	</a>
-	<a href="http://instagram.com/">
-		<i class="fab fa-instagram"></i>
-	</a>
-	<a href="http://twitter.com/">
-		<i class="fab fa-twitter"></i>
-	</a>
-</div>
-<div>
-	<a href="{{ path('aPropos')}}">A propos</a>
-</div></footer><a href="#entete" id="up">
-<i class="fas fa-chevron-up"></i></a></body><script src="{{ asset('js/script.js') }}"></script></html>
+	<script src="{{ asset('js/script.js') }}"></script>
+</html></body></html>

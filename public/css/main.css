@@ -147,7 +147,7 @@
 @media screen and (max-width: 992px) {
   .wrapperFlex .a .picture {
     position: unset;
-    width: 350px;
+    width: 320px;
   }
 }
 
@@ -841,6 +841,8 @@
 header {
   z-index: 5;
   width: 100vw;
+  width: 100%;
+  background-color: #20c997;
 }
 
 #entete {
@@ -858,6 +860,16 @@ header {
 @media screen and (max-width: 576px) {
   #myLinks {
     display: none;
+    -webkit-box-align: start;
+        -ms-flex-align: start;
+            align-items: flex-start;
+    position: absolute;
+    width: 100%;
+  }
+  #myLinks ul {
+    position: fixed;
+    width: 100%;
+    background-color: blue;
   }
 }
 
@@ -916,6 +928,12 @@ header {
   }
 }
 
+#menuBurger {
+  position: fixed;
+  top: 1em;
+  right: 2em;
+}
+
 @media screen and (min-width: 576px) {
   #menuBurger {
     display: none;
@@ -957,6 +975,17 @@ header {
   color: #ff0000;
   font-size: x-large;
   font-weight: 200;
+}
+
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+}
+
+nav, #login, #menuBurger, #loginVisitor {
+  z-index: 2;
 }
 
 .publishStuff {
@@ -1005,6 +1034,7 @@ header {
 }
 
 .publishStuff .publishStuff__blocText {
+  width: 500px;
   position: relative;
   top: 10%;
   left: 10%;
@@ -1061,7 +1091,7 @@ header {
 }
 
 .article__picture {
-  width: 350px;
+  width: 320px;
   position: relative;
   margin: auto;
 }
@@ -1075,7 +1105,7 @@ header {
 
 .article__picture .article__thumbnail--empty {
   background-color: #1e4f66;
-  width: 350px;
+  width: 320px;
 }
 
 .article__picture .article__title {
@@ -1295,14 +1325,16 @@ textarea#short_message_texte, #message_texte {
 
 .fa-arrow-left {
   position: absolute;
-  left: 10px;
+  width: 50px;
+  left: -2em;
   top: 40%;
   color: #1e4f66;
 }
 
 .fa-arrow-right {
   position: absolute;
-  right: -95%;
+  width: 50px;
+  right: -2em;
   top: 40%;
   color: #1e4f66;
 }
@@ -1315,10 +1347,15 @@ footer {
 footer a {
   color: white;
   text-decoration: none;
+  margin: 0.5em;
 }
 
 footer .fab {
   margin: 0em 3em;
+}
+
+footer div {
+  margin: 0.5em;
 }
 
 #map, #mapVoyagesAccomplis, #mapProfile {
@@ -1374,6 +1411,14 @@ footer .fab {
 #login a small {
   text-align: center;
   color: white;
+}
+
+@media screen and (max-width: 576px) {
+  #login {
+    right: 6em;
+    top: 1em;
+    position: fixed;
+  }
 }
 
 #login:hover {

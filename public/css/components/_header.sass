@@ -1,9 +1,19 @@
+// body, html
+//   margin: 0
+//   padding: 0
+//   width: 100%
+//   height: 100%
+//   box-sizing: border-box
+
 header
   // position: fixed
   z-index: 5
   width: 100vw
+  width: 100%
+  background-color: $teal
 
 #entete
+  // position: relative
   background: $teal
   align-items: flex-end
   height: 100px
@@ -16,6 +26,13 @@ header
 #myLinks
   @media screen and (max-width: 576px)
     display: none
+    align-items: flex-start
+    position: absolute
+    width: 100%
+    ul
+      position: fixed
+      width: 100%
+      background-color: blue
   @media screen and (min-width: 576px)
     display: flex
 
@@ -40,6 +57,9 @@ header
     display: none
 
 #menuBurger
+  position: fixed
+  top: 1em
+  right: 2em
   @media screen and (min-width: 576px)
     display: none
 
@@ -58,6 +78,9 @@ header
   align-items: center
   width: 60%
 
+// main
+//   position: relative
+
 #up
   position: fixed
   bottom: 2em
@@ -65,3 +88,12 @@ header
   color: $red
   font-size: x-large
   font-weight: 200
+
+.sticky
+  position: fixed
+  top: 0
+  width: 100%
+  z-index: 1
+
+nav, #login, #menuBurger, #loginVisitor
+  z-index: 2
