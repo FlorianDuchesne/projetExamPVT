@@ -100,41 +100,41 @@
 			</div>
 		</div>
 	</div>
-	<div class="wrapper">
-		<main class="main">
-			<p class="main__description">
-				{{ user.description }}</p>
+	<main class="main">
+		<p class="main__description">
+			{{ user.description }}</p>
+		<div class="wrapper">
 			<div id="mapProfile"></div>
-			<div class="main__articles">
-				{% if articlesPopulaires is defined %}
-					<h3 class="articles__title">Articles les plus populaires :</h3>
-					<div class="articles__flex">
-						{% for article in articlesPopulaires %}
-							{% if article.statut == 1 %}
-								<a href="{{ path('article_show', {id: article.id}) }}" class="m-2">
-									<figure class="article__picture">
-										{% if article.galeries is not empty %}
-											{% for galerie in article.galeries %}
-												{% if loop.first %}
-													<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
-												{% endif %}
-											{% endfor %}
-										{% else %}
-											<div class="article__thumbnail article__thumbnail--empty"></div>
-										{% endif %}
-										<figcaption class="article__title">
-											{{ article.titre }}
-										</figcaption>
-									</figure>
-								</a>
-							{% endif %}
-						{% endfor %}
-					{% endif %}
-				</div>
+		</div>
+		<div class="main__articles">
+			{% if articlesPopulaires is defined %}
+				<h3 class="articles__title">Articles les plus populaires :</h3>
+				<div class="articles__flex">
+					{% for article in articlesPopulaires %}
+						{% if article.statut == 1 %}
+							<a href="{{ path('article_show', {id: article.id}) }}" class="m-2">
+								<figure class="article__picture">
+									{% if article.galeries is not empty %}
+										{% for galerie in article.galeries %}
+											{% if loop.first %}
+												<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
+											{% endif %}
+										{% endfor %}
+									{% else %}
+										<div class="article__thumbnail article__thumbnail--empty"></div>
+									{% endif %}
+									<figcaption class="article__title">
+										{{ article.titre }}
+									</figcaption>
+								</figure>
+							</a>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
 			</div>
+		</div>
 
-		</main>
-	</div>
+	</main>
 
 	<script src="{{asset('js/profileGeoloc.js')}}"></script>
 {% endblock %}
