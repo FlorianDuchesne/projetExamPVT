@@ -1,14 +1,16 @@
 let autocomplete;
 function initAutocomplete() {
+  // initialisation du service Place Autocomplete de l'API dans #autocomplete
   autocomplete = new google.maps.places.Autocomplete(
     document.getElementById("autocomplete"),
+    // type de lieux attendus par l'autocomplete, types de champs à retourner
     { types: ["(regions)"], fields: ["place_id", "geometry", "name"] }
   );
   autocompleteVoyagesAccomplis = new google.maps.places.Autocomplete(
     document.getElementById("autocompleteVoyagesAccomplis"),
     { types: ["(regions)"], fields: ["place_id", "geometry", "name"] }
   );
-
+  // "place_changed" est un type d'événement qui provient de l'API
   autocomplete.addListener("place_changed", onPlaceChanged);
 
   autocompleteVoyagesAccomplis.addListener(
@@ -21,10 +23,13 @@ var place;
 
 function onPlaceChanged() {
   document.getElementById("map").classList.remove("mapHidden");
+  // getPlace() est une méthode de l'API qui retourne les détails demandés du lieu.
   place = autocomplete.getPlace();
-  console.log(place);
+  // On initialise la carte grâce à l'API dans #map
   let map = new google.maps.Map(document.getElementById("map"), {
+    // Centre de la carte
     center: { lat: 23.8862915, lng: 0 },
+    // Echelle de la carte
     zoom: 2,
   });
 
@@ -124,11 +129,10 @@ const addFormToCollection = (e) => {
 
   return index;
 };
-
+// Lorsqu'un utilisateur valide le lieu sélectionné, je l'ajoute à une collection de mon formulaire
+// en donnant les valeurs de son nom et de son place_id aux champs correspondants
 document.querySelectorAll(".add_item_link").forEach((btn) =>
   btn.addEventListener("click", function (e) {
-    console.log("cliqué");
-    console.log(place);
     addFormToCollection(e);
     document.getElementById(
       "registration_form_projetsVoyages_" + index + "_name"
@@ -136,6 +140,8 @@ document.querySelectorAll(".add_item_link").forEach((btn) =>
     document.getElementById(
       "registration_form_projetsVoyages_" + index + "_placeId"
     ).value = place.place_id;
+    // J'indique à l'utilisateur que le lieu est bien inscrit au formulaire en ajoutant
+    // son nom à une liste à puces
     let node = document.createElement("li");
     let textnode = document.createTextNode(place.name);
     node.appendChild(textnode);

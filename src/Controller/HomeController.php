@@ -104,17 +104,17 @@ class HomeController extends AbstractController
      */
     public function search(Request $request)
     {
-        // dd($request);
+        // On récupère la recherche dans la requête et on l'enregistre dans une variable
         $search = $request->get('search');
-        // dd($search);
+        // On actionne dans le repository d'Article une recherche en fonction de la requête
         $resultArticles = $this->getDoctrine()->getRepository(Article::class)->findBySearch($request);
-        // dd($resultArticles);
+        // On actionne dans les repositories de User, Hashtag, Pays et Theme une recherche en fonction de la variable search
         $resultUsers = $this->getDoctrine()->getRepository(User::class)->findBySearch($search);
         $resultHashtags = $this->getDoctrine()->getRepository(Hashtag::class)->findBySearch($search);
         $resultPays = $this->getDoctrine()->getRepository(Pays::class)->findBySearch($search);
         $resultTheme = $this->getDoctrine()->getRepository(Theme::class)->findBySearch($search);
 
-
+        // On stocke les résultats dans un tableau
         $results = [$resultArticles, $resultUsers, $resultHashtags, $resultPays, $resultTheme];
 
         $users =  $this->getDoctrine()->getRepository(User::class)
@@ -134,6 +134,28 @@ class HomeController extends AbstractController
             'hashtags' => $tags,
             'results' => $results,
             'search' => $search
+        ]);
+    }
+
+    /**
+     * @Route("/makeSearch", name="makeSearch")
+     */
+    public function makeSearch()
+    {
+        $users =  $this->getDoctrine()->getRepository(User::class)
+            ->findAll();
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+        $hashtags =  $this->getDoctrine()->getRepository(Hashtag::class)
+            ->findAll();
+
+        return $this->render('pages/home/makeSearch.html.twig', [
+            'users' => $users,
+            'countries' => $countries,
+            'themes' => $themes,
+            'hashtags' => $hashtags
         ]);
     }
 

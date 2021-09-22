@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block body %}
-	<h1 class="titre">Pays</h1>
+	<h1 class="titre pt-5">Pays</h1>
 	<div class="wrapperFlex row">
 		{% for pays in pays %}
 			<a href="{{ path('pays_show', {id: pays.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">

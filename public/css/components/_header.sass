@@ -17,24 +17,30 @@ header
   background: $teal
   align-items: flex-end
   height: 100px
-  a
+  .logo
     width: 170px
+  a
+    width: auto
 
 // #entete
 //   @media screen and (max-width: 576px)
 
 #myLinks
+  width: 80vw
   @media screen and (max-width: 576px)
     display: none
     align-items: flex-start
     position: absolute
     width: 100%
+    display: flex
     ul
       position: fixed
       width: 100%
-      background-color: blue
-  @media screen and (min-width: 576px)
-    display: flex
+      background-color: $teal
+      li
+        padding-left: 1em
+      li:hover
+        background-color: $blue
 
 #searchBig
   // display: flex
@@ -51,6 +57,11 @@ header
     color: $white
   @media screen and (max-width: 576px)
     display: none
+
+#searchBig
+  .pageRecherche
+    .recherche__textefiltres
+      color: $blue
 
 #searchLittle
   @media screen and (min-width: 576px)

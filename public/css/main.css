@@ -1,8 +1,19 @@
 @charset "UTF-8";
+.marginTop {
+  margin-top: 100px;
+}
+
 .wrapper-whole {
+  margin-top: 150px;
   padding: 0em 4em;
   width: auto;
   min-height: 80vh;
+}
+
+@media screen and (max-width: 576px) {
+  .wrapper-whole {
+    padding: 1.5em;
+  }
 }
 
 .wrapper-whole .main {
@@ -29,8 +40,20 @@
   width: 70%;
 }
 
+@media screen and (max-width: 576px) {
+  .wrapper-whole .wrapper-main .wrapper-posts {
+    width: 100%;
+  }
+}
+
 .wrapper-whole .wrapper-main .wrapperAside {
   width: 25%;
+}
+
+@media screen and (max-width: 576px) {
+  .wrapper-whole .wrapper-main .wrapperAside {
+    display: none;
+  }
 }
 
 .wrapper {
@@ -282,7 +305,7 @@
 
 .wrapper {
   width: 80%;
-  margin-top: 3em;
+  margin-top: 150px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -482,7 +505,7 @@
 
 .main .main__articles .article__picture .article__thumbnail--empty {
   background-color: #1e4f66;
-  width: 350px;
+  width: 320px;
 }
 
 .main .main__articles .article__picture .article__title {
@@ -631,6 +654,13 @@
   width: 85%;
   font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
+}
+
+@media screen and (max-width: 576px) {
+  .post .post__paragraph, .post .post__paragraph--solo {
+    text-align: start;
+    width: 100%;
+  }
 }
 
 .post .post__categories {
@@ -853,8 +883,16 @@ header {
   height: 100px;
 }
 
-#entete a {
+#entete .logo {
   width: 170px;
+}
+
+#entete a {
+  width: auto;
+}
+
+#myLinks {
+  width: 80vw;
 }
 
 @media screen and (max-width: 576px) {
@@ -865,19 +903,20 @@ header {
             align-items: flex-start;
     position: absolute;
     width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
   }
   #myLinks ul {
     position: fixed;
     width: 100%;
-    background-color: blue;
+    background-color: #20c997;
   }
-}
-
-@media screen and (min-width: 576px) {
-  #myLinks {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
+  #myLinks ul li {
+    padding-left: 1em;
+  }
+  #myLinks ul li:hover {
+    background-color: #1e4f66;
   }
 }
 
@@ -920,6 +959,10 @@ header {
   #searchBig {
     display: none;
   }
+}
+
+#searchBig .pageRecherche .recherche__textefiltres {
+  color: #1e4f66;
 }
 
 @media screen and (min-width: 576px) {
@@ -1081,6 +1124,13 @@ nav, #login, #menuBurger, #loginVisitor {
 .publishStuff .publishStuff__h1--follow {
   right: 2em;
   left: unset;
+}
+
+@media screen and (max-width: 576px) {
+  .publishStuff .publishStuff__h1 {
+    width: 80%;
+    font-size: large;
+  }
 }
 
 .titre {
@@ -1437,7 +1487,12 @@ footer div {
   transition: 2s;
 }
 
+#login:hover .dashboard {
+  display: block;
+}
+
 .dashboard {
+  display: none;
   margin: 1em 0em;
   max-height: 0;
   opacity: 0;

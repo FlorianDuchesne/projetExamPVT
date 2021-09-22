@@ -1,36 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Accueil
+{% block title %}Recherche
+{% endblock %}
+
+{% block stylesheets %}
+	{{ parent() }}
 {% endblock %}
 
 {% block body %}
-	<style>
-		.example-wrapper {
-			margin: 1em auto;
-			max-width: 800px;
-			width: 95%;
-			font: 18px / 1.5 sans-serif;
-		}
-		.example-wrapper code {
-			background: #F5F5F5;
-			padding: 2px 6px;
-		}
-	</style>
-
-	{% include 'components/lightbox.twig' %}
 
 
-	{% if app.user.following is empty %}
+	<div class="wrapper-whole">
+		<h1 class="text-center marginTop">Barre de recherche</h1>
 
-		<figure class="publishStuff publishStuff--follow">
-			<a href="{{ path('users') }}">
-				<h1 class="publishStuff__h1 publishStuff__h1--follow">Suivez vos voyageurs préférés !</h1>
-			</a>
-		</figure>
-
-	{% endif %}
-
-	<figure class="publishStuff publishStuff--publish">
 		<form action="{{path('search')}}" method="post" class="col-3" id="searchBig">
 			<div class="d-flex">
 				<input class="form-control me-sm-2" placeholder="Rechercher un membre, un article…" type="search" name="search"/>
@@ -38,7 +20,7 @@
 					<i class="fas fa-search"></i>
 				</button>
 			</div>
-			<div class="d-flex">
+			<div class="d-flex pageRecherche">
 				<div class="m-3">
 					<h5 class="mt-2 recherche__textefiltres">Filtrer par thème :</h4>
 
@@ -68,24 +50,6 @@
 				</div>
 			</div>
 		</form>
-		<a href="{{ path('ajoutArticle', {idAuteur: app.user.id}) }}">
-			<h1 class="publishStuff__h1">Publie ton prochain article !</h1>
-		</a>
-	</figure>
 
-	<div class="wrapper-whole">
-
-		<div class="wrapper-main">
-
-			<div class="wrapper-posts">
-				{% for publication in publications %}
-
-					{% include 'components/publication.twig' %}
-
-				{% endfor %}
-			</div>
-
-			{% include 'layouts/asideHome.twig' %}
-		</div>
 	</div>
 {% endblock %}

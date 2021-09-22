@@ -8,14 +8,12 @@
 	{{ parent() }}
 
 	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initMap"></script>
-	{# <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initMap"></script> #}
 
 {% endblock %}
 
 
 {% block body %}
 	{% if is_granted("ROLE_ADMIN") %}
-		{# href="{{ path('deleteUser', {id: user.id}) }}" #}
 		<div class="text-center m-5">
 			<button class="header__delete btn btn-danger justify-content-end" data-toggle="modal" data-target="#exampleModal">Supprimer ce compte</button>
 		</div>

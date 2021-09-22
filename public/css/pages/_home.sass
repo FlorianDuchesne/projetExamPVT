@@ -1,10 +1,16 @@
 @import "../mixin"
 @import "../variables"
 
+.marginTop
+  margin-top: 100px
+
 .wrapper-whole
+  margin-top: 150px
   padding: 0em 4em
   width: auto
   min-height: 80vh
+  @media screen and (max-width: 576px)
+    padding: 1.5em
   .main
     width: 90%
     margin: auto
@@ -15,5 +21,9 @@
       justify-content: center
     .wrapper-posts
       width: 70%
+      @media screen and (max-width: 576px)
+        width: 100%
     .wrapperAside
       width: 25%
+      @media screen and (max-width: 576px)
+        display: none

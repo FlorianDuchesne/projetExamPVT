@@ -290,20 +290,24 @@ class UserController extends AbstractController
      */
     public function searchPlaceId(User $user, EntityManagerInterface $manager)
     {
-
-        // $user = $manager->getRepository(User::class)->find($id);
-
-        // $user = $this->getUser();
-
+        // Grâce à une fonction du repository de Place,
+        // J'enregistre dans une variable les lieux dont la collection "membres" 
+        //contient l'utilisateur paramétré
         $places = $manager->getRepository(Place::class)->findByUser($user);
         $placesID = [];
         $placesName = [];
         $placesStatut = [];
+        // Pour chaque lieu enregistré dans la variable, 
+        //j'ajoute son placeId, son nom et son statut dans des tableaux distincts,
+        // puis je les renvoie au format Json
         foreach ($places as $place) {
             $placesID[] = $place->getPlaceId();
             $placesName[] = $place->getName();
             $placesStatut[] = $place->getStatut();
         }
-        return new JsonResponse(['user' => $user, 'placesId' => $placesID, 'placesNames' => $placesName, 'placesStatut' => $placesStatut]);
+        return new JsonResponse([
+            'user' => $user, 'placesId' => $placesID,
+            'placesNames' => $placesName, 'placesStatut' => $placesStatut
+        ]);
     }
 }

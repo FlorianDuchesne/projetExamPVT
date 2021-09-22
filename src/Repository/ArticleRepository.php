@@ -25,15 +25,24 @@ class ArticleRepository extends ServiceEntityRepository
      */
     public function findBySearch($request)
     {
+        // On crée une query qui retournera un ou des objets articles
         $qb = $this->createQueryBuilder('a')
+            // Où le texte, lieu ou titre de l'article contient l'expression string
             ->where('a.texte LIKE :string')
             ->orWhere('a.lieu LIKE :string')
             ->orWhere('a.titre LIKE :string')
-            ->andWhere('a.statut = 1');
-
+            // et où l'article est publié
+            ->andWhere('a.statut = 1')
+            // On concatène "%" avant et après l'expression recherchée 
+            //pour chercher tous les enregistrements utilisant cette expression  
+            ->setParameter('string', '%' . $request->get('search') . '%');
+        // Si la requête a un champ "themes"
         if ($request->get('themes')) {
+            // Pour chaque champ du tableau en question
             foreach (($request->get('themes')) as $value) {
+                // l'article devra avoir pour thème la valeur du champ
                 $qb->andWhere('a.theme = (:value)')
+                    // On inclut la variable paramétrée dans la requête
                     ->setParameter('value', $value);
             }
         }
@@ -44,18 +53,18 @@ class ArticleRepository extends ServiceEntityRepository
             }
         }
         if ($request->get('tag')) {
-            // dd($request->get('tag'));
             foreach (($request->get('tag')) as $value) {
-                // dump($value);
+                // la valeur doit faire partie de la propriété (collection) hashtags de l'article
                 $qb->andWhere(":value MEMBER OF a.hashtags")
                     ->setParameter("value", $value);
             }
         }
 
         return $qb
-            ->setParameter('string', '%' . $request->get('search') . '%')
             ->orderBy('a.id', 'DESC')
+            // On construit la query d'après les spécifications indiquées
             ->getQuery()
+            // On exécute la query
             ->getResult();
     }
 

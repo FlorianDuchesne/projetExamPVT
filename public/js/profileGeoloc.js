@@ -7,12 +7,15 @@ $(document).ready(function () {
   // marker.forEach((element) => places.push(element.children[1].innerText));
   // console.log(places);
 });
+
 function initMap() {
-  // The map, centered at Uluru
+  // On initialise la carte grâce à l'API dans #mapProfile
   const mapProfile = new google.maps.Map(
     document.getElementById("mapProfile"),
     {
+      // Echelle de la carte
       zoom: 2,
+      // Centre de la carte
       center: { lat: 23.8862915, lng: 0 },
     }
   );
@@ -22,48 +25,50 @@ function initMap() {
   let markersStatuts = [];
 
   $(document).ready(function () {
-    console.log(document.URL);
+    // Je récupère l'id du user dont le profil est consulté
     let adress = document.URL;
-    console.log(adress.length);
     let userId = adress.slice(27, adress.length);
-    console.log(userId);
+    // Je paramètre l'Id dans l'url attaché à la fonction
+    // que je souhaite appeler dans ma requête ajax
     let url = "/searchPlaceId/" + userId;
-    console.log(url);
     $.ajax({
       url: url,
       type: "POST",
     }).done(function (response) {
-      console.log(response);
       markersPlaces.push(response.placesId);
       markersNames.push(response.placesNames);
       markersStatuts.push(response.placesStatut);
-      // console.log("markersPlaces");
-      // console.log(markersPlaces[0]);
-      // console.log(markersStatuts[0][0]);
-      // console.log(markersPlaces.length);
       var i = 0;
 
+      // J'appelle ensuite un service de l'API qui me permettra
+      // d'identifier les détails d'un lieu donné
       var service = new google.maps.places.PlacesService(mapProfile);
-      // pour chaque élément, incrémenter
+      // pour chaque élément du tableau om sont enregistrés les place_id…
       markersPlaces[0].forEach((element) =>
+        // Je demande les détails du service instancié plus tôt
         service.getDetails(
           {
             placeId: element,
           },
+          // Et je lance une fonction avec en paramètre le résultat de getDetails
           function (result, status) {
-            console.log(markersStatuts[0][i]);
+            // En fonction du booléen enregistré dans markersStatuts,
+            // qui indique s'il s'agit d'un voyage réalisé ou à venir,
+            // je définis un icône rouge ou bleu.
             if (markersStatuts[0][i] == true) {
               var icon = "/img/redPin.png";
             } else {
               var icon = "/img/bluePin.png";
             }
-            console.log(markersNames[0][i]);
             i++;
-            console.log("element");
-            console.log(element);
+            // Grâce à l'API, je définis un marqueur
             var marker = new google.maps.Marker({
+              // auquel j'attribue l'icône défini précédemment
               icon: icon,
+              // Et la carte initialisée plus tôt
               map: mapProfile,
+              // Enfin je localise le marqueur grâce au place_id
+              // et au résultat de la méthode getDetails
               place: {
                 placeId: element,
                 location: result.geometry.location,
