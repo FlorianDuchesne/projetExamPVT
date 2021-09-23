@@ -8,7 +8,7 @@
 			{% endblock %}
 		</title>
 		{# Run `composer require symfony/webpack-encore-bundle`
-																						and uncomment the following Encore helpers to start using Symfony UX #}
+																																and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
@@ -79,30 +79,34 @@
 					</ul>
 				</nav>
 				{% if app.user %}
+					{% set notification = false %}
+					{% for message in app.user.messagesReceived %}
+						{% if message.newMessage == 1 %}
+							{% set notification = true %}
+						{% endif %}
+					{% endfor %}
+					{% for publication in app.user.publications %}
+						{% for commentaire in publication.commentaires %}
+							{% if commentaire.newComment == 1 %}
+								{% set notification = true %}
+							{% endif %}
+						{% endfor %}
+					{% endfor %}
 					<div class="d-flex">
 						<div id='login' class="btn">
-							<div>
+							<div
+								class="d-flex">
 								{# <i class="fas fa-user-cog"></i> #}
 								<h5>{{ app.user.pseudo|capitalize }}</h5>
-							</div>
-							{% set notification = false %}
-							{% for message in app.user.messagesReceived %}
-								{% if message.newMessage == 1 %}
-									{% set notification = true %}
-								{% endif %}
-							{% endfor %}
-							{% for publication in app.user.publications %}
-								{% for commentaire in publication.commentaires %}
-									{% if commentaire.newComment == 1 %}
-										{% set notification = true %}
-									{% endif %}
-								{% endfor %}
-							{% endfor %}
-							<div>
 								{% if notification == true %}
 									<i class="fas fa-circle notif"></i>
 								{% endif %}
 							</div>
+							{# <div>
+																													{% if notification == true %}
+																														<i class="fas fa-circle notif"></i>
+																													{% endif %}
+																												</div> #}
 							{% if app.user %}
 								{% include 'components/dashboard.twig'%}
 							{% endif %}
@@ -123,26 +127,27 @@
 		</header>
 		<div class="margin"> {% block body %}{% endblock %}
 			</div>
-			<footer class="stickyBottom">
-				<div class="d-flex">
-					<div>2021 © Florian Duchesne MENTIONS LÉGALES</div>
-					{# <div class="d-flex"> #}
-					<div>
-						<a href="http://facebook.com">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a href="http://instagram.com/">
-							<i class="fab fa-instagram"></i>
-						</a>
-						<a href="http://twitter.com/">
-							<i class="fab fa-twitter"></i>
-						</a>
-					</div>
-					{# </div> #}
-					<div>
-						<a href="{{ path('aPropos')}}">A propos</a>
-					</div>
+			<footer
+				class="stickyBottom d-flex">
+				{# <div class="d-flex"> #}
+				<div>2021 © Florian Duchesne MENTIONS LÉGALES</div>
+				{# <div class="d-flex"> #}
+				<div class="footer__Reseaux">
+					<a href="http://facebook.com">
+						<i class="fab fa-facebook"></i>
+					</a>
+					<a href="http://instagram.com/">
+						<i class="fab fa-instagram"></i>
+					</a>
+					<a href="http://twitter.com/">
+						<i class="fab fa-twitter"></i>
+					</a>
 				</div>
+				{# </div> #}
+				<div class="footer__apropos">
+					<a href="{{ path('aPropos')}}">A propos</a>
+				</div>
+				{# </div> #}
 			</footer>
 			<a href="#header" id="up">
 				<i class="fas fa-chevron-up"></i>

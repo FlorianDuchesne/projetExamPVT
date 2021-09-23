@@ -5,7 +5,6 @@
 }
 
 .wrapper-whole {
-  margin-top: 150px;
   padding: 0em 4em;
   width: auto;
   min-height: 80vh;
@@ -14,6 +13,12 @@
 @media screen and (max-width: 576px) {
   .wrapper-whole {
     padding: 1.5em;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper-whole {
+    padding: 0em 2em;
   }
 }
 
@@ -38,7 +43,7 @@
 }
 
 .wrapper-whole .wrapper-main .wrapper-posts {
-  width: 70%;
+  width: auto;
 }
 
 @media screen and (max-width: 576px) {
@@ -49,6 +54,12 @@
 
 .wrapper-whole .wrapper-main .wrapperAside {
   width: 25%;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper-whole .wrapper-main .wrapperAside {
+    width: auto;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -332,6 +343,8 @@
       -ms-flex-align: end;
           align-items: flex-end;
   height: 200px;
+  padding-left: 5em;
+  padding-right: 5em;
 }
 
 .header .avatar {
@@ -558,6 +571,12 @@
   width: 80%;
 }
 
+@media screen and (max-width: 768px) {
+  .post .post__entete {
+    width: auto;
+  }
+}
+
 .post .post__user {
   text-decoration: none;
   display: -webkit-box;
@@ -637,6 +656,12 @@
   width: 85%;
 }
 
+@media screen and (max-width: 768px) {
+  .post .post__wrapperPictures .post__picture {
+    margin: auto;
+  }
+}
+
 .post .post__wrapperPictures .post__legende {
   display: none;
 }
@@ -654,18 +679,31 @@
   display: none;
 }
 
-.post .post__paragraph, .post .post__paragraph--solo {
+.post .post__paragraph {
   text-align: justify;
   width: 85%;
-  font-family: Arial, Helvetica, sans-serif;
   overflow: hidden;
 }
 
+@media screen and (max-width: 768px) {
+  .post .post__paragraph {
+    width: auto;
+    font-family: Arial, Helvetica, sans-serif;
+    overflow: hidden;
+  }
+}
+
 @media screen and (max-width: 576px) {
-  .post .post__paragraph, .post .post__paragraph--solo {
+  .post .post__paragraph {
     text-align: start;
     width: 100%;
   }
+}
+
+.post .post__paragraph--solo {
+  text-align: justify;
+  overflow: hidden;
+  width: 100%;
 }
 
 .post .post__categories {
@@ -687,13 +725,20 @@
 }
 
 .aside {
-  top: 1em;
+  top: 7em;
   position: -webkit-sticky;
   position: sticky;
   background-color: #17a2b8;
   margin: 2em;
   padding: 2em;
   border-radius: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .aside {
+    margin: 1em;
+    padding: 1em;
+  }
 }
 
 .aside .aside__h6 {
@@ -708,14 +753,16 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: start;
-      -ms-flex-pack: start;
-          justify-content: start;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .aside .aside__user .aside__user__avatar {
@@ -771,7 +818,13 @@
 }
 
 .aside--bottom {
-  top: 230px;
+  top: 22em;
+}
+
+@media screen and (max-width: 768px) {
+  .aside--bottom {
+    top: 20em;
+  }
 }
 
 @media screen and (max-width: 576px) {
@@ -900,6 +953,12 @@ header {
   width: 80vw;
 }
 
+@media screen and (max-width: 768px) {
+  #myLinks {
+    width: 65%;
+  }
+}
+
 @media screen and (max-width: 576px) {
   #myLinks {
     display: none;
@@ -908,9 +967,6 @@ header {
             align-items: flex-start;
     position: absolute;
     width: 100%;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
   }
   #myLinks ul {
     position: fixed;
@@ -929,6 +985,12 @@ header {
   width: 40%;
   margin: auto;
   padding-top: 5em;
+}
+
+@media screen and (max-width: 768px) {
+  #searchBig {
+    width: 60%;
+  }
 }
 
 #searchBig input {
@@ -1036,6 +1098,33 @@ nav, #login, #menuBurger, #loginVisitor {
   z-index: 2;
 }
 
+@media screen and (min-width: 576px) and (max-width: 768px) {
+  .navbar-nav {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dropdown-toggle::after {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dropdown-menu {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .dropdownHover:hover .dropdown-menu {
+    display: none !important;
+  }
+}
+
 .publishStuff {
   background-image: url("../../../img/inscription_test.jpg");
   position: relative;
@@ -1046,6 +1135,12 @@ nav, #login, #menuBurger, #loginVisitor {
   opacity: 0;
   -webkit-animation: fadeIn 0.8s 0.4s ease forwards;
           animation: fadeIn 0.8s 0.4s ease forwards;
+}
+
+@media screen and (max-width: 576px) {
+  .publishStuff {
+    display: none;
+  }
 }
 
 @-webkit-keyframes fadeIn {
@@ -1113,6 +1208,16 @@ nav, #login, #menuBurger, #loginVisitor {
   transition: 1s;
 }
 
+@media screen and (max-width: 768px) {
+  .publishStuff .publishStuff__h1 {
+    margin: auto;
+    width: 60%;
+    text-align: center;
+    margin-top: 2em;
+    position: initial;
+  }
+}
+
 .publishStuff .publishStuff__h1:hover {
   background-color: #20c997;
   -webkit-transition: 1s;
@@ -1136,6 +1241,10 @@ nav, #login, #menuBurger, #loginVisitor {
     width: 80%;
     font-size: large;
   }
+}
+
+.publishStuff__lien {
+  text-decoration: none;
 }
 
 .titre {
@@ -1368,6 +1477,10 @@ textarea#short_message_texte, #message_texte {
   display: block;
 }
 
+.btnPublierComm, .btnCommentaires {
+  margin: 1em 0em;
+}
+
 .notifCommentaire {
   background-color: #15d3c3;
   border-radius: 10px;
@@ -1399,6 +1512,10 @@ textarea#short_message_texte, #message_texte {
 footer {
   background-color: #1e4f66;
   color: white;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0.5em;
 }
 
 footer a {
@@ -1411,8 +1528,33 @@ footer .fab {
   margin: 0em 3em;
 }
 
-footer div {
-  margin: 0.5em;
+@media screen and (max-width: 768px) {
+  footer {
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    padding: 1em;
+    position: relative;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  footer .footer__Reseaux {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    width: 100%;
+    padding: 1em;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  footer .footer__Reseaux .fab {
+    font-size: x-large;
+    margin: auto;
+  }
+  footer .footer__apropos {
+    width: 100%;
+    text-align: center;
+  }
 }
 
 .stickyBottom {
@@ -1420,6 +1562,12 @@ footer div {
   bottom: 0;
   width: 100%;
   z-index: 1;
+}
+
+@media screen and (max-width: 768px) {
+  .stickyBottom {
+    position: relative;
+  }
 }
 
 #map, #mapVoyagesAccomplis, #mapProfile {
@@ -1444,7 +1592,7 @@ footer div {
   right: 0.2em;
   top: 0.2em;
   z-index: 2;
-  width: 130px;
+  width: 160px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }

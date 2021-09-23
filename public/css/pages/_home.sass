@@ -6,12 +6,13 @@
   margin-bottom: 60px
 
 .wrapper-whole
-  margin-top: 150px
   padding: 0em 4em
   width: auto
   min-height: 80vh
   @media screen and (max-width: 576px)
     padding: 1.5em
+  @media screen and (max-width: 768px)
+    padding: 0em 2em
   .main
     width: 90%
     margin: auto
@@ -21,10 +22,12 @@
     &--indexArticles
       justify-content: center
     .wrapper-posts
-      width: 70%
+      width: auto
       @media screen and (max-width: 576px)
         width: 100%
     .wrapperAside
       width: 25%
+      @media screen and (max-width: 768px)
+        width: auto
       @media screen and (max-width: 576px)
         display: none

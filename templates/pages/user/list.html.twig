@@ -77,16 +77,16 @@
 					{% include 'layouts/membres.twig' %}
 				{% endfor %}
 			{% endif %}
-
-			{% if membres is empty %}
-				{% if followers is defined %}
-					<p>{{ user.pseudo|capitalize }}
-						n'a pas encore d'abonnés</p>
-				{% else %}
-					<p>{{ user.pseudo|capitalize }}
-						n'a pas encore d'abonnements</p>
-				{% endif %}
-			{% endif %}
 		</div>
+
+		{% if membres is empty %}
+			{% if followers is defined %}
+				<p>{{ user.pseudo|capitalize }}
+					n'a pas encore d'abonnés</p>
+			{% else %}
+				<p>{{ user.pseudo|capitalize }}
+					n'a pas encore d'abonnements</p>
+			{% endif %}
+		{% endif %}
 	</div>
-{% endblock %}
+</div>{% endblock %}

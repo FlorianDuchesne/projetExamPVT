@@ -9,6 +9,8 @@
   background-size: cover
   opacity: 0
   animation: fadeIn 0.8s 0.4s ease forwards
+  @media screen and (max-width: 576px)
+    display: none
   @keyframes fadeIn
     0%
       opacity: 0
@@ -52,6 +54,12 @@
     padding: 0.3em
     border-radius: 10px
     transition: 1s
+    @media screen and (max-width: 768px)
+      margin: auto
+      width: 60%
+      text-align: center
+      margin-top: 2em
+      position: initial
     &:hover
       background-color: $teal
       transition: 1s
@@ -66,3 +74,6 @@
     @media screen and (max-width: 576px)
       width: 80%
       font-size: large
+
+.publishStuff__lien
+  text-decoration: none

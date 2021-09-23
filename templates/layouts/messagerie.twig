@@ -1,6 +1,6 @@
 <main class="d-flex main__messagerie">
-	<div class="wrapper--messagerie">
-		<div class="messagerie__correspondants">
+	<div class="messagerie__correspondants">
+		<div class="wrapper--messagerie">
 			{% for correspondant in correspondants %}
 				{% if (correspondant != app.user)%}
 					{% if (correspondantActuel is defined) and (correspondant == correspondantActuel) %}

@@ -1,17 +1,39 @@
 footer
   background-color: $blue
   color: white
+  justify-content: space-between
+  padding: 0.5em
   a
     color: white
     text-decoration: none
     margin: 0.5em
   .fab
     margin: 0em 3em
-  div
-    margin: 0.5em
+  // div
+  //   margin: 0.5em
+
+footer
+  @media screen and (max-width: 768px)
+    flex-wrap: wrap
+    padding: 1em
+    position: relative
+    justify-content: center
+    .footer__Reseaux
+      display: flex
+      width: 100%
+      padding: 1em
+      justify-content: space-around
+      .fab
+        font-size: x-large
+        margin: auto
+    .footer__apropos
+      width: 100%
+      text-align: center
 
 .stickyBottom
   position: fixed
   bottom: 0
   width: 100%
   z-index: 1
+  @media screen and (max-width: 768px)
+    position: relative

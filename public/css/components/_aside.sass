@@ -1,16 +1,20 @@
 .aside
-  top: 1em
+  top: 7em
   position: sticky
   background-color: $info
   margin: 2em
   padding: 2em
   border-radius: 15px
+  @media screen and (max-width: 768px)
+    margin: 1em
+    padding: 1em
   .aside__h6
     color: $white
   a
     text-decoration: none
   .aside__user
-    @include blockFlex(start)
+    @include blockFlex(center)
+    flex-wrap: nowrap
     .aside__user__avatar
       @include avatar(50px)
     .aside__user__name
@@ -30,7 +34,9 @@
       color: $blue
       font-style: italic
 .aside--bottom
-  top: 230px
+  top: 22em
+  @media screen and (max-width: 768px)
+    top: 20em
 
 .aside
   @media screen and (max-width: 576px)

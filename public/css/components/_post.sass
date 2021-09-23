@@ -7,6 +7,8 @@
     flex-direction: column-reverse
     align-items: flex-start
     width: 80%
+    @media screen and (max-width: 768px)
+      width: auto
   .post__user
     text-decoration: none
     @include blockFlex(start)
@@ -36,6 +38,8 @@
     // height: auto
     .post__picture
       width: 85%
+      @media screen and (max-width: 768px)
+        margin: auto
     .post__legende
       display: none
   .post__wrapperPictures--many
@@ -48,13 +52,20 @@
       height: auto
     .post__legende
       display: none
-  .post__paragraph, .post__paragraph--solo
+  .post__paragraph
     text-align: justify
     width: 85%
-    font-family: $arial
     overflow: hidden
+    @media screen and (max-width: 768px)
+      width: auto
+      font-family: $arial
+      overflow: hidden
     @media screen and (max-width: 576px)
       text-align: start
+      width: 100%
+    &--solo
+      text-align: justify
+      overflow: hidden
       width: 100%
   .post__categories
     font-family: $arial

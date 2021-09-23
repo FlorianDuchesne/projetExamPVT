@@ -38,8 +38,6 @@
 		</div>
 		<div class="colDeux">
 			<a href="{{ path('messagerie', {id: app.user.id}) }}">
-				<i class="fas fa-envelope"></i>
-				<small class="dashboard__link">Messagerie</small>
 				{% set notification = false %}
 				{% set publicationsNotifiees = [] %}
 				{% for message in app.user.messagesReceived %}
@@ -56,21 +54,24 @@
 				{% endfor %}
 				{% if notification == true %}
 					<i class="fas fa-circle notif"></i>
+				{% else %}
+					<i class="fas fa-envelope"></i>
 				{% endif %}
+				<small class="dashboard__link">Messagerie</small>
 			</a>
 		</div>
 	</div>
 	<a href="{{ path('app_logout') }}" class="rangQuatre">Se déconnecter
 		{# <i class="fas fa-sign-out-alt"></i>
-				<small class="dashboard__link">Se déconnecter</small> #}
+																				<small class="dashboard__link">Se déconnecter</small> #}
 	</a>
+	{% if publicationsNotifiees %}
+		{% for publicationNotifiee in publicationsNotifiees %}
+			<div class="notifCommentaire">
+				<p>Vous avez un nouveau commentaire sous votre article
+					<a href="{{ path('article_show', {id: publicationNotifiee.id}) }}">{{publicationNotifiee.titre}}</a>
+				</p>
+			</div>
+		{% endfor %}
+	{% endif %}
 </div>
-{% if publicationsNotifiees %}
-	{% for publicationNotifiee in publicationsNotifiees %}
-		<div class="notifCommentaire">
-			<p>Vous avez un nouveau commentaire sous votre article
-				<a href="{{ path('article_show', {id: publicationNotifiee.id}) }}">{{publicationNotifiee.titre}}</a>
-			</p>
-		</div>
-	{% endfor %}
-{% endif %}

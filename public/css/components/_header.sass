@@ -27,12 +27,13 @@ header
 
 #myLinks
   width: 80vw
+  @media screen and (max-width: 768px)
+    width: 65%
   @media screen and (max-width: 576px)
     display: none
     align-items: flex-start
     position: absolute
     width: 100%
-    display: flex
     ul
       position: fixed
       width: 100%
@@ -47,6 +48,8 @@ header
   width: 40%
   margin: auto
   padding-top: 5em
+  @media screen and (max-width: 768px)
+    width: 60%
   input
     border-radius: 2rem
     background-color: #ffffff6e
@@ -108,3 +111,19 @@ header
 
 nav, #login, #menuBurger, #loginVisitor
   z-index: 2
+
+.navbar-nav
+  @media screen and (min-width: 576px) and (max-width: 768px)
+    flex-direction: row
+
+.dropdown-toggle::after
+  @media screen and (max-width: 768px)
+    display: none
+
+.dropdown-menu
+  @media screen and (max-width: 768px)
+    display: none
+
+.dropdownHover:hover .dropdown-menu
+  @media screen and (max-width: 768px)
+    display: none !important
