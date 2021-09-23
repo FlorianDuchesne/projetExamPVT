@@ -41,65 +41,64 @@
 
 	{% endif %}
 
-	<div
-		class="wrapper__header">
-		{# <div class="wrapper"> #}
+	<div class="wrapper__header">
+		<div class="wrapper">
 
-		<div class="header">
-			<div class="avatar">
-				<figure class="header__user">
-					<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
-				</figure>
-				<div class="user__infos">
-					<h1 class="user__name">
-						{{ user.pseudo }}
-					</h1>
-					<p>Inscrit(e) depuis le
-						{{ user.dateCreation | date("m/d/Y") }}
-					</p>
-				</div>
-			</div>
-
-			{% set count = 0 %}
-			{% for article in user.publications %}
-				{% if article.statut == 1 %}
-					{% set count = count + 1 %}
-				{% endif %}
-			{% endfor %}
-			<div class="header__leftColumn">
-				<small>
-					<a href="{{ path('indexArticles', {id: user.id}) }}" class="header__text">
-						<span>{{count}}</span>
-						articles
-					</a>
-				</small>
-				<small>
-					<a href="{{ path('followers', {id: user.id}) }}" class="header__text">
-						<span>{{user.followers|length}}</span>
-						abonnés</a>
-				</small>
-				<small>
-					<a href="{{ path('follows', {id: user.id}) }}" class="header__text">
-						<span>{{user.following|length}}</span>
-						abonnements</a>
-				</small>
-			</div>
-			{% if app.user %}
-				{% if user != app.user %}
-					<div class="header__rightColumn">
-						<a href="{{ path('messagerieShow', {id: user.id}) }}" class="btn btn-info">
-							<i class="fas fa-envelope"></i>
-						</a>
-						{% if user.followers.contains(app.user) %}
-							<a class="btn btn-info" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre</a>
-						{% else %}
-							<a class="btn btn-info" href="{{ path('following', {id: user.id}) }}">Suivre</a>
-						{% endif %}
+			<div class="header">
+				<div class="avatar">
+					<figure class="header__user">
+						<img src="{{ asset('img/avatar/' ~ user.avatar) }}" alt="#" class="user__picture">
+					</figure>
+					<div class="user__infos">
+						<h1 class="user__name">
+							{{ user.pseudo }}
+						</h1>
+						<p>Inscrit(e) depuis le
+							{{ user.dateCreation | date("m/d/Y") }}
+						</p>
 					</div>
+				</div>
+
+				{% set count = 0 %}
+				{% for article in user.publications %}
+					{% if article.statut == 1 %}
+						{% set count = count + 1 %}
+					{% endif %}
+				{% endfor %}
+				<div class="header__leftColumn">
+					<small>
+						<a href="{{ path('indexArticles', {id: user.id}) }}" class="header__text">
+							<span>{{count}}</span>
+							articles
+						</a>
+					</small>
+					<small>
+						<a href="{{ path('followers', {id: user.id}) }}" class="header__text">
+							<span>{{user.followers|length}}</span>
+							abonnés</a>
+					</small>
+					<small>
+						<a href="{{ path('follows', {id: user.id}) }}" class="header__text">
+							<span>{{user.following|length}}</span>
+							abonnements</a>
+					</small>
+				</div>
+				{% if app.user %}
+					{% if user != app.user %}
+						<div class="header__rightColumn">
+							<a href="{{ path('messagerieShow', {id: user.id}) }}" class="btn btn-info">
+								<i class="fas fa-envelope"></i>
+							</a>
+							{% if user.followers.contains(app.user) %}
+								<a class="btn btn-info" href="{{ path('unfollowing', {id: user.id}) }}">Ne plus suivre</a>
+							{% else %}
+								<a class="btn btn-info" href="{{ path('following', {id: user.id}) }}">Suivre</a>
+							{% endif %}
+						</div>
+					{% endif %}
 				{% endif %}
-			{% endif %}
+			</div>
 		</div>
-		{# </div> #}
 	</div>
 	<main class="main">
 		<p class="main__description">

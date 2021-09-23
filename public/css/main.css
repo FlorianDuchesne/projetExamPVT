@@ -75,6 +75,71 @@
   margin-right: auto;
 }
 
+.wrapper .flex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  border-bottom: 2px solid #1e4f66;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.wrapper .flex .user {
+  margin: 1em;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.wrapper .flex .user .user__containAvatar {
+  width: 100px;
+  border-radius: 100%;
+  overflow: hidden;
+  height: 100px;
+  margin: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper .flex .user .user__containAvatar .user__avatar {
+  width: auto;
+  height: 100%;
+  overflow: initial;
+}
+
+.wrapper .flex .user .user__name {
+  margin-top: 0.5em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.wrapper .flex .user__description {
+  padding-top: 1em;
+  color: #1e4f66;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
 .wrapper--messagerie {
   width: auto;
   margin: 0;
@@ -343,8 +408,8 @@
       -ms-flex-align: end;
           align-items: flex-end;
   height: 200px;
-  padding-left: 5em;
-  padding-right: 5em;
+  -ms-flex-wrap: nowrap;
+      flex-wrap: nowrap;
 }
 
 .header .avatar {
@@ -474,8 +539,13 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.main .wrapper {
+  margin: 1em 5em;
+  width: auto;
+}
+
 .main .main__description {
-  margin-top: 1em;
+  margin: 3em 5em 0em 5em;
   text-align: center;
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -822,7 +892,7 @@
 }
 
 @media screen and (max-width: 768px) {
-  .aside--bottom {
+  .aside {
     top: 20em;
   }
 }

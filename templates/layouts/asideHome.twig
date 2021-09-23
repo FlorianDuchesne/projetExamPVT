@@ -2,6 +2,7 @@
 
 	{% set nbSuggestions = suggestions|length %}
 	{% set nbFollowsInSuggestions = 0 %}
+	{% set suggestionsAffichees = false %}
 
 	{% for suggestion in suggestions %}
 
@@ -24,6 +25,7 @@
 									<h5 class="aside__user__name">{{suggestion.pseudo}}</h5>
 								</div>
 							</a>
+							{% set suggestionsAffichees = true %}
 						{% endif %}
 					{% endfor %}
 				</div>
@@ -31,12 +33,25 @@
 		{% endif %}
 	{% endif %}
 
-	<div class="aside aside--bottom">
-		<h6 class="aside__h6">Tendances du moment :</h6>
-		{% for tendance in tendances %}
-			<p class="aside__hashtags">
-				<a href="{{ path('indexTag', {id: tendance.id}) }}">#{{ tendance.name }}</a>
-			</p>
-		{% endfor %}
-	</div>
+	{% if suggestionsAffichees == false %}
+		<div class="aside">
+			<h6 class="aside__h6">Tendances du moment :</h6>
+			{% for tendance in tendances %}
+				<p class="aside__hashtags">
+					<a href="{{ path('indexTag', {id: tendance.id}) }}">#{{ tendance.name }}</a>
+				</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+	{% if suggestionsAffichees == true %}
+		<div class="aside aside--bottom">
+			<h6 class="aside__h6">Tendances du moment :</h6>
+			{% for tendance in tendances %}
+				<p class="aside__hashtags">
+					<a href="{{ path('indexTag', {id: tendance.id}) }}">#{{ tendance.name }}</a>
+				</p>
+			{% endfor %}
+		</div>
+	{% endif %}
+
 </div>

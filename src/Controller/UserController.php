@@ -26,6 +26,9 @@ class UserController extends AbstractController
      */
     public function index(Request $request)
     {
+
+        $user = $this->getUser();
+
         $membres = $this->getDoctrine()->getRepository(User::class)->findAll();
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
@@ -39,7 +42,7 @@ class UserController extends AbstractController
         if (null !== ($request->get('themes'))) {
             $themesSearched = $request->get('themes');
             foreach ($themesSearched as $theme) {
-                $results[] = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme);
+                $results[] = $this->getDoctrine()->getRepository(User::class)->SharedTheme($theme, $user);
             }
         }
 
@@ -47,7 +50,7 @@ class UserController extends AbstractController
 
             $paysSearched = $request->get('pays');
             foreach ($paysSearched as $pays) {
-                $avoidRepeatArray = $this->getDoctrine()->getRepository(User::class)->SharedPays($pays);
+                $avoidRepeatArray = $this->getDoctrine()->getRepository(User::class)->SharedPays($pays, $user);
                 foreach ($avoidRepeatArray as $testItem) {
                     if (!in_array($testItem, $results)) {
                         $results[] = $testItem;
