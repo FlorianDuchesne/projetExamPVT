@@ -72,6 +72,7 @@
 			{% for voyageAccompli in app.user.places %}
 				{% if voyageAccompli.statut == 1 %}
 					<li class="place list-group-item">{{voyageAccompli.name}}
+						<a href="{{path('removePlace', {id: voyageAccompli.id})}}">RemovePlace</a>
 					{% endif %}
 
 					{# {{ form_row(projetVoyage) }} #}

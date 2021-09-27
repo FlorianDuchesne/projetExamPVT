@@ -141,12 +141,22 @@ class RegistrationController extends AbstractController
      */
     public function removePlace(Place $place, EntityManagerInterface $manager): Response
     {
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
         $user = $this->getUser();
+
+        $form = $this->createForm(EditUserType::class, $user);
+
         // dd($user);
         $place->removeUser($user);
         $manager->flush();
 
         return $this->render('pages/registration/edit.html.twig', [
+            'editUserForm' => $form->createView(),
+            'countries' => $countries,
+            'themes' => $themes,
             'user' => $user
         ]);
     }
