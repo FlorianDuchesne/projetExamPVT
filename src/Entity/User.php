@@ -281,29 +281,29 @@ class User implements UserInterface, Serializable
         return $this;
     }
 
-    public function getProjetsVoyages(): ?string
-    {
-        return $this->projetsVoyages;
-    }
+    // public function getProjetsVoyages(): ?string
+    // {
+    //     return $this->projetsVoyages;
+    // }
 
-    public function setProjetsVoyages(?string $projetsVoyages): self
-    {
-        $this->projetsVoyages = $projetsVoyages;
+    // public function setProjetsVoyages(?string $projetsVoyages): self
+    // {
+    //     $this->projetsVoyages = $projetsVoyages;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
-    public function getVoyagesAccomplis(): ?string
-    {
-        return $this->voyagesAccomplis;
-    }
+    // public function getVoyagesAccomplis(): ?string
+    // {
+    //     return $this->voyagesAccomplis;
+    // }
 
-    public function setVoyagesAccomplis(?string $voyagesAccomplis): self
-    {
-        $this->voyagesAccomplis = $voyagesAccomplis;
+    // public function setVoyagesAccomplis(?string $voyagesAccomplis): self
+    // {
+    //     $this->voyagesAccomplis = $voyagesAccomplis;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getDateCreation(): ?\DateTimeInterface
     {

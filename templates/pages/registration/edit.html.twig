@@ -3,23 +3,86 @@
 {% block title %}Modifier compte
 {% endblock %}
 
+{% block stylesheets %}
+
+	{{ parent() }}
+
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initAutocomplete&initMap"></script>
+
+
+{% endblock %}
+
 {% block body %}
 
 	{% for flashError in app.flashes('essaiHacking') %}
 		<div class="alert alert-danger" role="alert">{{ flashError }}</div>
 	{% endfor %}
 	<div class="container">
-		<h1 class="m-3">Modifier compte</h1>
+		<h1 class="p-5">Modifier profil</h1>
 		<div class="d-flex justify-content-end">
 			<a class="btn btn-lg btn-warning m-3" href="{{ path('reset_password', {id: app.user.id}) }}">Modifier mon mot de passe</a>
 			<button class="btn btn-lg btn-danger m-3" data-toggle="modal" data-target="#exampleModal">Supprimer mon compte</button>
 
 		</div>
-		<div class="editForm">
-			{{ form_start(editUserForm) }}
-			{{ form_end(editUserForm) }}
+
+
+		{{ form_start(editUserForm) }}
+
+		{{ form_row(editUserForm.imageFile) }}
+
+		{{ form_row(editUserForm.email) }}
+
+		{{ form_row(editUserForm.pseudo) }}
+
+		{{ form_row(editUserForm.description) }}
+
+
+		<div>
+			<h5>quels sont vos projets de voyage ?</h5>
+			<input id="autocomplete" placeholder="Indiquer un pays" type="text"/>
 		</div>
+		<div id="map" class="mapHidden"></div>
+
+		<button type="button" class="add_item_link" data-collection-holder-class="projetsVoyages">Enregistrer ce lieu</button>
+
+		<ul class="projetsVoyages" data-index="{{ editUserForm.projetsVoyages|length > 0 ? editUserForm.projetsVoyages|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(editUserForm.projetsVoyages.vars.prototype)|e('html_attr') }}">
+
+
+			{% for projetVoyage in app.user.places %}
+				{% if projetVoyage.statut == 0 %}
+					<li class="place list-group-item">{{projetVoyage.name}}
+					{% endif %}
+
+					{# {{ form_row(projetVoyage) }} #}
+
+				</li>
+			{% endfor %}
+
+		</ul>
+
+		<h5>où avez-vous déjà voyagé ?</h5>
+		<input id="autocompleteVoyagesAccomplis" placeholder="Indiquer un pays" type="text"/>
+		<div id="mapVoyagesAccomplis" class="mapHidden"></div>
+
+		<button type="button" class="add_item_linkVoyagesAccomplis" data-collection-holder-class="voyagesAccomplis">Enregistrer ce lieu</button>
+
+		<ul class="voyagesAccomplis" data-index="{{ editUserForm.voyagesAccomplis|length > 0 ? editUserForm.voyagesAccomplis|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(editUserForm.voyagesAccomplis.vars.prototype)|e('html_attr') }}">
+
+
+			{% for voyageAccompli in app.user.places %}
+				{% if voyageAccompli.statut == 1 %}
+					<li class="place list-group-item">{{voyageAccompli.name}}
+					{% endif %}
+
+					{# {{ form_row(projetVoyage) }} #}
+
+				</li>
+			{% endfor %}
+
+		</ul>
+		{{ form_end(editUserForm) }}
 	</div>
+
 	<!-- Modal -->
 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -41,5 +104,6 @@
 		</div>
 	</div>
 
+	<script src="{{asset('js/editGeoloc.js')}}"></script>
 
 {% endblock %}

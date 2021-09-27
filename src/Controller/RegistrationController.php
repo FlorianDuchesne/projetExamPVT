@@ -4,15 +4,17 @@ namespace App\Controller;
 
 use DateTime;
 use App\Entity\Pays;
-use App\Entity\Place;
 use App\Entity\User;
+use App\Entity\Place;
 use App\Entity\Theme;
 // use App\Form\InscriptionType;
 use App\Form\EditUserType;
 use App\Form\RegistrationFormType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -97,6 +99,22 @@ class RegistrationController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 // encode the plain password
+                foreach ($form->get('projetsVoyages') as $item) {
+                    $place = new Place;
+                    // dd($item->get('name')->getViewData());
+                    $place->setName($item->get('name')->getViewData());
+                    $place->setPlaceId($item->get('placeId')->getViewData());
+                    $place->setStatut("0");
+                    $place->addUser($user);
+                }
+                foreach ($form->get('voyagesAccomplis') as $item) {
+                    $place = new Place;
+                    $place->setName($item->get('name')->getViewData());
+                    $place->setPlaceId($item->get('placeId')->getViewData());
+                    $place->setStatut("1");
+                    $place->addUser($user);
+                }
+
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);
                 $entityManager->flush();
@@ -107,13 +125,30 @@ class RegistrationController extends AbstractController
             return $this->render('pages/registration/edit.html.twig', [
                 'editUserForm' => $form->createView(),
                 'countries' => $countries,
-                'themes' => $themes
+                'themes' => $themes,
+                'user' => $userConnected
             ]);
         } else {
             // $this->addFlash('essaiHacking', 'Vous ne pouvez modifier ou supprimer que votre propre compte.');
 
             return $this->redirectToRoute('home');
         }
+    }
+
+    /**
+     * @Route("/removePlace/{id}", name="removePlace")
+     * @return Response
+     */
+    public function removePlace(Place $place, EntityManagerInterface $manager): Response
+    {
+        $user = $this->getUser();
+        // dd($user);
+        $place->removeUser($user);
+        $manager->flush();
+
+        return $this->render('pages/registration/edit.html.twig', [
+            'user' => $user
+        ]);
     }
 }
 
