@@ -1402,6 +1402,10 @@ textarea {
   height: 200px;
 }
 
+.place {
+  color: #1e4f66;
+}
+
 p {
   font-family: Arial, Helvetica, sans-serif;
 }

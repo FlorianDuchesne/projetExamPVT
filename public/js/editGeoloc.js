@@ -92,7 +92,7 @@ function onPlaceChangedVoyagesAccomplis() {
 const addPlaceFormDeleteLink = (placeFormLi) => {
   const removeFormButton = document.createElement("button");
   removeFormButton.classList;
-  removeFormButton.innerText = "Delete this place";
+  removeFormButton.innerHTML = "<i class='fas fa-trash-alt'></i>";
 
   placeFormLi.append(removeFormButton);
 
@@ -106,12 +106,13 @@ const addPlaceFormDeleteLink = (placeFormLi) => {
 var index;
 
 const addFormToCollection = (e) => {
-  console.log(place.name);
+  // console.log(place.name);
   const collectionHolder = document.querySelector(
     "." + e.currentTarget.dataset.collectionHolderClass
   );
 
   const item = document.createElement("li");
+  // item.className = "place list-group-item";
 
   item.innerHTML = collectionHolder.dataset.prototype.replace(
     /__name__/g,
@@ -143,6 +144,7 @@ document.querySelectorAll(".add_item_link").forEach((btn) =>
     // J'indique à l'utilisateur que le lieu est bien inscrit au formulaire en ajoutant
     // son nom à une liste à puces
     let node = document.createElement("li");
+    node.className = "place list-group-item";
     let textnode = document.createTextNode(place.name);
     node.appendChild(textnode);
     document
@@ -169,6 +171,7 @@ document.querySelectorAll(".add_item_linkVoyagesAccomplis").forEach((btn) =>
     ).value = placeVoyagesAccomplis.place_id;
 
     let node = document.createElement("li");
+    node.className = "place list-group-item";
     let textnode = document.createTextNode(placeVoyagesAccomplis.name);
     node.appendChild(textnode);
     document

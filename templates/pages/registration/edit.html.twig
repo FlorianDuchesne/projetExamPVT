@@ -51,6 +51,9 @@
 			{% for projetVoyage in app.user.places %}
 				{% if projetVoyage.statut == 0 %}
 					<li class="place list-group-item">{{projetVoyage.name}}
+						<a href="{{path('removePlace', {id: projetVoyage.id})}}">
+							<i class="fas fa-trash-alt"></i>
+						</a>
 					{% endif %}
 
 					{# {{ form_row(projetVoyage) }} #}
@@ -72,7 +75,9 @@
 			{% for voyageAccompli in app.user.places %}
 				{% if voyageAccompli.statut == 1 %}
 					<li class="place list-group-item">{{voyageAccompli.name}}
-						<a href="{{path('removePlace', {id: voyageAccompli.id})}}">RemovePlace</a>
+						<a href="{{path('removePlace', {id: voyageAccompli.id})}}">
+							<i class="fas fa-trash-alt"></i>
+						</a>
 					{% endif %}
 
 					{# {{ form_row(projetVoyage) }} #}
