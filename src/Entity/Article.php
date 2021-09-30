@@ -81,6 +81,11 @@ class Article
      */
     private $commentaires;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="articles")
+     */
+    private $place;
+
     public function __construct()
     {
         $this->galeries = new ArrayCollection();
@@ -308,6 +313,18 @@ class Article
                 $commentaire->setArticle(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlace(): ?Place
+    {
+        return $this->place;
+    }
+
+    public function setPlace(?Place $place): self
+    {
+        $this->place = $place;
 
         return $this;
     }

@@ -73,19 +73,24 @@
 		</a>
 	</figure>
 
-	<div class="wrapper-whole">
+	{% if app.user.following is not empty %}
 
-		<div class="wrapper-main">
+		<div class="wrapper-whole">
 
-			<div class="wrapper-posts">
-				{% for publication in publications %}
+			<div class="wrapper-main">
 
-					{% include 'components/publication.twig' %}
+				<div class="wrapper-posts">
+					{% for publication in publications %}
 
-				{% endfor %}
+						{% include 'components/publication.twig' %}
+
+					{% endfor %}
+				</div>
+
+				{% include 'layouts/asideHome.twig' %}
 			</div>
-
-			{% include 'layouts/asideHome.twig' %}
 		</div>
-	</div>
+
+	{% endif %}
+
 {% endblock %}

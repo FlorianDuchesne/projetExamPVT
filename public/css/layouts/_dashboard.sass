@@ -8,12 +8,17 @@
 //     text-transform: uppercase
 //     font-weight: bold
 //     text-decoration: none
-#loginVisitor
-  position: fixed
-  right: 0.2em
-  top: 0.2em
+// #loginVisitor
+//   position: fixed
+//   right: 0.2em
+//   top: 0.2em
 
-#login
+#loginVisitor
+  background-color: none
+  i
+    margin: auto !important
+
+#login, #loginVisitor
   height: 45px
   background-color: $primary
   position: fixed
@@ -22,6 +27,8 @@
   z-index: 2
   width: 160px
   transition: 0.5s
+  @media screen and (max-width: 576px)
+    width: 90px
   h5
     color: $white
     margin: auto

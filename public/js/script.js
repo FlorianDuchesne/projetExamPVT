@@ -461,6 +461,22 @@ jQuery(function () {
     arrows: true,
     nextArrow: '<i class="fa fa-arrow-right"></i>',
     prevArrow: '<i class="fa fa-arrow-left"></i>',
+    responsive: [
+      {
+        breakpoint: 769,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
   });
   console.log("slick actif");
 });

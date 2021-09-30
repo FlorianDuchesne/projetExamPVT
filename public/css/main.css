@@ -229,7 +229,7 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  padding: 2em;
+  padding: 0em 2em;
 }
 
 .wrapperFlex .a {
@@ -1138,13 +1138,13 @@ header {
   }
 }
 
-#login {
+#login, #loginVisitor {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
-#login .notif {
+#login .notif, #loginVisitor .notif {
   margin-left: 1em;
   color: #ff0000;
 }
@@ -1259,9 +1259,21 @@ nav, #login, #menuBurger, #loginVisitor {
   height: 500px;
 }
 
+@media screen and (max-width: 576px) {
+  .publishStuff--apropos {
+    display: block;
+  }
+}
+
 .publishStuff--follow {
   background-image: url("../../../img/follow.jpg");
   height: 500px;
+}
+
+@media screen and (max-width: 576px) {
+  .publishStuff--follow {
+    display: block;
+  }
 }
 
 .publishStuff .publishStuff__blocText {
@@ -1303,6 +1315,9 @@ nav, #login, #menuBurger, #loginVisitor {
     text-align: center;
     margin-top: 2em;
     position: initial;
+  }
+  .publishStuff .publishStuff__h1--follow {
+    position: absolute;
   }
 }
 
@@ -1653,18 +1668,30 @@ textarea#short_message_texte, #message_texte {
 
 .fa-arrow-left {
   position: absolute;
-  width: 50px;
-  left: -2em;
+  width: 25px;
+  left: 2em;
   top: 40%;
   color: #1e4f66;
 }
 
+@media screen and (max-width: 768px) {
+  .fa-arrow-left {
+    left: 0em;
+  }
+}
+
 .fa-arrow-right {
   position: absolute;
-  width: 50px;
-  right: -2em;
+  width: 25px;
+  right: 2em;
   top: 40%;
   color: #1e4f66;
+}
+
+@media screen and (max-width: 768px) {
+  .fa-arrow-right {
+    right: 1em;
+  }
 }
 
 footer {
@@ -1738,12 +1765,14 @@ footer .fab {
 }
 
 #loginVisitor {
-  position: fixed;
-  right: 0.2em;
-  top: 0.2em;
+  background-color: none;
 }
 
-#login {
+#loginVisitor i {
+  margin: auto !important;
+}
+
+#login, #loginVisitor {
   height: 45px;
   background-color: #4582ec;
   position: fixed;
@@ -1755,36 +1784,42 @@ footer .fab {
   transition: 0.5s;
 }
 
-#login h5 {
+@media screen and (max-width: 576px) {
+  #login, #loginVisitor {
+    width: 90px;
+  }
+}
+
+#login h5, #loginVisitor h5 {
   color: white;
   margin: auto;
   text-align: center;
 }
 
-#login i {
+#login i, #loginVisitor i {
   color: white;
   font-size: x-large;
   margin: 0.2em;
 }
 
-#login a {
+#login a, #loginVisitor a {
   color: white;
   height: 30px;
 }
 
-#login a i {
+#login a i, #loginVisitor a i {
   margin: 0.1em 0.7em;
   color: white;
   font-size: x-large;
 }
 
-#login a small {
+#login a small, #loginVisitor a small {
   text-align: center;
   color: white;
 }
 
 @media screen and (max-width: 576px) {
-  #login {
+  #login, #loginVisitor {
     right: 6em;
     top: 1em;
     position: fixed;

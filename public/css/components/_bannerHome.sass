@@ -23,9 +23,13 @@
   &--apropos
     background-image: url("../../../img/apropos.jpg")
     height: 500px
+    @media screen and (max-width: 576px)
+      display: block
   &--follow
     background-image: url("../../../img/follow.jpg")
     height: 500px
+    @media screen and (max-width: 576px)
+      display: block
   // margin: 0
   // .publishStuff__img
   //   width: 100%
@@ -60,6 +64,8 @@
       text-align: center
       margin-top: 2em
       position: initial
+      &--follow
+        position: absolute
     &:hover
       background-color: $teal
       transition: 1s

@@ -7,16 +7,12 @@
 			{% block title %}Welcome!
 			{% endblock %}
 		</title>
-		{# Run `composer require symfony/webpack-encore-bundle`
-																																and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
 			<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet"/>
 			<link href="{{ asset('css/main.css') }}" rel="stylesheet"/>
 			<link href="{{ asset('css/dropdownButtons/style.css') }}" rel="stylesheet"/>
-			<link
-			rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-		{#{{ encore_entry_link_tags('app') }}#}
+			<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
 		{% endblock %}
 		{% block javascripts %}
 			<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -32,9 +28,7 @@
 	<body>
 
 		<header class="navbar-expand-lg d-flex flex-wrap" id="header">
-			<div
-				id="entete" class="d-flex justify-content-between sticky">
-				{# <div class="entete__blockUn"> #}
+			<div id="entete" class="d-flex justify-content-between sticky">
 				<a href="{{ path('home') }}" class="col-2">
 					<img src="{{ asset('img/logo2.png') }}" class="col-12 logo"/>
 				</a>
@@ -94,44 +88,34 @@
 					{% endfor %}
 					<div class="d-flex">
 						<div id='login' class="btn">
-							<div
-								class="d-flex">
-								{# <i class="fas fa-user-cog"></i> #}
+							<div class="d-flex">
 								<h5>{{ app.user.pseudo|capitalize }}</h5>
 								{% if notification == true %}
 									<i class="fas fa-circle notif"></i>
 								{% endif %}
 							</div>
-							{# <div>
-																													{% if notification == true %}
-																														<i class="fas fa-circle notif"></i>
-																													{% endif %}
-																												</div> #}
-							{% if app.user %}
-								{% include 'components/dashboard.twig'%}
-							{% endif %}
+							{% include 'components/dashboard.twig'%}
 						</div>
 						<button onclick="menuBurger()" class="btn btn-info" id="menuBurger">
 							<i class="fas fa-bars"></i>
 						</button>
 					</div>
 				{% else %}
-					<a id='loginVisitor' href='{{ path('app_login')}}'>
-						<div class="btn btn-primary m-1">
-							<i class='fas fa-user m-1'></i>
-							{# <h5>Mon compte</h5> #}
-						</div>
-					</a>
+					<div class="d-flex">
+						<a id='loginVisitor' class="btn" href='{{ path('app_login')}}'>
+							<i class='fas fa-user'></i>
+						</a>
+						<button onclick="menuBurger()" class="btn btn-info" id="menuBurger">
+							<i class="fas fa-bars"></i>
+						</button>
+					</div>
 				{% endif %}
 			</div>
 		</header>
 		<div class="margin"> {% block body %}{% endblock %}
 			</div>
-			<footer
-				class="stickyBottom d-flex">
-				{# <div class="d-flex"> #}
+			<footer class="stickyBottom d-flex">
 				<div>2021 © Florian Duchesne MENTIONS LÉGALES</div>
-				{# <div class="d-flex"> #}
 				<div class="footer__Reseaux">
 					<a href="http://facebook.com">
 						<i class="fab fa-facebook"></i>
@@ -143,11 +127,9 @@
 						<i class="fab fa-twitter"></i>
 					</a>
 				</div>
-				{# </div> #}
 				<div class="footer__apropos">
 					<a href="{{ path('aPropos')}}">A propos</a>
 				</div>
-				{# </div> #}
 			</footer>
 			<a href="#header" id="up">
 				<i class="fas fa-chevron-up"></i>

@@ -60,6 +60,12 @@ function initMap() {
             } else {
               var icon = "/img/bluePin.png";
             }
+
+            var infowindow = new google.maps.InfoWindow({
+              content:
+                "<div id='content'><h6>" + markersNames[0][i] + "<h6></div>",
+            });
+
             i++;
             // Grâce à l'API, je définis un marqueur
             var marker = new google.maps.Marker({
@@ -73,6 +79,13 @@ function initMap() {
                 placeId: element,
                 location: result.geometry.location,
               },
+            });
+            marker.addListener("click", () => {
+              infowindow.open({
+                anchor: marker,
+                mapProfile,
+                shouldFocus: false,
+              });
             });
           }
         )
