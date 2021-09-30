@@ -40,21 +40,21 @@ class RegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             // dd($form);
-            foreach ($form->get('projetsVoyages') as $item) {
-                $place = new Place;
-                // dd($item->get('name')->getViewData());
-                $place->setName($item->get('name')->getViewData());
-                $place->setPlaceId($item->get('placeId')->getViewData());
-                $place->setStatut("0");
-                $place->addUser($user);
-            }
-            foreach ($form->get('voyagesAccomplis') as $item) {
-                $place = new Place;
-                $place->setName($item->get('name')->getViewData());
-                $place->setPlaceId($item->get('placeId')->getViewData());
-                $place->setStatut("1");
-                $place->addUser($user);
-            }
+            // foreach ($form->get('projetsVoyages') as $item) {
+            //     $place = new Place;
+            //     // dd($item->get('name')->getViewData());
+            //     $place->setName($item->get('name')->getViewData());
+            //     $place->setPlaceId($item->get('placeId')->getViewData());
+            //     $place->setStatut("0");
+            //     $place->addUser($user);
+            // }
+            // foreach ($form->get('voyagesAccomplis') as $item) {
+            //     $place = new Place;
+            //     $place->setName($item->get('name')->getViewData());
+            //     $place->setPlaceId($item->get('placeId')->getViewData());
+            //     $place->setStatut("1");
+            //     $place->addUser($user);
+            // }
             $user->setPassword(
                 $passwordEncoder->encodePassword(
                     $user,
@@ -99,21 +99,21 @@ class RegistrationController extends AbstractController
 
             if ($form->isSubmitted() && $form->isValid()) {
                 // encode the plain password
-                foreach ($form->get('projetsVoyages') as $item) {
-                    $place = new Place;
-                    // dd($item->get('name')->getViewData());
-                    $place->setName($item->get('name')->getViewData());
-                    $place->setPlaceId($item->get('placeId')->getViewData());
-                    $place->setStatut("0");
-                    $place->addUser($user);
-                }
-                foreach ($form->get('voyagesAccomplis') as $item) {
-                    $place = new Place;
-                    $place->setName($item->get('name')->getViewData());
-                    $place->setPlaceId($item->get('placeId')->getViewData());
-                    $place->setStatut("1");
-                    $place->addUser($user);
-                }
+                // foreach ($form->get('projetsVoyages') as $item) {
+                //     $place = new Place;
+                //     // dd($item->get('name')->getViewData());
+                //     $place->setName($item->get('name')->getViewData());
+                //     $place->setPlaceId($item->get('placeId')->getViewData());
+                //     $place->setStatut("0");
+                //     $place->addUser($user);
+                // }
+                // foreach ($form->get('voyagesAccomplis') as $item) {
+                //     $place = new Place;
+                //     $place->setName($item->get('name')->getViewData());
+                //     $place->setPlaceId($item->get('placeId')->getViewData());
+                //     $place->setStatut("1");
+                //     $place->addUser($user);
+                // }
 
                 $entityManager = $this->getDoctrine()->getManager();
                 $entityManager->persist($user);

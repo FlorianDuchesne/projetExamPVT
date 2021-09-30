@@ -22,7 +22,6 @@ function initAutocomplete() {
 var place;
 
 function onPlaceChanged() {
-  document.getElementById("map").classList.remove("mapHidden");
   // getPlace() est une méthode de l'API qui retourne les détails demandés du lieu.
   place = autocomplete.getPlace();
   // On initialise la carte grâce à l'API dans #map
@@ -55,50 +54,16 @@ function onPlaceChanged() {
 
 var placeVoyagesAccomplis;
 
-function onPlaceChangedVoyagesAccomplis() {
-  console.log("il se passe un truc");
-  document.getElementById("mapVoyagesAccomplis").classList.remove("mapHidden");
-  placeVoyagesAccomplis = autocompleteVoyagesAccomplis.getPlace();
-  console.log(placeVoyagesAccomplis);
-  let map = new google.maps.Map(
-    document.getElementById("mapVoyagesAccomplis"),
-    {
-      center: { lat: 23.8862915, lng: 0 },
-      zoom: 2,
-    }
-  );
-
-  var service = new google.maps.places.PlacesService(map);
-  service.getDetails(
-    {
-      placeId: placeVoyagesAccomplis.place_id,
-    },
-    function (placeVoyagesAccomplis, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var marker = new google.maps.Marker({
-          map: map,
-          place: {
-            placeId: placeVoyagesAccomplis.place_id,
-            location: placeVoyagesAccomplis.geometry.location,
-          },
-        });
-      }
-    }
-  );
-  return placeVoyagesAccomplis;
-}
-
 ///////////////////// ajout marqueurs carte inscription //////////////
 const addPlaceFormDeleteLink = (placeFormLi) => {
   const removeFormButton = document.createElement("button");
   removeFormButton.classList;
-  removeFormButton.innerText = "Delete this place";
+  removeFormButton.innerHTML = "<i class='fas fa-trash-alt'></i>";
 
   placeFormLi.append(removeFormButton);
 
   removeFormButton.addEventListener("click", (e) => {
     e.preventDefault();
-    // remove the li for the tag form
     placeFormLi.remove();
   });
 };
@@ -112,12 +77,14 @@ const addFormToCollection = (e) => {
   );
 
   const item = document.createElement("li");
+  const div = document.createElement("div");
 
-  item.innerHTML = collectionHolder.dataset.prototype.replace(
+  item.className = "place list-group-item";
+  itemDiv = item.appendChild(div);
+  itemDiv.innerHTML = collectionHolder.dataset.prototype.replace(
     /__name__/g,
     collectionHolder.dataset.index
   );
-  // console.log(addFormToCollection);
 
   collectionHolder.appendChild(item);
 
@@ -135,44 +102,15 @@ document.querySelectorAll(".add_item_link").forEach((btn) =>
   btn.addEventListener("click", function (e) {
     addFormToCollection(e);
     document.getElementById(
-      "registration_form_projetsVoyages_" + index + "_name"
+      "registration_form_places_" + index + "_name"
     ).value = place.name;
     document.getElementById(
-      "registration_form_projetsVoyages_" + index + "_placeId"
+      "registration_form_places_" + index + "_placeId"
     ).value = place.place_id;
     // J'indique à l'utilisateur que le lieu est bien inscrit au formulaire en ajoutant
     // son nom à une liste à puces
-    let node = document.createElement("li");
-    let textnode = document.createTextNode(place.name);
-    node.appendChild(textnode);
     document
-      .getElementById("registration_form_projetsVoyages_" + index)
-      .appendChild(node);
-  })
-);
-
-document.querySelectorAll(".add_item_linkVoyagesAccomplis").forEach((btn) =>
-  btn.addEventListener("click", function (e) {
-    console.log("cliqué");
-    addFormToCollection(e);
-    // console.log("registration_form_voyagesAccomplis_" + index + "_name");
-    // console.log(
-    //   document.getElementById(
-    //     "registration_form_voyagesAccomplis_" + index + "_name"
-    //   )
-    // );
-    document.getElementById(
-      "registration_form_voyagesAccomplis_" + index + "_name"
-    ).value = placeVoyagesAccomplis.name;
-    document.getElementById(
-      "registration_form_voyagesAccomplis_" + index + "_placeId"
-    ).value = placeVoyagesAccomplis.place_id;
-
-    let node = document.createElement("li");
-    let textnode = document.createTextNode(placeVoyagesAccomplis.name);
-    node.appendChild(textnode);
-    document
-      .getElementById("registration_form_voyagesAccomplis_" + index)
-      .appendChild(node);
+      .getElementById("registration_form_places_" + index)
+      .parentNode.before(place.name);
   })
 );

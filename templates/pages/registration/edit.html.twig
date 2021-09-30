@@ -38,54 +38,22 @@
 
 
 		<div>
-			<h5>quels sont vos projets de voyage ?</h5>
+			<h5>Voyages faits ou à venir</h5>
+			<p>
+				Indiquez un lieu dans le champ suivant pour chaque voyage que vous souhaitez ajouter.</p>
 			<input id="autocomplete" placeholder="Indiquer un pays" type="text"/>
 		</div>
 		<div id="map" class="mapHidden"></div>
 
 		<button type="button" class="add_item_link" data-collection-holder-class="projetsVoyages">Enregistrer ce lieu</button>
 
-		<ul class="projetsVoyages" data-index="{{ editUserForm.projetsVoyages|length > 0 ? editUserForm.projetsVoyages|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(editUserForm.projetsVoyages.vars.prototype)|e('html_attr') }}">
-
-
-			{% for projetVoyage in app.user.places %}
-				{% if projetVoyage.statut == 0 %}
-					<li class="place list-group-item">{{projetVoyage.name}}
-						<a href="{{path('removePlace', {id: projetVoyage.id})}}">
-							<i class="fas fa-trash-alt"></i>
-						</a>
-					{% endif %}
-
-					{# {{ form_row(projetVoyage) }} #}
-
-				</li>
+		<ul class="projetsVoyages" id="voyages" data-index="{{ editUserForm.places|length > 0 ? editUserForm.places|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(editUserForm.places.vars.prototype)|e }}">
+			{% for place in editUserForm.places %}
+				<li class="place list-group-item">{{ form_row(place) }}</li>
 			{% endfor %}
 
 		</ul>
 
-		<h5>où avez-vous déjà voyagé ?</h5>
-		<input id="autocompleteVoyagesAccomplis" placeholder="Indiquer un pays" type="text"/>
-		<div id="mapVoyagesAccomplis" class="mapHidden"></div>
-
-		<button type="button" class="add_item_linkVoyagesAccomplis" data-collection-holder-class="voyagesAccomplis">Enregistrer ce lieu</button>
-
-		<ul class="voyagesAccomplis" data-index="{{ editUserForm.voyagesAccomplis|length > 0 ? editUserForm.voyagesAccomplis|last.vars.name + 1 : 0 }}" data-prototype="{{ form_widget(editUserForm.voyagesAccomplis.vars.prototype)|e('html_attr') }}">
-
-
-			{% for voyageAccompli in app.user.places %}
-				{% if voyageAccompli.statut == 1 %}
-					<li class="place list-group-item">{{voyageAccompli.name}}
-						<a href="{{path('removePlace', {id: voyageAccompli.id})}}">
-							<i class="fas fa-trash-alt"></i>
-						</a>
-					{% endif %}
-
-					{# {{ form_row(projetVoyage) }} #}
-
-				</li>
-			{% endfor %}
-
-		</ul>
 		{{ form_end(editUserForm) }}
 	</div>
 

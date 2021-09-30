@@ -96,7 +96,7 @@ class RegistrationFormType extends AbstractType
                     'placeholder' => 'Décrivez-vous en quelques mots !'
                 ]
             ])
-            ->add('projetsVoyages', CollectionType::class, [
+            ->add('places', CollectionType::class, [
                 'error_bubbling' => false,
                 // là aussi, nous voulons un champ de type CollectionType
                 'label' => false,
@@ -117,31 +117,31 @@ class RegistrationFormType extends AbstractType
                 'by_reference' => false,
                 // le champ est requis
                 'required' => false,
-                'mapped' => false
+                // 'mapped' => true
             ])
-            ->add('voyagesAccomplis', CollectionType::class, [
-                'error_bubbling' => false,
-                // là aussi, nous voulons un champ de type CollectionType
-                'label' => false,
-                // Il n'a pas de label
-                'entry_type' => PlaceType::class,
-                // Le type de chaque élément de la collection sera un formulaire imbriqué, ProgrammerType
-                'entry_options' => [
-                    // Il n'y a pas de label donné ici à chaque formulaire qui sera imbriqué
-                    'label' => false,
-                ],
-                // on autorise plusieurs ajouts à la fois
-                'allow_add' => true,
-                // on autorise la suppression d'ajouts en cours
-                'allow_delete' => true,
-                // by_reference mis à false sert ici à cloner l'objet 
-                //pour s'assurer qu'on appellera bien le setter de l'objet parent.
-                // Cela nous permet donc de bien appeler les méthodes désirées, comme les getters et setters.
-                'by_reference' => false,
-                // le champ est requis
-                'required' => false,
-                'mapped' => false
-            ])
+            // ->add('voyagesAccomplis', CollectionType::class, [
+            //     'error_bubbling' => false,
+            //     // là aussi, nous voulons un champ de type CollectionType
+            //     'label' => false,
+            //     // Il n'a pas de label
+            //     'entry_type' => PlaceType::class,
+            //     // Le type de chaque élément de la collection sera un formulaire imbriqué, ProgrammerType
+            //     'entry_options' => [
+            //         // Il n'y a pas de label donné ici à chaque formulaire qui sera imbriqué
+            //         'label' => false,
+            //     ],
+            //     // on autorise plusieurs ajouts à la fois
+            //     'allow_add' => true,
+            //     // on autorise la suppression d'ajouts en cours
+            //     'allow_delete' => true,
+            //     // by_reference mis à false sert ici à cloner l'objet 
+            //     //pour s'assurer qu'on appellera bien le setter de l'objet parent.
+            //     // Cela nous permet donc de bien appeler les méthodes désirées, comme les getters et setters.
+            //     'by_reference' => false,
+            //     // le champ est requis
+            //     'required' => false,
+            //     'mapped' => false
+            // ])
             ->add('date_naissance', DateType::class, [
                 'label' => 'Date de naissance',
                 'attr' => [

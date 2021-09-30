@@ -104,10 +104,20 @@
 		<p class="main__description">
 			{{ user.description }}</p>
 		<div class="wrapper">
+			<div class="d-flex">
+				<div class="d-flex align-items-center m-2">
+					<span id="red"></span>
+					<span>Voyages réalisés</span>
+				</div>
+				<div class="d-flex align-items-center m-2">
+					<span id="blue"></span>
+					<span>Voyages souhaités</span>
+				</div>
+			</div>
 			<div id="mapProfile"></div>
 		</div>
 		<div class="main__articles">
-			{% if articlesPopulaires is defined %}
+			{% if articlesPopulaires is not empty %}
 				<h3 class="articles__title text-center">Articles les plus populaires :</h3>
 				<div class="articles__flex">
 					{% for article in articlesPopulaires %}

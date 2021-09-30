@@ -613,6 +613,24 @@
   color: #1e4f66;
 }
 
+#red {
+  background-color: #ff654d;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 100%;
+  margin: 0.5em 0.5em 0.5em 0em;
+}
+
+#blue {
+  background-color: #00adff;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+  border-radius: 100%;
+  margin: 0.5em 0.5em 0.5em 0em;
+}
+
 .post {
   border-bottom: #f7a2a273 dashed 2px;
   margin-top: 3em;
@@ -1403,7 +1421,73 @@ textarea {
 }
 
 .place {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   color: #1e4f66;
+}
+
+.place div {
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 300px;
+}
+
+.place button {
+  border: none;
+  background-color: #ff0000;
+  border-radius: 5px;
+  margin: 0.5em;
+}
+
+.place button i {
+  color: white;
+}
+
+.place select {
+  margin: 0em 1em;
+  padding: 0.3em 0.7em;
+  border-radius: 8px;
+  background-color: transparent;
+  border: solid 3px #20c997;
+}
+
+.add_item_link {
+  border: none;
+  background-color: #20c997;
+  border-radius: 10px;
+  margin: 0.5em 0em;
+  padding: 0.3em 1em;
+  color: white;
+}
+
+.add_item_link:hover {
+  background-color: #02b875;
+}
+
+.projetsVoyages {
+  padding-left: 0em;
+}
+
+#autocomplete {
+  width: 100%;
+  border: none;
+  background-color: #b7fff9;
+  border-radius: 1em;
+  padding: 0.3em 0.7em;
+  color: #1e4f66;
+  margin: 0.5em 0em;
+}
+
+h5 {
+  margin: 1em 0em;
 }
 
 p {

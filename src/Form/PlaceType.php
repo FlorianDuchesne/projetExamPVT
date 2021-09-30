@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Place;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,6 +25,14 @@ class PlaceType extends AbstractType
             ])
             ->add('placeId', HiddenType::class, [
                 'required' => true,
+            ])
+            ->add('statut', ChoiceType::class, [
+                'required' => true,
+                'label' => 'Statut :',
+                'choices' => [
+                    'voyage réalisé' => true,
+                    'voyage souhaité' => false,
+                ],
             ]);
         // ->add('statut', CheckboxType::class, [
         //     'required' => false,

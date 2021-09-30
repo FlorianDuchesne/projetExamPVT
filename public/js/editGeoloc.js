@@ -22,7 +22,6 @@ function initAutocomplete() {
 var place;
 
 function onPlaceChanged() {
-  document.getElementById("map").classList.remove("mapHidden");
   // getPlace() est une méthode de l'API qui retourne les détails demandés du lieu.
   place = autocomplete.getPlace();
   // On initialise la carte grâce à l'API dans #map
@@ -55,39 +54,6 @@ function onPlaceChanged() {
 
 var placeVoyagesAccomplis;
 
-function onPlaceChangedVoyagesAccomplis() {
-  console.log("il se passe un truc");
-  document.getElementById("mapVoyagesAccomplis").classList.remove("mapHidden");
-  placeVoyagesAccomplis = autocompleteVoyagesAccomplis.getPlace();
-  console.log(placeVoyagesAccomplis);
-  let map = new google.maps.Map(
-    document.getElementById("mapVoyagesAccomplis"),
-    {
-      center: { lat: 23.8862915, lng: 0 },
-      zoom: 2,
-    }
-  );
-
-  var service = new google.maps.places.PlacesService(map);
-  service.getDetails(
-    {
-      placeId: placeVoyagesAccomplis.place_id,
-    },
-    function (placeVoyagesAccomplis, status) {
-      if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var marker = new google.maps.Marker({
-          map: map,
-          place: {
-            placeId: placeVoyagesAccomplis.place_id,
-            location: placeVoyagesAccomplis.geometry.location,
-          },
-        });
-      }
-    }
-  );
-  return placeVoyagesAccomplis;
-}
-
 ///////////////////// ajout marqueurs carte inscription //////////////
 const addPlaceFormDeleteLink = (placeFormLi) => {
   const removeFormButton = document.createElement("button");
@@ -98,7 +64,6 @@ const addPlaceFormDeleteLink = (placeFormLi) => {
 
   removeFormButton.addEventListener("click", (e) => {
     e.preventDefault();
-    // remove the li for the tag form
     placeFormLi.remove();
   });
 };
@@ -106,21 +71,22 @@ const addPlaceFormDeleteLink = (placeFormLi) => {
 var index;
 
 const addFormToCollection = (e) => {
-  // console.log(place.name);
   const collectionHolder = document.querySelector(
     "." + e.currentTarget.dataset.collectionHolderClass
   );
 
   const item = document.createElement("li");
-  // item.className = "place list-group-item";
+  const div = document.createElement("div");
 
-  item.innerHTML = collectionHolder.dataset.prototype.replace(
+  item.className = "place list-group-item";
+  itemDiv = item.appendChild(div);
+  itemDiv.innerHTML = collectionHolder.dataset.prototype.replace(
     /__name__/g,
     collectionHolder.dataset.index
   );
-  // console.log(addFormToCollection);
 
   collectionHolder.appendChild(item);
+  console.log(collectionHolder.lastChild);
 
   addPlaceFormDeleteLink(item);
 
@@ -135,47 +101,23 @@ const addFormToCollection = (e) => {
 document.querySelectorAll(".add_item_link").forEach((btn) =>
   btn.addEventListener("click", function (e) {
     addFormToCollection(e);
-    document.getElementById(
-      "edit_user_projetsVoyages_" + index + "_name"
-    ).value = place.name;
-    document.getElementById(
-      "edit_user_projetsVoyages_" + index + "_placeId"
-    ).value = place.place_id;
-    // J'indique à l'utilisateur que le lieu est bien inscrit au formulaire en ajoutant
-    // son nom à une liste à puces
-    let node = document.createElement("li");
-    node.className = "place list-group-item";
-    let textnode = document.createTextNode(place.name);
-    node.appendChild(textnode);
+    document.getElementById("edit_user_places_" + index + "_name").value =
+      place.name;
+    document.getElementById("edit_user_places_" + index + "_placeId").value =
+      place.place_id;
     document
-      .getElementById("edit_user_projetsVoyages_" + index)
-      .appendChild(node);
+      .getElementById("edit_user_places_" + index)
+      .parentNode.before(place.name);
   })
 );
 
-document.querySelectorAll(".add_item_linkVoyagesAccomplis").forEach((btn) =>
-  btn.addEventListener("click", function (e) {
-    console.log("cliqué");
-    addFormToCollection(e);
-    // console.log("edit_user_voyagesAccomplis_" + index + "_name");
-    // console.log(
-    //   document.getElementById(
-    //     "edit_user_voyagesAccomplis_" + index + "_name"
-    //   )
-    // );
-    document.getElementById(
-      "edit_user_voyagesAccomplis_" + index + "_name"
-    ).value = placeVoyagesAccomplis.name;
-    document.getElementById(
-      "edit_user_voyagesAccomplis_" + index + "_placeId"
-    ).value = placeVoyagesAccomplis.place_id;
+$(document).ready(function () {
+  var $collection = $("ul#voyages");
+  $("li.place").each(function () {
+    let name = this.firstChild.firstChild.firstChild.defaultValue;
+    let textnode = document.createTextNode(name);
+    textnode = this.insertBefore(textnode, this.children[0]);
 
-    let node = document.createElement("li");
-    node.className = "place list-group-item";
-    let textnode = document.createTextNode(placeVoyagesAccomplis.name);
-    node.appendChild(textnode);
-    document
-      .getElementById("edit_user_voyagesAccomplis_" + index)
-      .appendChild(node);
-  })
-);
+    addPlaceFormDeleteLink(this);
+  });
+});
