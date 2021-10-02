@@ -21,18 +21,18 @@
 
 	<div class="wrapper-whole">
 		{% if brouillon %}
-			<h1 class="text-center m-5">Brouillons de
+			<h1 class="text-center m-5 p-5">Brouillons de
 				{{user.pseudo|capitalize}}</h1>
 		{% else %}
 			{% if user is defined %}
-				<h1 class="text-center m-5">Articles de
+				<h1 class="text-center m-5 p-5">Articles de
 					{{user.pseudo|capitalize}}</h1>
 			{% else %}
 				{% if tag is defined %}
-					<h1 class="text-center m-5">Articles avec le mot-clé
+					<h1 class="text-center m-5 p-5">Articles avec le mot-clé
 						{{tag.name|capitalize}}</h1>
 				{% else %}
-					<h1 class="text-center m-5">Articles situés à
+					<h1 class="text-center m-5 p-5">Articles situés à
 						{{lieu|capitalize}}</h1>
 				{% endif %}
 			{% endif %}
@@ -43,7 +43,9 @@
 				{% for publication in publications %}
 					{% if publication.statut == 1 %}
 						{% include 'components/publication.twig' %}
-						<p class="post__statut">Publié</p>
+						{% if user is defined %}
+							<p class="post__statut">Publié</p>
+						{% endif %}
 					{% endif %}
 
 					{% if publication.statut == 0 %}

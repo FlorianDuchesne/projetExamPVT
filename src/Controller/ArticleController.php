@@ -6,6 +6,7 @@ use DateTime;
 use App\Entity\Like;
 use App\Entity\Pays;
 use App\Entity\User;
+use App\Entity\Place;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Galerie;
@@ -73,13 +74,13 @@ class ArticleController extends AbstractController
     /**
      * @Route("/indexbyLieu/{id}", name="indexLieu")
      */
-    public function indexLieu(Article $article)
+    public function indexLieu(Place $place)
     {
         $countries =  $this->getDoctrine()->getRepository(Pays::class)
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-        $articles = $this->getDoctrine()->getRepository(Article::class)->findByLieu($article->getLieu());
+        $articles = $this->getDoctrine()->getRepository(Article::class)->findByLieu($place->getName());
         $form = $this->createForm(CommentaireType::class);
 
         return $this->render('pages/article/index.html.twig', [
@@ -88,7 +89,7 @@ class ArticleController extends AbstractController
             'themes' => $themes,
             'publications' => $articles,
             'brouillon' => false,
-            'lieu' => $article->getLieu(),
+            'lieu' => $place->getName(),
             'commentaire' => $form
         ]);
     }
@@ -128,7 +129,7 @@ class ArticleController extends AbstractController
             ->findAll();
         $themes =  $this->getDoctrine()->getRepository(Theme::class)
             ->findAll();
-        if ($article->getStatut() == 0) {
+        if (($article->getStatut() == 0) && !($article->getAuteurArticle() == $this->getUser())) {
             return $this->redirectToRoute('home');
         }
         if ($article->getAuteurArticle() == $this->getUser()) {
@@ -196,6 +197,26 @@ class ArticleController extends AbstractController
                     ]);
                 }
 
+                if (!empty($form->get('placeName')->getViewData())) {
+                    // Si le champ est rempli…
+                    $place = $this->getDoctrine()->getRepository(Place::class)
+                        ->findOneByName($form->get('placeName')->getViewData());
+                    if (!$place) {
+                        $place = new Place;
+                        $place->setName($form->get('placeName')->getViewData());
+                        $place->setPlaceId($form->get('placeId')->getViewData());
+                        $place->addArticle($article);
+                        // dd("lieu pas trouvé");
+                    } else {
+                        $place->addArticle($article);
+                    }
+                } else {
+                    $place = $article->getPlace();
+                    if ($place) {
+                        $place->removeArticle($article);
+                    }
+                };
+
                 $article->setAuteurArticle($idAuteur);
                 $article->setDateCreation(new DateTime);
                 // $article->addHashtag()
@@ -221,6 +242,7 @@ class ArticleController extends AbstractController
                 'countries' => $countries,
                 'themes' => $themes,
                 'editMode' => $article->getId() !== null,
+                'article' => $article,
 
             ]);
         } else {
@@ -356,5 +378,48 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('home');
+    }
+
+    /**
+     * @Route("/Carte", name="carteArticles")
+     */
+    public function carteArticles()
+    {
+        $countries =  $this->getDoctrine()->getRepository(Pays::class)
+            ->findAll();
+        $themes =  $this->getDoctrine()->getRepository(Theme::class)
+            ->findAll();
+
+        return $this->render('pages/article/indexCarte.html.twig', [
+            'countries' => $countries,
+            'themes' => $themes,
+        ]);
+    }
+
+    /**
+     * @Route("/searchPlaceIdArticles", name="searchPlaceIdArticles", methods={"POST"})
+     */
+    public function searchPlaceIdArticles(EntityManagerInterface $manager)
+    {
+        // Grâce à une fonction du repository de Place,
+        // J'enregistre dans une variable les lieux dont la collection "membres" 
+        //contient l'utilisateur paramétré
+        $places = $manager->getRepository(Place::class)->findByArticles();
+        $placesID = [];
+        $placesName = [];
+        $identifiantsPlace = [];
+        // Pour chaque lieu enregistré dans la variable, 
+        //j'ajoute son placeId, son nom et son statut dans des tableaux distincts,
+        // puis je les renvoie au format Json
+        foreach ($places as $place) {
+            $placesID[] = $place->getPlaceId();
+            $placesName[] = $place->getName();
+            $identifiantsPlace[] = $place->getId();
+        }
+        return new JsonResponse([
+            'placesId' => $placesID,
+            'placesNames' => $placesName,
+            'id' => $identifiantsPlace,
+        ]);
     }
 }

@@ -32,7 +32,7 @@ class Place
     /**
      * @ORM\Column(type="boolean")
      */
-    private $statut;
+    private $statut = false;
 
     /**
      * @ORM\ManyToMany(targetEntity=User::class, mappedBy="places")
@@ -146,5 +146,10 @@ class Place
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

@@ -6,17 +6,17 @@ function initAutocomplete() {
     // type de lieux attendus par l'autocomplete, types de champs à retourner
     { types: ["(regions)"], fields: ["place_id", "geometry", "name"] }
   );
-  autocompleteVoyagesAccomplis = new google.maps.places.Autocomplete(
-    document.getElementById("autocompleteVoyagesAccomplis"),
-    { types: ["(regions)"], fields: ["place_id", "geometry", "name"] }
-  );
+  // autocompleteVoyagesAccomplis = new google.maps.places.Autocomplete(
+  //   document.getElementById("autocompleteVoyagesAccomplis"),
+  //   { types: ["(regions)"], fields: ["place_id", "geometry", "name"] }
+  // );
   // "place_changed" est un type d'événement qui provient de l'API
   autocomplete.addListener("place_changed", onPlaceChanged);
 
-  autocompleteVoyagesAccomplis.addListener(
-    "place_changed",
-    onPlaceChangedVoyagesAccomplis
-  );
+  // autocompleteVoyagesAccomplis.addListener(
+  //   "place_changed",
+  //   onPlaceChangedVoyagesAccomplis
+  // );
 }
 
 var place;

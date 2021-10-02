@@ -1,17 +1,7 @@
-// $(document).ready(function () {
-// let markers = document.querySelector("#markers");
-// console.log(markers);
-// let marker = markers.querySelectorAll(".marker");
-// console.log(marker);
-// let places = [];
-// marker.forEach((element) => places.push(element.children[1].innerText));
-// console.log(places);
-// });
-
 function initMap() {
   // On initialise la carte grâce à l'API dans #mapProfile
   const mapProfile = new google.maps.Map(
-    document.getElementById("mapProfile"),
+    document.getElementById("mapArticles"),
     {
       // Echelle de la carte
       zoom: 2,
@@ -22,22 +12,22 @@ function initMap() {
 
   let markersPlaces = [];
   let markersNames = [];
-  let markersStatuts = [];
+  let markersId = [];
 
   $(document).ready(function () {
     // Je récupère l'id du user dont le profil est consulté
-    let adress = document.URL;
-    let userId = adress.slice(27, adress.length);
+    // let adress = document.URL;
+    // let userId = adress.slice(27, adress.length);
     // Je paramètre l'Id dans l'url attaché à la fonction
     // que je souhaite appeler dans ma requête ajax
-    let url = "/searchPlaceId/" + userId;
+    // let url = "/searchPlaceId/" + userId;
     $.ajax({
-      url: url,
+      url: "/searchPlaceIdArticles",
       type: "POST",
     }).done(function (response) {
       markersPlaces.push(response.placesId);
       markersNames.push(response.placesNames);
-      markersStatuts.push(response.placesStatut);
+      markersId.push(response.id);
       var i = 0;
 
       // J'appelle ensuite un service de l'API qui me permettra
@@ -55,15 +45,15 @@ function initMap() {
             // En fonction du booléen enregistré dans markersStatuts,
             // qui indique s'il s'agit d'un voyage réalisé ou à venir,
             // je définis un icône rouge ou bleu.
-            if (markersStatuts[0][i] == true) {
-              var icon = "/img/redPin.png";
-            } else {
-              var icon = "/img/bluePin.png";
-            }
+            var icon = "/img/redPin.png";
 
             var infowindow = new google.maps.InfoWindow({
               content:
-                "<div id='content'><h6>" + markersNames[0][i] + "<h6></div>",
+                "<div id='content'><h6><a href='/indexbyLieu/" +
+                markersId[0][i] +
+                "'>" +
+                markersNames[0][i] +
+                "</a><h6></div>",
             });
 
             i++;

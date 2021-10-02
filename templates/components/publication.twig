@@ -14,10 +14,15 @@
 			{% endif %}
 		</div>
 	</div>
-	<div class="post__lieuEtDate">
-		<span class="post__categories">Lieu :
-			<a href="{{path('indexLieu', {id: publication.id})}}">{{ publication.lieu }}</a>
-		</span>
+	<div
+		class="post__lieuEtDate">
+		{# {% if publication.place is defined %} #}
+		{% if publication.place is not null %}
+			<span class="post__categories">Lieu :
+				<a href="{{path('indexLieu', {id: publication.place.id})}}">{{ publication.place }}</a>
+			</span>
+			{# {% endif %} #}
+		{% endif %}
 		<span>
 			Publié le
 			{{publication.dateCreation|date("m/d/Y") }}

@@ -26,9 +26,11 @@
 				</a>
 			</div>
 			<div class="post__lieuEtDate post__lieuEtDate--show">
-				<span class="post__categories">Lieu :
-					<a href="{{path('indexLieu', {id: publication.id})}}">{{ publication.lieu }}</a>
-				</span>
+				{% if publication.place is not null %}
+					<span class="post__categories">Lieu :
+						<a href="{{path('indexLieu', {id: publication.place.id})}}">{{ publication.place }}</a>
+					</span>
+				{% endif %}
 				<span>
 					Publié le
 					{{publication.dateCreation|date("m/d/Y") }}

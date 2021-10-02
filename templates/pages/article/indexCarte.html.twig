@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Carte
+{% endblock %}
+
+{% block stylesheets %}
+
+	{{ parent() }}
+
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=initMap"></script>
+
+{% endblock %}
+
+
+{% block body %}
+
+	<main class="main">
+		<h1 class="m-5 pt-5 text-center">Carte</h1>
+		<p class="m-2 text-center">Cette carte repértorie par lieu tous les articles publiés sur le site.</p>
+		<div id="mapArticles" class="m-5 p-5"></div>
+	</main>
+
+	<script src="{{asset('js/carte.js')}}"></script>
+{% endblock %}

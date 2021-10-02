@@ -32,6 +32,19 @@ class PlaceRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @return Place[] Returns an array of Place objects
+     */
+    public function findByArticles()
+    {
+        return $this->createQueryBuilder('p')
+            ->innerJoin('p.articles', 'a')
+            ->orderBy('p.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
+
     // /**
     //  * @return Place[] Returns an array of Place objects
     //  */

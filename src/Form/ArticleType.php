@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Pays;
 use App\Entity\User;
+use App\Entity\Place;
 use App\Entity\Theme;
 use App\Entity\Article;
 use App\Entity\Hashtag;
@@ -16,6 +17,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\Count;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -68,11 +70,17 @@ class ArticleType extends AbstractType
                 'required' => true,
 
             ])
-            ->add('lieu', TextType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'ex: Kyoto'
-                ]
+            // ->add('lieu', TextType::class, [
+            //     'attr' => [
+            //         'class' => 'form-control',
+            //         'placeholder' => 'ex: Kyoto'
+            //     ]
+            // ])
+            ->add('placeName', HiddenType::class, [
+                'mapped' => false,
+            ])
+            ->add('placeId', HiddenType::class, [
+                'mapped' => false,
             ])
             ->add('theme', EntityType::class, [
                 'attr' => [

@@ -3,6 +3,14 @@
 {% block title %}Nouvel article
 {% endblock %}
 
+{% block stylesheets %}
+
+	{{ parent() }}
+
+	<script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnLyf_4BpAnkMJ6tFeO-dKDUstYO0rDso&libraries=places&callback=placeArticle"></script>
+
+{% endblock %}
+
 {% block body %}
 
 	<div class="container">
@@ -14,12 +22,15 @@
 		{% endfor %}
 
 		{% if editMode %}
-			<h1 class="m-5">Modifier l'article</h1>
+			<h1 class="m-5 p-5">Modifier l'article</h1>
 		{% else %}
-			<h1 class="m-5">Nouvel article</h1>
+			<h1 class="m-5 p-5">Nouvel article</h1>
 		{% endif %}
 
 		{{ form_start(newArticleForm) }}
+
+		{{ form_row(newArticleForm.titre) }}
+
 		<h4 class="m-3 text-info text-center">Ajout de galerie d'image(s)</h4>
 		<ul id="galeries" data-prototype="{{ form_row(newArticleForm.galeries.vars.prototype)|e }}">
 
@@ -34,6 +45,33 @@
 
 		</ul>
 
-		{{ form_end(newArticleForm) }}
-	</div>
-{% endblock %}
+		{{ form_row(newArticleForm.texte) }}
+
+		{{ form_row(newArticleForm.theme) }}
+
+		{{ form_row(newArticleForm.pays) }}
+
+		{{ form_row(newArticleForm.hashtags) }}
+		<div class="d-flex">
+			<input id="autocomplete" placeholder="Indiquer un lieu" type="text"/>
+			<button type="button" class="add_item_link">Enregistrer ce lieu</button>
+		</div>
+		<div id="map" class="mapHidden"></div>
+
+		<div>
+			{% if article.place is defined %}
+				{% if article.place is not null %}
+					<input id="lieuHidden" type="hidden" value="{{ article.place.name }}"/>
+				{% endif %}
+			{% endif %}
+			<p id="lieu" class="lieuArticle">Lieu :
+			</p>
+			<div>
+				{# {{ form_row(newArticleForm.place) }} #}
+
+				{{ form_end(newArticleForm) }}
+			</div>
+
+			<script src="{{asset('js/placeArticle.js')}}"></script>
+
+		{% endblock %}

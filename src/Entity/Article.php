@@ -82,7 +82,7 @@ class Article
     private $commentaires;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="articles")
+     * @ORM\ManyToOne(targetEntity=Place::class, inversedBy="articles", cascade={"persist"})
      */
     private $place;
 

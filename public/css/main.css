@@ -1475,6 +1475,7 @@ textarea {
 }
 
 .add_item_link {
+  width: 20%;
   border: none;
   background-color: #20c997;
   border-radius: 10px;
@@ -1503,6 +1504,17 @@ textarea {
 
 h5 {
   margin: 1em 0em;
+}
+
+#lieu button {
+  border: none;
+  background-color: #ff0000;
+  border-radius: 5px;
+  margin: 0.5em;
+}
+
+#lieu button i {
+  color: white;
 }
 
 p {
@@ -1758,6 +1770,11 @@ footer .fab {
 #map, #mapVoyagesAccomplis, #mapProfile {
   height: 600px;
   width: 100%;
+}
+
+#mapArticles {
+  width: auto;
+  height: 600px;
 }
 
 .mapHidden {

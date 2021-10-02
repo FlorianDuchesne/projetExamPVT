@@ -90,7 +90,8 @@ class ArticleRepository extends ServiceEntityRepository
     public function findByLieu($string)
     {
         return $this->createQueryBuilder('a')
-            ->where(':string = a.lieu')
+            ->innerJoin('a.place', 'p')
+            ->where(':string = p.name')
             ->andWhere('a.statut = 1')
             ->setParameter('string', $string)
             ->orderBy('a.id', 'DESC')
