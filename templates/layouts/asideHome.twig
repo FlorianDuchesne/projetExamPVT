@@ -19,10 +19,11 @@
 					<h6 class="aside__h6">Découvrez ces profils :</h6>
 					{% for suggestion in suggestions %}
 						{% if not (app.user.following.contains(suggestion)) %}
-							<a href="{{ path('user_show', {id: suggestion.id}) }}">
+							<a class="aside__link" href="{{ path('user_show', {id: suggestion.id}) }}">
 								<div class="aside__user">
 									<figure><img class="aside__user__avatar" src="{{ asset('img/avatar/' ~ suggestion.avatar) }}" alt="avatar user"/></figure>
 									<h5 class="aside__user__name">{{suggestion.pseudo}}</h5>
+									<a class="aside__user__follow" href="{{ path('following', {id: suggestion.id}) }}">suivre</a>
 								</div>
 							</a>
 							{% set suggestionsAffichees = true %}

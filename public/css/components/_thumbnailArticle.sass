@@ -2,14 +2,17 @@
   width: 320px
   position: relative
   margin: auto
+  overflow: hidden
   .article__thumbnail
     filter: brightness(80%)
     height: 250px
     overflow: hidden
-    width: 100%
+    width: auto
+    // transform: translate(-10%)
     &--empty
       background-color: $blue
       width: 320px
+      transform: none
   .article__title
     position: absolute
     top: 50%

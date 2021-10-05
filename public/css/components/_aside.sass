@@ -14,6 +14,7 @@
     text-decoration: none
   .aside__user
     @include blockFlex(center)
+    align-items: start
     flex-wrap: nowrap
     .aside__user__avatar
       @include avatar(50px)
@@ -29,15 +30,23 @@
     margin: 0 0 1em 2em
     background-color: $white
   .aside__hashtags
+    margin-top: 1rem
+    margin-bottom: 0rem
     a
       text-decoration: none
-      color: $blue
       font-style: italic
+      color: $white
   &--bottom
-    top: 22em
+    top: 19em
   @media screen and (max-width: 768px)
     top: 20em
 
 .aside
   @media screen and (max-width: 576px)
     display: none
+
+.aside__link
+  display: flex
+
+.aside__user__follow
+  @include boutonFollow()

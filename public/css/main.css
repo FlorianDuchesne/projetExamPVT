@@ -60,10 +60,6 @@
   }
 }
 
-.wrapper-whole .wrapper-main .wrapperAside {
-  width: 25%;
-}
-
 @media screen and (max-width: 768px) {
   .wrapper-whole .wrapper-main .wrapperAside {
     width: auto;
@@ -216,6 +212,25 @@
   padding-top: 1em;
   color: #0074ab;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.blocMembre {
+  position: relative;
+}
+
+.blocMembre .listMembres__follow {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  padding: 0.2rem 0.7rem;
+  margin: 0.3em 0.5em;
+  background-color: #15d3c3;
+  border-radius: 2rem;
+  color: white;
+}
+
+.blocMembre .listMembres__follow:hover {
+  color: white;
 }
 
 .titre {
@@ -857,6 +872,9 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: start;
   -ms-flex-wrap: nowrap;
       flex-wrap: nowrap;
 }
@@ -907,14 +925,19 @@
   background-color: white;
 }
 
+.aside .aside__hashtags {
+  margin-top: 1rem;
+  margin-bottom: 0rem;
+}
+
 .aside .aside__hashtags a {
   text-decoration: none;
-  color: #0074ab;
   font-style: italic;
+  color: white;
 }
 
 .aside--bottom {
-  top: 22em;
+  top: 19em;
 }
 
 @media screen and (max-width: 768px) {
@@ -927,6 +950,24 @@
   .aside {
     display: none;
   }
+}
+
+.aside__link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.aside__user__follow {
+  padding: 0.2rem 0.7rem;
+  margin: 0.3em 0.5em;
+  background-color: #15d3c3;
+  border-radius: 2rem;
+  color: white;
+}
+
+.aside__user__follow:hover {
+  color: white;
 }
 
 #lightbox {
@@ -1341,13 +1382,6 @@ nav, #login, #menuBurger, #loginVisitor {
   transition: 1s;
 }
 
-.publishStuff .publishStuff__h1--register {
-  bottom: 1em;
-  right: 2em;
-  left: unset;
-  font-size: xxx-large;
-}
-
 @media screen and (max-width: 576px) {
   .publishStuff .publishStuff__h1 {
     width: 80%;
@@ -1370,6 +1404,7 @@ nav, #login, #menuBurger, #loginVisitor {
   width: 320px;
   position: relative;
   margin: auto;
+  overflow: hidden;
 }
 
 .article__picture .article__thumbnail {
@@ -1377,12 +1412,14 @@ nav, #login, #menuBurger, #loginVisitor {
           filter: brightness(80%);
   height: 250px;
   overflow: hidden;
-  width: 100%;
+  width: auto;
 }
 
 .article__picture .article__thumbnail--empty {
   background-color: #0074ab;
   width: 320px;
+  -webkit-transform: none;
+          transform: none;
 }
 
 .article__picture .article__title {
