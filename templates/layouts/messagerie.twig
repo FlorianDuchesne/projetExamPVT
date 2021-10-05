@@ -6,7 +6,7 @@
 					{% if (correspondantActuel is defined) and (correspondant == correspondantActuel) %}
 						<div class="flex flex--userFirst">
 							<div class="user">
-								<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+								<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}" alt="avatar correspondant"/></figure>
 								<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
 									<h5>{{ correspondant.pseudo }}</h5>
 								</a>
@@ -16,7 +16,7 @@
 						<div class="flex">
 							<div class="user">
 								<a class="user__name" href="{{ path('messagerieShow', {id: correspondant.id}) }}">
-									<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}"/></figure>
+									<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ correspondant.avatar) }}" alt="avatar correspondant"/></figure>
 									<h5>{{ correspondant.pseudo }}</h5>
 								</a>
 								{% set notification = false %}

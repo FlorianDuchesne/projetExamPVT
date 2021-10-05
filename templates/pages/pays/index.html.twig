@@ -18,7 +18,7 @@
 		{% for pays in pays %}
 			<a href="{{ path('pays_show', {id: pays.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 				<figure class="pays picture">
-					<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+					<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="photo du pays" class="thumbnail">
 					<figcaption class="title">
 						{{ pays.libelle }}
 					</figcaption>

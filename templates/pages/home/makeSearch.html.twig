@@ -23,7 +23,6 @@
 			<div class="d-flex pageRecherche">
 				<div class="m-3">
 					<h5 class="mt-2 recherche__textefiltres">Filtrer par thème :</h4>
-
 					<select class="js-example-basic-multiple" name="themes[]" multiple="multiple">
 						{% for theme in themes %}
 							<option value="{{theme.id}}">{{theme}}</option>
@@ -32,7 +31,6 @@
 				</div>
 				<div class="m-3">
 					<h5 class="mt-2 recherche__textefiltres">Filtrer par pays :</h4>
-
 					<select class="js-example-basic-multiple" name="pays[]" multiple="multiple">
 						{% for pays in countries %}
 							<option value="{{pays.id}}">{{pays}}</option>
@@ -41,7 +39,6 @@
 				</div>
 				<div class="m-3">
 					<h5 class="mt-2 recherche__textefiltres">Filtrer par mot-clé :</h4>
-
 					<select class="js-example-basic-multiple" name="tag[]" multiple="multiple">
 						{% for tag in hashtags %}
 							<option value="{{tag.id}}">{{tag.name}}</option>

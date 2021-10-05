@@ -1,6 +1,6 @@
 <div class="flex">
 	<div class="user">
-		<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ membre.avatar) }}"/></figure>
+		<figure class="user__containAvatar"><img class="user__avatar" src="{{ asset('img/avatar/' ~ membre.avatar) }}" alt="avatar user"/></figure>
 		<a class="user__name" href="{{ path('user_show', {id: membre.id}) }}">
 			<h5>{{ membre.pseudo }}</h5>
 		</a>

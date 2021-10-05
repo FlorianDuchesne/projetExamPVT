@@ -24,7 +24,6 @@
 				<div class="d-flex">
 					<div class="m-3">
 						<h5 class="mt-2">Filtrer par thème :</h4>
-
 						<select class="js-example-basic-multiple" name="themes[]" multiple="multiple">
 							{% for theme in themes %}
 								<option value="{{theme.id}}">{{theme}}</option>
@@ -33,7 +32,6 @@
 					</div>
 					<div class="m-3">
 						<h5 class="mt-2">Filtrer par pays :</h4>
-
 						<select class="js-example-basic-multiple" name="pays[]" multiple="multiple">
 							{% for pays in countries %}
 								<option value="{{pays.id}}">{{pays}}</option>
@@ -42,7 +40,6 @@
 					</div>
 					<div class="m-3">
 						<h5 class="mt-2">Filtrer par mot-clé :</h4>
-
 						<select class="js-example-basic-multiple" name="tag[]" multiple="multiple">
 							{% for tag in hashtags %}
 								<option value="{{tag.id}}">{{tag.name}}</option>
@@ -50,39 +47,26 @@
 						</select>
 					</div>
 				</div>
-
 				<input name="search" type="hidden" value="{{search}}">
-
 				<button type="submit" class="btn btn-success m-3">Actualiser</button>
 			</form>
 			<div class="wrapper-main">
-
 				<div class="wrapper-posts">
-
 					{% for publication in results[0] %}
-
 						{% include 'components/publication.twig' %}
-
 					{% endfor %}
 				</div>
 			</div>
 		{% endif %}
-
 		{% if results[1]|length != 0 %}
-
 			<h4 class="mt-2">Membres ({{results[1]|length}})</h4>
 			{% for membre in results[1] %}
 				<div class="wrapper">
-
 					{% include 'components/membres.twig' %}
-
 				</div>
-
 			{% endfor %}
 		{% endif %}
-
 		{% if results[2]|length != 0 %}
-
 			<h4 class="mt-2">Mots-clés ({{results[2]|length}})</h4>
 			<ul>
 				{% for hashtag in results[2] %}
@@ -100,7 +84,7 @@
 				{% for pays in results[3] %}
 					<a href="{{ path('pays_show', {id: pays.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 						<figure class="pays picture">
-							<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+							<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="photo du pays" class="thumbnail">
 							<figcaption class="title">
 								{{ pays.libelle }}
 							</figcaption>
@@ -116,7 +100,7 @@
 				{% for theme in results[4] %}
 					<a href="{{ path('theme_show', {id: theme.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 						<figure class="theme picture">
-							<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+							<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="photo du thème" class="thumbnail">
 							<figcaption class="title">
 								{{ theme.libelle }}
 							</figcaption>

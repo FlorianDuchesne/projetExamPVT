@@ -4,7 +4,7 @@
 			<h4>{{ publication }}</h4>
 		</a>
 		<div class="post__user">
-			<figure class="user__avatar"><img src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+			<figure class="user__avatar"><img src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}" alt="avatar auteur article"/></figure>
 			{% if app.user %}
 				<a class="user__name" href="{{ path('user_show', {id: publication.auteurArticle.id}) }}">
 				{% endif %}
@@ -34,7 +34,7 @@
 			<figure class="post__wrapperPictures">
 			{% endif %}
 			{% for galerie in publication.galeries %}
-				<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
+				<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="illustration de l'article"/>
 				<figcaption class="post__legende">{{ galerie.legende }}</figcaption>
 			{% endfor %}
 		</figure>

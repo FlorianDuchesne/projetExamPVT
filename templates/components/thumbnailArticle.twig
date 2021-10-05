@@ -7,7 +7,7 @@
 			{% for galerie in article.galeries %}
 				{# Si l'index de la boucle est le premier #}
 				{% if loop.first %}
-					<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="#" class="article__thumbnail">
+					<img src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="illustration de l'article" class="article__thumbnail">
 				{% endif %}
 			{% endfor %}
 			{# Si la propriété galeries de article EST vide #}

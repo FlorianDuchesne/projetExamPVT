@@ -1,4 +1,12 @@
 @charset "UTF-8";
+.btn-success {
+  background-color: #11c281;
+}
+
+.btn-success {
+  background-color: #11c281;
+}
+
 .margin {
   margin-top: 100px;
   margin-bottom: 60px;
@@ -87,7 +95,7 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border-bottom: 2px solid #1e4f66;
+  border-bottom: 2px solid #0074ab;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -136,7 +144,7 @@
 
 .wrapper .flex .user__description {
   padding-top: 1em;
-  color: #1e4f66;
+  color: #0074ab;
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -157,7 +165,7 @@
           align-items: center;
   -ms-flex-wrap: wrap;
       flex-wrap: wrap;
-  border-bottom: 2px solid #1e4f66;
+  border-bottom: 2px solid #0074ab;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -206,12 +214,12 @@
 
 .wrapper--messagerie .flex .user__description {
   padding-top: 1em;
-  color: #1e4f66;
+  color: #0074ab;
   font-family: Arial, Helvetica, sans-serif;
 }
 
 .titre {
-  color: #1e4f66;
+  color: #0074ab;
   margin: 1em;
   text-align: center;
 }
@@ -309,7 +317,7 @@
 }
 
 .wrapper .post .post__header .post__title {
-  color: #1e4f66;
+  color: #0074ab;
   text-decoration: none;
   text-transform: uppercase;
   text-align: center;
@@ -377,7 +385,7 @@
 
 .wrapper .post .post__categories {
   font-family: Arial, Helvetica, sans-serif;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .wrapper__header {
@@ -508,7 +516,7 @@
   margin-top: 0.5em;
   text-transform: uppercase;
   text-align: center;
-  color: #1e4f66;
+  color: #0074ab;
   font-weight: bolder;
   font-size: x-large;
 }
@@ -516,7 +524,7 @@
 .header .header__text {
   background: none;
   border: none;
-  color: #1e4f66;
+  color: #0074ab;
   font-weight: bold;
   font-size: larger;
 }
@@ -530,7 +538,7 @@
 .header .header__sendMessage {
   background: none;
   border: none;
-  color: #1e4f66;
+  color: #0074ab;
   font-weight: bold;
   font-size: larger;
 }
@@ -592,7 +600,7 @@
 }
 
 .main .main__articles .article__picture .article__thumbnail--empty {
-  background-color: #1e4f66;
+  background-color: #0074ab;
   width: 320px;
 }
 
@@ -610,7 +618,7 @@
 }
 
 .main .main__articles .main__links {
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 #red {
@@ -705,11 +713,11 @@
   margin-left: 0.5em;
   text-transform: uppercase;
   text-decoration: none;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .post .post__title {
-  color: #1e4f66;
+  color: #0074ab;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -796,12 +804,12 @@
 
 .post .post__categories {
   font-family: Arial, Helvetica, sans-serif;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .post__statut {
   font-family: Arial, Helvetica, sans-serif;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .like, .likeComm {
@@ -901,7 +909,7 @@
 
 .aside .aside__hashtags a {
   text-decoration: none;
-  color: #1e4f66;
+  color: #0074ab;
   font-style: italic;
 }
 
@@ -975,12 +983,16 @@
 }
 
 .link {
-  color: #1e4f66;
+  color: #0074ab;
   border: none;
   background: none;
   text-align: end;
   width: 100%;
   padding-right: 5em;
+}
+
+a {
+  text-decoration: none;
 }
 
 .banner .picture {
@@ -1065,7 +1077,7 @@ header {
     padding-left: 1em;
   }
   #myLinks ul li:hover {
-    background-color: #1e4f66;
+    background-color: #0074ab;
   }
 }
 
@@ -1117,7 +1129,7 @@ header {
 }
 
 #searchBig .pageRecherche .recherche__textefiltres {
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 @media screen and (min-width: 576px) {
@@ -1286,7 +1298,7 @@ nav, #login, #menuBurger, #loginVisitor {
 .publishStuff .publishStuff__blocText .publishStuff__text {
   font-size: xx-large;
   font-weight: bold;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .publishStuff .publishStuff__blocText a {
@@ -1295,30 +1307,32 @@ nav, #login, #menuBurger, #loginVisitor {
 }
 
 .publishStuff .publishStuff__h1 {
-  position: absolute;
-  bottom: 20%;
-  left: 2em;
   color: white;
-  text-transform: uppercase;
-  font-size: x-large;
-  border: 5px solid #20c997;
-  padding: 0.3em;
-  border-radius: 10px;
+  font-size: larger;
+  border: 2px solid #20c997;
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
   -webkit-transition: 1s;
   transition: 1s;
+  width: 20vw;
+  display: block;
+  margin: auto;
+  text-align: center;
+  margin-top: 8vh;
 }
 
 @media screen and (max-width: 768px) {
   .publishStuff .publishStuff__h1 {
-    margin: auto;
-    width: 60%;
-    text-align: center;
+    width: 60vw;
     margin-top: 2em;
-    position: initial;
   }
-  .publishStuff .publishStuff__h1--follow {
-    position: absolute;
-  }
+}
+
+.publishStuff .publishStuff__h1--follow {
+  position: absolute;
+  right: 50%;
+  -webkit-transform: translate(50%);
+          transform: translate(50%);
 }
 
 .publishStuff .publishStuff__h1:hover {
@@ -1332,11 +1346,6 @@ nav, #login, #menuBurger, #loginVisitor {
   right: 2em;
   left: unset;
   font-size: xxx-large;
-}
-
-.publishStuff .publishStuff__h1--follow {
-  right: 2em;
-  left: unset;
 }
 
 @media screen and (max-width: 576px) {
@@ -1372,7 +1381,7 @@ nav, #login, #menuBurger, #loginVisitor {
 }
 
 .article__picture .article__thumbnail--empty {
-  background-color: #1e4f66;
+  background-color: #0074ab;
   width: 320px;
 }
 
@@ -1428,7 +1437,7 @@ form li {
 }
 
 form span {
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 textarea {
@@ -1445,7 +1454,7 @@ textarea {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 .place div {
@@ -1485,7 +1494,7 @@ textarea {
 }
 
 .add_item_link:hover {
-  background-color: #02b875;
+  background-color: #11c281;
 }
 
 .projetsVoyages {
@@ -1498,7 +1507,7 @@ textarea {
   background-color: #b7fff9;
   border-radius: 1em;
   padding: 0.3em 0.7em;
-  color: #1e4f66;
+  color: #0074ab;
   margin: 0.5em 0em;
 }
 
@@ -1683,7 +1692,7 @@ textarea#short_message_texte, #message_texte {
   width: 25px;
   left: 2em;
   top: 40%;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 @media screen and (max-width: 768px) {
@@ -1697,7 +1706,7 @@ textarea#short_message_texte, #message_texte {
   width: 25px;
   right: 2em;
   top: 40%;
-  color: #1e4f66;
+  color: #0074ab;
 }
 
 @media screen and (max-width: 768px) {
@@ -1707,7 +1716,7 @@ textarea#short_message_texte, #message_texte {
 }
 
 footer {
-  background-color: #1e4f66;
+  background-color: #0074ab;
   color: white;
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;

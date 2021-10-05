@@ -18,7 +18,7 @@
 	<div class="wrapper-whole">
 		<div class="banner">
 			<figure class="picture">
-				<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+				<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="photo du thème" class="thumbnail">
 				<figcaption class="title">{{ theme.libelle }}</figcaption>
 			</figure>
 		</div>
@@ -28,7 +28,7 @@
 				{% for country in countries %}
 					<a href="{{ path('both_show', {idPays: country.id, idTheme: country.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 						<figure class="picture">
-							<img src="{{ asset('img/pays/' ~ country.img) }}" alt="#" class="thumbnail">
+							<img src="{{ asset('img/pays/' ~ country.img) }}" alt="photo du pays" class="thumbnail">
 							<figcaption class="title">
 								{{ country.libelle }}
 							</figcaption>

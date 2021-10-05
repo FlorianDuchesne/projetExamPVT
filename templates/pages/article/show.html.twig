@@ -21,7 +21,7 @@
 					<h4 class="m-4">{{ publication }}</h4>
 				</a>
 				<a href="{{ path('user_show', {id: publication.auteurArticle.id}) }}" class="post__user">
-					<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}"/></figure>
+					<figure><img class="user__avatar" src="{{ asset('img/avatar/' ~ publication.auteurArticle.avatar) }}" alt="avatar auteur article"/></figure>
 					<h5 class="user__name">{{ publication.auteurArticle.pseudo }}</h5>
 				</a>
 			</div>
@@ -38,7 +38,7 @@
 			</div>
 			<figure class="post__wrapperPictures">
 				{% for galerie in publication.galeries %}
-					<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}"/>
+					<img class="post__picture" src="{{ asset('img/galerie/' ~ galerie.img) }}" alt="illustration article"/>
 					<figcaption class="post__legende--show">{{ galerie.legende }}</figcaption>
 				{% endfor %}
 			</figure>

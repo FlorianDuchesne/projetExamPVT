@@ -48,24 +48,31 @@
       color: white
       text-decoration: none
   .publishStuff__h1
-    position: absolute
-    bottom: 20%
-    left: 2em
+    // position: absolute
+    // bottom: 20%
+    // left: 2em
     color: $white
-    text-transform: uppercase
-    font-size: x-large
-    border: 5px solid $teal
-    padding: 0.3em
-    border-radius: 10px
+    // text-transform: uppercase
+    font-size: larger
+    border: 2px solid $teal
+    padding: 0.5rem 1.5rem
+    border-radius: 2rem
     transition: 1s
+    width: 20vw
+    display: block
+    margin: auto
+    text-align: center
+    margin-top: 8vh
     @media screen and (max-width: 768px)
-      margin: auto
-      width: 60%
-      text-align: center
+      // margin: auto
+      width: 60vw
+      // text-align: center
       margin-top: 2em
-      position: initial
-      &--follow
-        position: absolute
+      // position: initial
+    &--follow
+      position: absolute
+      right: 50%
+      transform: translate(50%)
     &:hover
       background-color: $teal
       transition: 1s
@@ -75,8 +82,8 @@
       left: unset
       font-size: xxx-large
     &--follow
-      right: 2em
-      left: unset
+      // right: 2em
+      // left: unset
     @media screen and (max-width: 576px)
       width: 80%
       font-size: large

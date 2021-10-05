@@ -78,7 +78,7 @@
 			{% for pays in countries %}
 				<a href="{{ path('pays_show', {id: pays.id}) }}" class="col-lg-3 col-sm-5 col-11 m-2 a">
 					<figure class="pays picture">
-						<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="#" class="thumbnail">
+						<img src="{{ asset('img/pays/' ~ pays.img) }}" alt="photo du pays" class="thumbnail">
 						<figcaption class="title">
 							{{ pays.libelle }}
 						</figcaption>
@@ -96,7 +96,7 @@
 			{% for theme in themes %}
 				<a href="{{ path('theme_show', {id: theme.id}) }}" class="col-lg-3 col-sm-5 col-11 m-2 a">
 					<figure class="theme picture">
-						<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+						<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="photo du thème" class="thumbnail">
 						<figcaption class="title">
 							{{ theme.libelle }}
 						</figcaption>
@@ -131,12 +131,12 @@
 					</div>
 					<div class="modal-body">
 						<p>Avec votre accord, nos partenaires et nous utilisons des cookies ou technologies similaires pour stocker et accéder à vos informations personnelles, 
-																																																																																																																																																																																																																																																																																			comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
-																																																																																																																																																																																																																																																																																			ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
-																																																																																																																																																																																																																																																																																			aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
+																																																																																																																																																																																																																																																																																																	comme votre visite sur ce site. Vous pouvez retirer votre consentement ou vous opposer aux traitements fondés sur l'intérêt légitime à tout moment en cliquant sur "Gérer mes choix" 
+																																																																																																																																																																																																																																																																																																	ou dans notre politique de confidentialité présente sur ce site, et dans ce cas vous n'aurez plus accès à du contenu personnalisé basé sur votre navigation, 
+																																																																																																																																																																																																																																																																																																	aux contenus et fonctionnalités provenant des réseaux sociaux ou des plateformes de vidéos et nous ne tiendrons pas compte de votre usage pour améliorer notre site.</p>
 						<p>Avec nos partenaires, nous traitons vos données pour les finalités suivantes : le fonctionnement du site, la mesure d'audience et web analyse, la personnalisation, 
-																																																																																																																																																																																																																																																																																			la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
-																																																																																																																																																																																																																																																																																			l'activation des fonctionnalités des réseaux sociaux.</p>
+																																																																																																																																																																																																																																																																																																	la publicité et le ciblage, les publicités et contenus personnalisés, la mesure de performance des publicités et du contenu, le développement de produit, 
+																																																																																																																																																																																																																																																																																																	l'activation des fonctionnalités des réseaux sociaux.</p>
 						<p>Vos préférences seront conservées pendant une durée de 6 mois.</p>
 					</div>
 					<div class="modal-footer">

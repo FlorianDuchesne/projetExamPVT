@@ -18,7 +18,7 @@
 		{% for theme in themes %}
 			<a href="{{ path('theme_show', {id: theme.id}) }}" class="a col-lg-3 col-sm-5 col-11 m-2">
 				<figure class="theme picture">
-					<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="#" class="thumbnail">
+					<img src="{{ asset('img/themes/' ~ theme.img) }}" alt="photo du thème" class="thumbnail">
 					<figcaption class="title">
 						{{ theme.libelle }}
 					</figcaption>
